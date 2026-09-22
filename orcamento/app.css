@@ -1,0 +1,997 @@
+/* =============================================================================
+   Sistema de Cotacao de Eventos - Maria e Jose Parrilla
+   Todo o CSS escopado em .mejo, para nao vazar no tema do WordPress nem
+   sofrer com ele. Ver o README na secao de blindagem contra o tema.
+   ============================================================================= */
+
+/* ==========================================================================
+   MEJ ORCAMENTO - tudo escopado em .mejo para nao vazar no tema do WordPress
+   ========================================================================== */
+
+.mejo {
+  --c-bg:        #faf6ef;
+  --c-bg-soft:   #f3ebdc;
+  --c-bg-dark:   #2e1c12;
+  --c-bg-darker: #1f130b;
+  --c-ink:       #2b1c12;
+  --c-ink-soft:  #5c4a3d;
+  --c-ink-muted: #8a7868;
+  --c-accent:    #9b7c5c;
+  --c-accent-dk: #7a5d3f;
+  --c-accent-lt: #c9a878;
+  --c-line:      #d9c8b0;
+  --c-line-soft: #ebe1cf;
+  --c-success:   #4a7a3f;
+  --c-error:     #c0392b;
+  --c-wp:        #25D366;
+
+  --f-display: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-body:    'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --r:     6px;
+  --r-lg:  14px;
+  --sh-sm: 0 2px 8px rgba(46,28,18,0.06);
+  --sh-md: 0 12px 32px rgba(46,28,18,0.12);
+  --sh-lg: 0 24px 60px rgba(46,28,18,0.28);
+  --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --bar-h: 76px;
+  /* Se o tema do WordPress tiver cabecalho fixo, coloque a altura dele aqui
+     para a barra de progresso parar logo abaixo em vez de ficar escondida. */
+  --topo: 0px;
+
+  font-family: var(--f-body);
+  color: var(--c-ink);
+  background: var(--c-bg);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  position: relative;
+}
+
+.mejo *, .mejo *::before, .mejo *::after { box-sizing: border-box; }
+
+/* Reset dentro de :where(), que nao soma especificidade.
+   Isso e proposital: um reset escrito como `.mejo button` pesa mais que
+   `.mejo-btn--dark` e apagava o fundo dos botoes (texto branco sobre
+   transparente). Com :where() o reset perde de qualquer componente. */
+.mejo :where(h1, h2, h3, h4, p, ul, li, figure, fieldset, legend) { margin: 0; padding: 0; }
+.mejo :where(ul) { list-style: none; }
+.mejo :where(img, svg) { max-width: 100%; display: block; }
+.mejo :where(a, a:link, a:visited) { color: inherit; text-decoration: none; }
+.mejo :where(button) {
+  font-family: inherit; font-size: inherit; line-height: inherit;
+  cursor: pointer; border: 0; background: none; color: inherit;
+}
+.mejo :where(button, a, label, input, select, textarea) {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.mejo :focus-visible {
+  outline: 2px solid var(--c-accent-dk);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---------- BLINDAGEM CONTRA O TEMA ----------
+   O reset acima usa :where() de proposito, para nunca ganhar dos
+   componentes. O efeito colateral e que ele tambem perde para o tema do
+   WordPress, que costuma pintar <button> e <a> com a cor da marca dele.
+   Foi assim que "Distribuir igualmente" apareceu com fundo rosa.
+
+   Entao o bloco declara as proprias cores com !important, nesta ordem:
+   primeiro o neutro aqui, depois cada componente mais abaixo. Quem vier
+   depois com !important ganha, que e o comportamento desejado. */
+.mejo a, .mejo a:link, .mejo a:visited, .mejo a:hover, .mejo a:active {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+.mejo button {
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  color: inherit !important;
+  text-shadow: none !important;
+  text-transform: none;
+  min-width: 0;
+}
+
+.mejo-wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+.mejo-sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ---------- TIPOGRAFIA ---------- */
+
+.mejo-eyebrow {
+  font-family: var(--f-display);
+  font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--c-accent); font-weight: 500;
+}
+.mejo-h2 {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(21px, 4.4vw, 27px);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--c-bg-dark); line-height: 1.25;
+}
+.mejo-lead { color: var(--c-ink-soft); font-size: 15.5px; }
+
+/* ---------- HERO ---------- */
+
+.mejo-hero {
+  position: relative;
+  min-height: 62vh;
+  min-height: 62svh;   /* iOS: svh desconta a barra do navegador */
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 88px 20px 64px;
+  overflow: hidden;
+  background: var(--c-bg-darker);
+}
+.mejo-hero__bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.42;
+}
+.mejo-hero::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(31,19,11,0.62) 0%, rgba(31,19,11,0.34) 45%, rgba(31,19,11,0.92) 100%);
+}
+.mejo-hero__inner { position: relative; z-index: 2; max-width: 620px; }
+.mejo-hero__logo {
+  height: 62px !important; width: auto !important; max-width: 260px;
+  object-fit: contain; margin: 0 auto 30px;
+}
+.mejo-hero__eyebrow { color: var(--c-accent-lt); }
+.mejo-hero__title {
+  font-family: var(--f-display); font-weight: 300;
+  font-size: clamp(30px, 8vw, 50px);
+  line-height: 1.12; letter-spacing: 0.02em;
+  color: #fff; margin: 16px 0 18px !important;
+}
+.mejo-hero__title strong { font-weight: 600; display: block; letter-spacing: 0.04em; }
+.mejo-hero__sub {
+  color: rgba(255,255,255,0.84); font-size: 16px; line-height: 1.65;
+  max-width: 460px; margin: 0 auto 32px !important;
+}
+.mejo-hero__badges {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+  margin-top: 26px;
+}
+.mejo-hero__badge {
+  font-family: var(--f-display); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--c-accent-lt);
+  border: 1px solid rgba(201,168,120,0.45);
+  border-radius: 100px; padding: 8px 15px;
+}
+
+/* Aparelho pequeno: o hero encolhe para o botao principal caber na
+   primeira tela, sem exigir rolagem para comecar a cotacao. */
+@media (max-width: 400px) {
+  .mejo-hero { padding: 56px 18px 40px; }
+  .mejo-hero__logo { height: 48px !important; margin-bottom: 20px; }
+  .mejo-hero__title { font-size: 27px; margin: 12px 0 14px !important; }
+  .mejo-hero__sub { font-size: 14.5px; line-height: 1.55; margin-bottom: 22px !important; }
+  .mejo-hero__badges { gap: 7px; margin-top: 20px; }
+  .mejo-hero__badge { font-size: 9.5px; letter-spacing: 0.1em; padding: 6px 11px; }
+}
+@media (max-height: 600px) and (max-width: 700px) {
+  .mejo-hero { min-height: 0; padding: 40px 18px 32px; }
+}
+
+/* ---------- BOTOES ---------- */
+
+.mejo .mejo-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  font-family: var(--f-display); font-size: 13.5px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  min-height: 52px;                    /* alvo de toque confortavel (minimo 44px) */
+  padding: 15px 26px;
+  border: 1px solid transparent;
+  border-radius: var(--r);
+  text-align: center; line-height: 1.2;
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease),
+              color 0.2s var(--ease), box-shadow 0.2s var(--ease),
+              transform 0.12s var(--ease);
+}
+
+/* Fundo, cor e borda levam !important de proposito: sao exatamente as
+   propriedades que temas do WordPress sobrescrevem em <button> e em
+   <a class="button">. O resto fica sem, para continuar facil de ajustar. */
+.mejo .mejo-btn--dark {
+  background-color: var(--c-bg-dark) !important;
+  color: #fff !important;
+  box-shadow: var(--sh-sm);
+}
+.mejo .mejo-btn--accent {
+  background-color: var(--c-accent-dk) !important;
+  color: #fff !important;
+}
+/* Verde do WhatsApp com texto branco da 1,98:1, muito abaixo do minimo de
+   4,5:1. Mantemos o verde reconhecivel e escurecemos o texto: 9,16:1.
+   Para voltar ao branco, e preciso escurecer o verde (#0E7C3A da 5,3:1). */
+.mejo .mejo-btn--wp {
+  background-color: var(--c-wp) !important;
+  color: var(--c-bg-darker) !important;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.28);
+}
+.mejo a.mejo-btn--wp:link, .mejo a.mejo-btn--wp:visited { color: var(--c-bg-darker) !important; }
+.mejo a.mejo-btn--accent:link, .mejo a.mejo-btn--accent:visited { color: #fff !important; }
+.mejo a.mejo-btn--dark:link, .mejo a.mejo-btn--dark:visited { color: #fff !important; }
+.mejo .mejo-btn--ghost {
+  background-color: transparent !important;
+  color: var(--c-ink-soft) !important;
+  border-color: var(--c-line) !important;
+  font-weight: 500;
+}
+.mejo .mejo-btn--lg { width: 100%; min-height: 56px; font-size: 14px; }
+
+/* hover so em ponteiro de verdade: no toque ele fica "preso" depois do tap */
+@media (hover: hover) {
+  .mejo .mejo-btn--dark:hover { background-color: #40281a !important; box-shadow: var(--sh-md); }
+  .mejo .mejo-btn--accent:hover { background-color: #8a6a48 !important; }
+  .mejo .mejo-btn--wp:hover { background-color: #1EBE5D !important; }
+  .mejo .mejo-btn--ghost:hover {
+    border-color: var(--c-accent) !important;
+    color: var(--c-accent-dk) !important;
+  }
+}
+
+/* resposta imediata ao dedo, sem deslocar o layout */
+.mejo .mejo-btn:active { transform: scale(0.985); }
+.mejo .mejo-btn:focus-visible { outline: 2px solid var(--c-accent-dk); outline-offset: 3px; }
+.mejo .mejo-btn[disabled],
+.mejo .mejo-btn[aria-disabled="true"] {
+  opacity: 0.45; cursor: not-allowed;
+  transform: none !important; box-shadow: none;
+}
+
+/* ---------- PROGRESSO ---------- */
+
+.mejo-progress {
+  position: sticky; top: var(--topo); z-index: 30;
+  background: rgba(250,246,239,0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--c-line-soft);
+  padding: 12px 0 11px;
+}
+.mejo-progress__track {
+  height: 3px; background: var(--c-line-soft); border-radius: 100px;
+  overflow: hidden; margin-bottom: 10px;
+}
+.mejo-progress__fill {
+  height: 100%; width: 20%;
+  background: linear-gradient(90deg, var(--c-accent) 0%, var(--c-accent-lt) 100%);
+  border-radius: 100px;
+  transition: width 0.45s var(--ease-out);
+}
+.mejo-progress__steps {
+  display: flex; justify-content: space-between; gap: 4px;
+}
+.mejo-progress__now {
+  display: none;
+  font-family: var(--f-display); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--c-accent-dk);
+}
+.mejo-progress__now span { color: var(--c-ink-muted); font-weight: 500; }
+@media (max-width: 419px) {
+  .mejo-progress__steps { display: none; }
+  .mejo-progress__now { display: block; }
+  /* o progresso compacto ja informa a etapa */
+  .mejo-step__head > .mejo-eyebrow { display: none; }
+  .mejo-step__head { margin-bottom: 22px; }
+}
+.mejo-progress__step {
+  font-family: var(--f-display); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--c-ink-muted);
+  transition: color 0.3s var(--ease);
+  white-space: nowrap;
+}
+.mejo-progress__step.is-active { color: var(--c-accent-dk); font-weight: 700; }
+.mejo-progress__step.is-done { color: var(--c-accent); }
+@media (min-width: 480px) { .mejo-progress__step { font-size: 10.5px; } }
+
+/* ---------- STEPS ---------- */
+
+.mejo-main { padding: 34px 0 40px; }
+.mejo-step { display: none; }
+.mejo-step.is-active { display: block; animation: mejo-in 0.4s var(--ease-out); }
+@keyframes mejo-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.mejo-step__head { margin-bottom: 26px; }
+.mejo-step__head .mejo-h2 { margin: 7px 0 9px !important; }
+
+.mejo-block { margin-bottom: 30px; }
+.mejo-block__title {
+  font-family: var(--f-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--c-bg-dark); margin-bottom: 4px !important;
+}
+.mejo-block__hint {
+  font-size: 13.5px; color: var(--c-ink-muted); margin-bottom: 14px !important;
+}
+.mejo-req { color: var(--c-error); }
+
+/* ---------- CAMPOS ---------- */
+
+.mejo-field { margin-bottom: 18px; }
+.mejo-label {
+  display: block;
+  font-family: var(--f-display); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--c-ink-soft); margin-bottom: 8px;
+}
+.mejo-input,
+.mejo .flatpickr-input.mejo-input {
+  width: 100%;
+  font-family: var(--f-body); font-size: 16px; color: var(--c-ink);
+  background: #fff;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r);
+  padding: 15px 16px;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  -webkit-appearance: none; appearance: none;
+  line-height: 1.4;
+}
+.mejo-input::placeholder { color: var(--c-ink-muted); }
+.mejo-input:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px rgba(155,124,92,0.14);
+}
+.mejo-input--select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%238a7868' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 42px;
+}
+.mejo-input.is-invalid { border-color: var(--c-error); }
+.mejo-error {
+  display: none;
+  font-size: 13px; color: var(--c-error); margin-top: 7px !important;
+}
+.mejo-error.is-visible { display: block; }
+.mejo-hint { font-size: 12.5px; color: var(--c-ink-muted); margin-top: 7px !important; }
+
+/* ---------- CHECKBOX ----------
+   Desenhado no lugar do controle nativo: o nativo muda de forma e de cor
+   em cada navegador, ignora border-radius e nao permite acertar o
+   alinhamento. O <input> continua existindo para teclado e leitor de tela. */
+.mejo-check {
+  --check-tam: 18px;
+  --check-linha: 23.2px;   /* 14.5px x 1.6 */
+  /* Medido por varredura de pixels do texto renderizado em Lato 14.5px:
+     linha de base em 17,1px dentro da caixa de linha, tinta subindo 11px
+     e x-height de 8px. Logo o centro da banda maiuscula-base cai em 11,6px,
+     igual ao centro da caixa de linha, e o centro do x-height em 13,1px.
+     O quadrado fica no meio dos dois, que e onde o olho espera. */
+  --check-ajuste: 0.75px;
+
+  display: flex; align-items: flex-start; gap: 11px;
+  font-size: 14.5px; line-height: 1.6;
+  color: var(--c-ink-soft); cursor: pointer;
+  /* padding no lugar de margin: aumenta o alvo de toque do rotulo inteiro
+     para 45px de altura, sem afastar o bloco seguinte */
+  margin-top: 2px; padding: 11px 0;
+}
+.mejo-check input {
+  appearance: none; -webkit-appearance: none;
+  flex: 0 0 auto;
+  width: var(--check-tam); height: var(--check-tam);
+  margin: calc((var(--check-linha) - var(--check-tam)) / 2 + var(--check-ajuste)) 0 0;
+  border: 1.5px solid var(--c-line);
+  border-radius: 5px;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 11px 11px;
+  transition: background-color 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+.mejo-check input:checked {
+  background-color: var(--c-accent-dk);
+  border-color: var(--c-accent-dk);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7.4 5.6 10.5 11.5 4' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (hover: hover) {
+  .mejo-check:hover input:not(:checked) { border-color: var(--c-accent); }
+}
+.mejo-check input:focus-visible {
+  outline: 2px solid var(--c-accent-dk); outline-offset: 2px;
+}
+.mejo-check input:active { transform: scale(0.94); }
+
+/* ---------- CARDS DE ESCOLHA ---------- */
+
+.mejo-options { display: grid; gap: 11px; }
+.mejo-options--2 { grid-template-columns: 1fr 1fr; }
+.mejo-options--3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 440px) { .mejo-options--3 { grid-template-columns: 1fr 1fr; } }
+
+.mejo-opt { position: relative; display: block; cursor: pointer; }
+.mejo-opt input {
+  position: absolute; opacity: 0; width: 1px; height: 1px;
+  pointer-events: none;
+}
+.mejo-opt__box {
+  display: flex; flex-direction: column; gap: 4px;
+  height: 100%;
+  background: #fff;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  padding: 16px 16px;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
+}
+.mejo-opt:hover .mejo-opt__box { border-color: var(--c-accent); }
+.mejo-opt input:checked + .mejo-opt__box {
+  border-color: var(--c-accent-dk);
+  box-shadow: 0 0 0 2px var(--c-accent-dk) inset, var(--sh-sm);
+  background: #fffdf9;
+}
+.mejo-opt input:focus-visible + .mejo-opt__box {
+  outline: 2px solid var(--c-accent-dk); outline-offset: 2px;
+}
+.mejo-opt input:disabled + .mejo-opt__box {
+  opacity: 0.5; cursor: not-allowed; background: var(--c-bg-soft);
+}
+.mejo-opt__name {
+  display: block;
+  font-family: var(--f-display); font-size: 14px; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--c-bg-dark); line-height: 1.3;
+}
+.mejo-opt__desc { display: block; font-size: 13px; color: var(--c-ink-soft); line-height: 1.5; }
+.mejo-opt__meta {
+  display: block;
+  font-family: var(--f-display); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--c-accent); margin-top: 2px;
+}
+.mejo-opt--inline .mejo-opt__box {
+  flex-direction: row; align-items: center; justify-content: center;
+  padding: 15px 12px; text-align: center;
+}
+
+/* card de ambiente com foto */
+.mejo-place { display: grid; gap: 12px; }
+.mejo-place__opt { position: relative; display: block; cursor: pointer; }
+.mejo-place__opt input {
+  position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none;
+}
+.mejo-place__box {
+  display: grid; grid-template-columns: 96px 1fr;
+  background: #fff; border: 1px solid var(--c-line);
+  border-radius: var(--r-lg); overflow: hidden;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.mejo-place__opt:hover .mejo-place__box { border-color: var(--c-accent); }
+.mejo-place__opt input:checked + .mejo-place__box {
+  border-color: var(--c-accent-dk);
+  box-shadow: 0 0 0 2px var(--c-accent-dk) inset, var(--sh-sm);
+}
+.mejo-place__opt input:focus-visible + .mejo-place__box {
+  outline: 2px solid var(--c-accent-dk); outline-offset: 2px;
+}
+.mejo-place__opt.is-blocked .mejo-place__box { opacity: 0.55; }
+.mejo-place__img { display: block; width: 100%; height: 100%; min-height: 108px; object-fit: cover; }
+.mejo-place__body { display: block; padding: 14px 15px; }
+
+/* <label> so aceita conteudo de frase, entao o miolo dos cartoes e feito de
+   <span>. Sem display explicito eles ficam inline: margin-top e ignorado,
+   as linhas se juntam e, quando ha fundo ou padding, a caixa se fragmenta
+   a cada quebra de linha. Todo sub-elemento de cartao declara o display. */
+.mejo-place__name {
+  display: block;
+  font-family: var(--f-display); font-size: 14.5px; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--c-bg-dark); line-height: 1.3;
+}
+.mejo-place__desc {
+  display: block;
+  font-size: 12.8px; color: var(--c-ink-soft); margin-top: 3px; line-height: 1.5;
+}
+.mejo-place__cap {
+  display: block;
+  font-family: var(--f-display); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--c-accent); margin-top: 7px;
+}
+.mejo-place__warn {
+  display: block;
+  font-size: 12.5px; color: var(--c-error); margin-top: 7px; line-height: 1.45;
+}
+
+/* ---------- PACOTES ---------- */
+
+.mejo-pack { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 560px) { .mejo-pack { grid-template-columns: 1fr; } }
+.mejo-pack__opt { position: relative; display: block; cursor: pointer; }
+.mejo-pack__opt input {
+  position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none;
+}
+.mejo-pack__box {
+  display: block;
+  height: 100%;
+  background: #fff; border: 1px solid var(--c-line);
+  border-radius: var(--r-lg); padding: 17px 17px 16px;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
+}
+.mejo-pack__opt:hover .mejo-pack__box { border-color: var(--c-accent); }
+.mejo-pack__opt input:checked + .mejo-pack__box {
+  border-color: var(--c-accent-dk);
+  box-shadow: 0 0 0 2px var(--c-accent-dk) inset, var(--sh-sm);
+  background: #fffdf9;
+}
+.mejo-pack__opt input:focus-visible + .mejo-pack__box {
+  outline: 2px solid var(--c-accent-dk); outline-offset: 2px;
+}
+.mejo-pack__top {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 10px; padding-bottom: 11px; margin-bottom: 11px;
+  border-bottom: 1px solid var(--c-line-soft);
+}
+.mejo-pack__tier {
+  font-family: var(--f-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-bg-dark);
+}
+.mejo-pack__price {
+  font-family: var(--f-display); font-size: 17px; font-weight: 600;
+  color: var(--c-accent-dk); white-space: nowrap;
+}
+.mejo-pack__price small {
+  display: block; font-size: 9.5px; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--c-ink-muted); text-align: right;
+}
+.mejo-pack__list { display: grid; gap: 6px; }
+.mejo-pack__item {
+  display: flex; gap: 8px; font-size: 13.2px;
+  color: var(--c-ink-soft); line-height: 1.45;
+}
+.mejo-pack__item::before {
+  content: ''; flex: 0 0 auto;
+  width: 5px; height: 5px; margin-top: 7px;
+  border-radius: 50%; background: var(--c-accent-lt);
+}
+.mejo-pack__item--fixed { color: var(--c-ink); font-weight: 700; }
+
+/* ---------- SUB-ETAPA DO CARDAPIO ---------- */
+
+.mejo-sub {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.mejo-sub__pontos { display: flex; gap: 5px; flex: 0 0 auto; }
+.mejo-sub__ponto {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--c-line);
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.mejo-sub__ponto.is-feito { background: var(--c-accent-lt); }
+.mejo-sub__ponto.is-atual { background: var(--c-accent-dk); transform: scale(1.35); }
+.mejo-sub__txt {
+  font-family: var(--f-display); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--c-ink-muted);
+}
+
+/* ---------- DISTRIBUICAO DE PRATOS ---------- */
+
+.mejo-dist {
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-line-soft);
+  border-radius: var(--r-lg);
+  padding: 18px 16px;
+  margin-top: 14px;
+}
+.mejo-dist__title {
+  font-family: var(--f-display); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--c-bg-dark); margin-bottom: 4px !important;
+}
+.mejo-dist__hint { font-size: 13px; color: var(--c-ink-soft); margin-bottom: 14px !important; }
+.mejo-dist__row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 0;
+  border-top: 1px solid var(--c-line-soft);
+}
+.mejo-dist__row:first-of-type { border-top: 0; padding-top: 0; }
+.mejo-dist__info { flex: 1 1 auto; min-width: 0; }
+.mejo-dist__name {
+  font-family: var(--f-display); font-size: 13.5px; font-weight: 600;
+  color: var(--c-bg-dark); line-height: 1.3;
+}
+.mejo-dist__desc { font-size: 12.3px; color: var(--c-ink-muted); line-height: 1.45; margin-top: 2px !important; }
+.mejo-stepper {
+  display: flex; align-items: center; gap: 2px; flex: 0 0 auto;
+  background: #fff; border: 1px solid var(--c-line); border-radius: var(--r);
+  overflow: hidden;
+}
+.mejo .mejo-stepper__btn {
+  width: 44px; height: 44px;          /* alvo de toque minimo */
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px; font-weight: 400; padding: 0;
+  color: var(--c-accent-dk) !important;
+  background-color: #fff !important;
+  transition: background-color 0.15s var(--ease);
+}
+@media (hover: hover) {
+  .mejo .mejo-stepper__btn:hover { background-color: var(--c-bg-soft) !important; }
+}
+.mejo .mejo-stepper__btn:active { background-color: var(--c-line-soft) !important; }
+.mejo-stepper__btn[disabled] { opacity: 0.3; cursor: not-allowed; }
+.mejo-stepper__input {
+  width: 48px; height: 44px; text-align: center;
+  border: 0; border-left: 1px solid var(--c-line-soft); border-right: 1px solid var(--c-line-soft);
+  /* 16px e o minimo: abaixo disso o iOS da zoom ao focar */
+  font-family: var(--f-display); font-size: 16px; font-weight: 600; color: var(--c-ink);
+  background: #fff; -moz-appearance: textfield; appearance: textfield;
+}
+.mejo-stepper__input::-webkit-outer-spin-button,
+.mejo-stepper__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.mejo-stepper__input:focus { outline: none; background: #fffdf9; }
+
+.mejo-dist__foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+  margin-top: 14px; padding-top: 13px;
+  border-top: 1px solid var(--c-line);
+}
+.mejo-dist__count {
+  font-family: var(--f-display); font-size: 12.5px; font-weight: 600;
+  letter-spacing: 0.06em; color: var(--c-ink-soft);
+}
+.mejo-dist__count strong { color: var(--c-bg-dark); }
+.mejo-dist__count.is-ok strong, .mejo-dist__count.is-ok { color: var(--c-success); }
+.mejo-dist__count.is-bad strong, .mejo-dist__count.is-bad { color: var(--c-error); }
+.mejo .mejo-dist__split {
+  display: inline-flex; align-items: center;
+  font-family: var(--f-display); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--c-accent-dk) !important;
+  background-color: transparent !important;
+  min-height: 44px; padding: 0 8px;
+  border-radius: var(--r);
+  text-decoration: underline; text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+@media (hover: hover) {
+  .mejo .mejo-dist__split:hover {
+    color: var(--c-bg-dark) !important;
+    background-color: var(--c-line-soft) !important;
+  }
+}
+.mejo-dist__msg {
+  font-size: 13px; color: var(--c-error);
+  margin-top: 10px !important; line-height: 1.45;
+}
+.mejo-dist__msg:empty { display: none; }
+
+/* ---------- FORMATO (sequencial x rodizio) ---------- */
+
+.mejo-format { display: grid; gap: 13px; }
+@media (min-width: 620px) { .mejo-format { grid-template-columns: 1fr 1fr; } }
+.mejo-format__opt { position: relative; display: block; cursor: pointer; }
+.mejo-format__opt input {
+  position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none;
+}
+.mejo-format__box {
+  display: flex; flex-direction: column; justify-content: center;
+  height: 100%;
+  background: var(--c-bg-dark); color: #fff;
+  border: 1px solid transparent; border-radius: var(--r-lg);
+  padding: 24px 20px; text-align: center;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease),
+              background-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+@media (hover: hover) {
+  .mejo-format__opt:hover .mejo-format__box { transform: translateY(-2px); box-shadow: var(--sh-md); }
+}
+.mejo-format__opt input:checked + .mejo-format__box {
+  background: var(--c-bg-darker);
+  border-color: var(--c-accent-lt);
+  box-shadow: 0 0 0 2px var(--c-accent-lt) inset;
+}
+.mejo-format__opt input:focus-visible + .mejo-format__box {
+  outline: 2px solid var(--c-accent-lt); outline-offset: 3px;
+}
+.mejo-format__opt:active .mejo-format__box { transform: scale(0.99); }
+.mejo-format__name {
+  display: block;
+  font-family: var(--f-display); font-size: 16px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #fff;
+  line-height: 1.3;
+}
+.mejo-format__desc {
+  display: block;
+  font-size: 13.5px; color: rgba(255,255,255,0.82);
+  margin-top: 8px; line-height: 1.5;
+}
+.mejo-format__from {
+  display: block;
+  font-family: var(--f-display); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--c-accent-lt); margin-top: 14px;
+}
+
+/* ---------- NAVEGACAO ---------- */
+
+.mejo-nav {
+  display: flex; gap: 10px; align-items: center;
+  margin-top: 30px; padding-top: 22px;
+  border-top: 1px solid var(--c-line-soft);
+}
+.mejo-nav .mejo-btn--dark { flex: 1 1 auto; min-width: 0; }
+.mejo .mejo-nav__back {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--f-display); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  /* ink-muted dava 3,3:1 sobre o fundo creme, abaixo do minimo de 4,5:1 */
+  color: var(--c-ink-soft) !important;
+  background-color: transparent !important;
+  min-height: 52px; padding: 14px 16px;
+  border-radius: var(--r);
+  transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+@media (hover: hover) {
+  .mejo .mejo-nav__back:hover {
+    color: var(--c-accent-dk) !important;
+    background-color: var(--c-bg-soft) !important;
+  }
+}
+.mejo .mejo-nav__back:active { background-color: var(--c-bg-soft) !important; }
+
+.mejo-alert {
+  display: none;
+  background: #fdf2f0; border: 1px solid #f0cfc9;
+  border-left: 3px solid var(--c-error);
+  border-radius: var(--r);
+  padding: 13px 15px;
+  font-size: 13.8px; color: #8e2b1f; line-height: 1.5;
+  margin-top: 18px;
+}
+.mejo-alert.is-visible { display: block; }
+
+/* ---------- BARRA FIXA DE TOTAL ---------- */
+
+.mejo-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+  background: rgba(31,19,11,0.97);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(201,168,120,0.28);
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  transform: translateY(110%);
+  transition: transform 0.35s var(--ease-out);
+}
+.mejo-bar.is-visible { transform: none; }
+.mejo-bar__inner {
+  max-width: 760px; margin: 0 auto;
+  display: flex; align-items: center; gap: 14px;
+}
+.mejo-bar__info { flex: 1 1 auto; min-width: 0; }
+.mejo-bar__label {
+  font-family: var(--f-display); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(201,168,120,0.9);
+}
+.mejo-bar__total {
+  font-family: var(--f-display); font-size: 20px; font-weight: 600;
+  color: #fff; line-height: 1.2; margin-top: 1px;
+}
+.mejo-bar__per { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 1px; }
+.mejo .mejo-bar__cta {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background-color: var(--c-accent-lt) !important;
+  color: var(--c-bg-darker) !important;
+  font-family: var(--f-display); font-size: 12.5px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  min-height: 48px; padding: 14px 20px;
+  border: 0; border-radius: var(--r);
+  transition: background-color 0.2s var(--ease), transform 0.12s var(--ease);
+}
+@media (hover: hover) {
+  .mejo .mejo-bar__cta:hover { background-color: #d9bc92 !important; }
+}
+.mejo .mejo-bar__cta:active { transform: scale(0.97); }
+.mejo .mejo-bar__cta:focus-visible { outline: 2px solid var(--c-accent-lt); outline-offset: 3px; }
+
+/* --bar-h e recalculado em JS com a altura real da barra, que muda com a
+   largura da tela e com a area segura do aparelho */
+.mejo.has-bar { padding-bottom: var(--bar-h); }
+
+@media (max-width: 379px) {
+  .mejo-bar { padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); }
+  .mejo-bar__inner { gap: 10px; }
+  .mejo-bar__label { display: none; }
+  .mejo-bar__total { font-size: 18px; }
+  .mejo-bar__per { font-size: 11.5px; }
+  .mejo .mejo-bar__cta { padding: 14px 15px; font-size: 11.5px; }
+}
+
+/* ---------- RESUMO FINAL ---------- */
+
+.mejo-quote {
+  background: #fff; border: 1px solid var(--c-line);
+  border-radius: var(--r-lg); overflow: hidden;
+  box-shadow: var(--sh-md);
+}
+.mejo-quote__head {
+  background: var(--c-bg-dark); color: #fff;
+  padding: 26px 22px 24px; text-align: center;
+}
+.mejo-quote__eyebrow {
+  font-family: var(--f-display); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.26em; text-transform: uppercase; color: var(--c-accent-lt);
+}
+.mejo-quote__title {
+  font-family: var(--f-display); font-size: clamp(22px, 5.6vw, 28px); font-weight: 300;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #fff;
+  margin-top: 8px !important;
+}
+.mejo-quote__body { padding: 22px 20px; }
+
+.mejo-sec + .mejo-sec { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--c-line-soft); }
+.mejo-sec__title {
+  font-family: var(--f-display); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-accent); margin-bottom: 13px !important;
+}
+.mejo-dl { display: grid; gap: 9px; }
+.mejo-dl__row {
+  display: flex; gap: 12px; justify-content: space-between;
+  font-size: 14.2px; line-height: 1.45;
+}
+.mejo-dl__k { color: var(--c-ink-muted); flex: 0 1 auto; min-width: 0; }
+.mejo-dl__v {
+  color: var(--c-ink); text-align: right; font-weight: 700;
+  flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere;
+}
+
+.mejo-items { display: grid; gap: 14px; }
+.mejo-item__cat {
+  font-family: var(--f-display); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-bg-dark);
+}
+.mejo-item__val { font-size: 13.6px; color: var(--c-ink-soft); margin-top: 3px !important; line-height: 1.5; }
+.mejo-item__val b { color: var(--c-ink); }
+
+.mejo-money { display: grid; gap: 10px; }
+.mejo-money__row {
+  display: flex; justify-content: space-between; gap: 12px;
+  font-size: 14.5px; color: var(--c-ink-soft);
+}
+.mejo-money__row strong { color: var(--c-ink); font-weight: 700; }
+.mejo-money__row--disc { color: var(--c-success); }
+.mejo-money__row--disc strong { color: var(--c-success); }
+.mejo-money__row--sub {
+  padding-top: 10px; border-top: 1px solid var(--c-line-soft);
+  font-family: var(--f-display); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.mejo-total {
+  margin-top: 20px;
+  background: var(--c-bg-soft); border: 1px solid var(--c-line);
+  border-radius: var(--r-lg); padding: 20px; text-align: center;
+}
+.mejo-total__label {
+  font-family: var(--f-display); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-accent);
+}
+.mejo-total__value {
+  font-family: var(--f-display); font-size: clamp(30px, 8.6vw, 42px); font-weight: 600;
+  color: var(--c-bg-dark); line-height: 1.1; margin-top: 7px !important;
+}
+.mejo-total__per { font-size: 13.5px; color: var(--c-ink-soft); margin-top: 7px !important; }
+.mejo-total__badge {
+  display: inline-block; margin-top: 12px;
+  background: rgba(74,122,63,0.1); color: var(--c-success);
+  border: 1px solid rgba(74,122,63,0.28); border-radius: 100px;
+  font-family: var(--f-display); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 7px 14px;
+}
+.mejo-disclaimer {
+  font-size: 12.8px; color: var(--c-ink-muted); line-height: 1.55;
+  margin-top: 16px !important; text-align: center;
+}
+
+.mejo-actions { display: grid; gap: 11px; margin-top: 24px; }
+.mejo-actions__note {
+  text-align: center; font-size: 13.5px; color: var(--c-ink-soft);
+  line-height: 1.55; margin-bottom: 2px !important;
+}
+.mejo .mejo-edit {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%;
+  font-family: var(--f-display); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--c-ink-soft) !important;
+  background-color: transparent !important;
+  min-height: 48px; padding: 14px;
+  border-radius: var(--r);
+  transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+@media (hover: hover) {
+  .mejo .mejo-edit:hover {
+    color: var(--c-accent-dk) !important;
+    background-color: var(--c-bg-soft) !important;
+  }
+}
+.mejo .mejo-edit:active { background-color: var(--c-bg-soft) !important; }
+.mejo-copy {
+  text-align: center; font-size: 12.5px; color: var(--c-ink-soft);
+}
+.mejo .mejo-copy__btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 8px;
+  color: var(--c-ink-soft) !important;
+  background-color: transparent !important;
+  border-radius: var(--r);
+  text-decoration: underline; text-underline-offset: 4px;
+  text-decoration-thickness: 1px; text-decoration-color: var(--c-line);
+  transition: color 0.2s var(--ease);
+}
+@media (hover: hover) {
+  .mejo .mejo-copy__btn:hover { color: var(--c-accent-dk) !important; }
+}
+
+/* ---------- FOOTER ---------- */
+
+/* O rodape sai de cena durante o preenchimento: logo, telefone e copyright
+   no fim de cada etapa so oferecem saida e alongam a rolagem. Volta na
+   tela de resultado, onde as acoes finais vivem. */
+.mejo-foot { display: none; }
+.mejo.mostra-rodape .mejo-foot { display: block; }
+.mejo-foot {
+  background: var(--c-bg-darker); color: rgba(255,255,255,0.62);
+  padding: 34px 20px 40px; text-align: center; margin-top: 46px;
+}
+
+/* saida de emergencia discreta no lugar do rodape */
+.mejo-ajuda {
+  display: none;
+  text-align: center; margin-top: 26px;
+  font-size: 13px; color: var(--c-ink-muted);
+}
+.mejo.mostra-ajuda .mejo-ajuda { display: block; }
+.mejo .mejo-ajuda a {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 44px; padding: 0 6px;
+  color: var(--c-ink-soft) !important;
+  text-decoration: underline !important; text-underline-offset: 4px;
+  text-decoration-color: var(--c-line);
+}
+@media (hover: hover) {
+  .mejo .mejo-ajuda a:hover { color: var(--c-accent-dk) !important; }
+}
+
+/* nada deve parar de rolagem escondido atras da barra de progresso */
+.mejo-step__head, .mejo-block { scroll-margin-top: calc(var(--topo) + 76px); }
+.mejo-foot__logo {
+  height: 42px !important; width: auto !important; max-width: 190px;
+  object-fit: contain; margin: 0 auto 16px; opacity: 0.9;
+}
+.mejo-foot__txt { font-size: 13px; line-height: 1.7; }
+.mejo .mejo-foot__txt a {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 6px;          /* alvo de toque no telefone do rodape */
+  color: var(--c-accent-lt) !important;
+  text-decoration: underline !important; text-underline-offset: 4px;
+  text-decoration-color: rgba(201,168,120,0.4);
+}
+.mejo-foot__copy { font-size: 11.5px; color: rgba(255,255,255,0.38); margin-top: 16px !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mejo *, .mejo *::before, .mejo *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

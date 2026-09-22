@@ -1,0 +1,2144 @@
+<!doctype html>
+<html lang="pt-BR" style="color-scheme: light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Eventos e confraternizacoes - Maria e Jose Parrilla</title>
+<meta name="description" content="Reserve sua mesa no Maria e Jose Parrilla. Cortes argentinos premium em Franca e Araraquara. Confirmação rápida pelo WhatsApp." />
+<meta name="theme-color" content="#1f130b" />
+<link rel="icon" href="https://mariaejose.com.br/wp-content/uploads/2024/12/logo-2.png" type="image/png" />
+
+<meta property="og:title" content="Eventos e confraternizacoes - Maria e Jose Parrilla" />
+<meta property="og:description" content="Casamentos, aniversarios, batizados e confraternizacoes na melhor parrilla do interior paulista. 3 saloes e menu fechado sob medida." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://mariaejose.com.br/wp-content/uploads/2024/12/logo-2.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1607013251379-e6eecfffe234?w=2400&q=82&fm=webp" fetchpriority="high" />
+
+<!-- Flatpickr - date picker moderno -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.css" />
+<script defer src="https://cdn.jsdelivr.net/npm/flatpickr@4"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/l10n/pt.js"></script>
+
+
+<style>
+  :root {
+    --color-bg:        #faf6ef;
+    --color-bg-soft:   #f3ebdc;
+    --color-bg-dark:   #2e1c12;
+    --color-bg-darker: #1f130b;
+    --color-ink:       #2b1c12;
+    --color-ink-soft:  #5c4a3d;
+    --color-ink-muted: #8a7868;
+    --color-accent:    #9b7c5c;
+    --color-accent-dk: #7a5d3f;
+    --color-accent-lt: #c9a878;
+    --color-line:      #d9c8b0;
+    --color-line-soft: #ebe1cf;
+    --color-success:   #4a7a3f;
+    --color-error:     #c0392b;
+    --color-wp:        #25D366;
+
+    --font-display: 'Montserrat', system-ui, -apple-system, Segoe UI, sans-serif;
+    --font-body:    'Lato', system-ui, -apple-system, Segoe UI, sans-serif;
+
+    --radius:       6px;
+    --radius-lg:    14px;
+    --shadow-sm:    0 2px 8px rgba(46,28,18,0.06);
+    --shadow-md:    0 12px 32px rgba(46,28,18,0.12);
+    --shadow-lg:    0 24px 60px rgba(46,28,18,0.28);
+
+    --ease:    cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background: var(--color-bg);
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img, svg { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+  button, a, label, input, select, summary { touch-action: manipulation; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- A11Y ---------- */
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+
+  .skip-link {
+    position: absolute; top: -100px; left: 16px;
+    z-index: 999;
+    padding: 12px 18px;
+    background: var(--color-bg-darker); color: #fff;
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.1em;
+    border-radius: var(--radius);
+    transition: top 0.2s var(--ease);
+  }
+  .skip-link:focus { top: 16px; outline: 2px solid var(--color-accent-lt); outline-offset: 2px; }
+
+  /* Sobrescreve cor visited/link de temas WP que herdam azul/roxo nos CTAs */
+  a.skip-link, a.skip-link:link, a.skip-link:visited,
+  a.form-success__cta, a.form-success__cta:link, a.form-success__cta:visited,
+  a.sticky-cta__btn, a.sticky-cta__btn:link, a.sticky-cta__btn:visited {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-lt);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ---------- TYPOGRAPHY ---------- */
+
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(24px, 3.2vw, 32px);
+    color: var(--color-accent);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: var(--color-accent);
+    margin: 18px auto 0;
+  }
+
+  /* ---------- HEADER ---------- */
+
+  .top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 10;
+    padding: 24px 0;
+  }
+  .top__inner { display: flex; justify-content: center; align-items: center; }
+  .top__logo {
+    height: 56px !important;
+    width: auto !important;
+    max-height: 56px;
+    max-width: 280px;
+    object-fit: contain;
+  }
+
+  /* ---------- HERO ---------- */
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 130px 0 70px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: url('https://mariaejose.com.br/wp-content/uploads/2026/05/mesa-completa.png') center/cover no-repeat;
+    filter: contrast(1.08) saturate(1.1);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(15,9,5,0.78) 0%, rgba(15,9,5,0.6) 40%, rgba(15,9,5,0.88) 100%),
+      linear-gradient(180deg, rgba(15,9,5,0.45) 0%, transparent 30%, transparent 70%, rgba(15,9,5,0.65) 100%);
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0; z-index: -1;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
+    width: 100%;
+  }
+
+  .hero__copy { max-width: 520px; padding-top: 24px; }
+
+  .hero__title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(32px, 4.8vw, 54px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin-bottom: 22px;
+    color: #fff;
+    text-wrap: balance;
+  }
+  .hero__title b {
+    font-weight: 600;
+    color: var(--color-accent-lt);
+  }
+
+  .hero__lede {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.84);
+    margin-bottom: 26px;
+    max-width: 460px;
+    font-weight: 400;
+  }
+
+  .hero__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    padding: 9px 18px;
+    border-radius: 999px;
+    margin-bottom: 26px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .hero__rating__stars { color: #f0c75a; letter-spacing: 1px; font-size: 13px; line-height: 1; }
+  .hero__rating__text {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.04em; color: #fff;
+  }
+  .hero__rating__text b { font-weight: 700; }
+  .hero__rating__text span { opacity: 0.55; font-weight: 400; margin: 0 4px; }
+
+  .hero__bullets {
+    list-style: none;
+    display: grid; gap: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.86);
+  }
+  .hero__bullets li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-family: var(--font-body); font-weight: 400;
+  }
+  .hero__bullets svg {
+    flex-shrink: 0; margin-top: 4px;
+    color: var(--color-accent-lt);
+  }
+
+  /* ---------- FORM CARD ---------- */
+
+  .form-card {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    scroll-margin-top: 24px;
+  }
+  .form-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(155, 124, 92, 0.18);
+    pointer-events: none;
+  }
+
+  .form-card__head {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--color-line-soft);
+  }
+  .form-card__title {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 500;
+    color: var(--color-accent);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .form-card__subtitle {
+    margin-top: 10px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--color-ink-muted);
+  }
+
+  .form { display: grid; gap: 14px; }
+  .field { display: grid; gap: 6px; min-width: 0; position: relative; }
+
+  .field__label {
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+  .field__label .req { color: var(--color-accent); margin-left: 2px; }
+  .field__optional {
+    color: var(--color-ink-muted);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    margin-left: 4px;
+  }
+
+  .field__input,
+  .field__select {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-ink);
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+    -webkit-appearance: none; appearance: none;
+    min-height: 44px;
+  }
+  .field__input:focus,
+  .field__select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(155, 124, 92, 0.18);
+  }
+  .field__input::placeholder { color: #b8a896; }
+
+  .field__select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239b7c5c' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+  .field__select:invalid { color: #b8a896; }
+  .field__select option { color: var(--color-ink); }
+
+  .field__textarea {
+    min-height: 88px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+
+  .field__hint {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-ink-muted);
+    line-height: 1.4;
+  }
+  .field__hint--row { margin-top: -4px; }
+
+  /* Erro vira balão flutuante (tooltip) sobreposto em TODOS os campos:
+     não reserva espaço nem empurra o layout, e some quando válido.
+     Não é hover — aparece sozinho no estado inválido (acessível em mobile/leitor). */
+  .field__error {
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.4;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 6;
+    margin: 0;
+    padding: 6px 9px;
+    background: var(--color-error);
+    color: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-3px);
+    transition: opacity 0.14s var(--ease), transform 0.14s var(--ease), visibility 0.14s;
+    pointer-events: none;
+  }
+  /* Setinha do balão apontando pro campo */
+  .field__error::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 16px;
+    border: 5px solid transparent;
+    border-bottom-color: var(--color-error);
+  }
+  .field.is-invalid .field__error {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .field.is-invalid .field__input,
+  .field.is-invalid .field__select {
+    border-color: var(--color-error);
+  }
+  .field.is-invalid .field__input:focus,
+  .field.is-invalid .field__select:focus {
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+  }
+
+  .field--row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Flatpickr - tema da marca */
+  .flatpickr-calendar {
+    font-family: var(--font-body);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-line-soft);
+  }
+  .flatpickr-months .flatpickr-month,
+  .flatpickr-current-month .flatpickr-monthDropdown-months,
+  .flatpickr-current-month input.cur-year {
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+  .flatpickr-weekday {
+    color: var(--color-ink-muted);
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .flatpickr-day {
+    color: var(--color-ink);
+    border-radius: 6px;
+  }
+  .flatpickr-day:hover,
+  .flatpickr-day:focus {
+    background: var(--color-bg-soft);
+    border-color: var(--color-bg-soft);
+  }
+  .flatpickr-day.today {
+    border-color: var(--color-accent);
+  }
+  .flatpickr-day.today:hover {
+    background: var(--color-accent-lt);
+    color: #fff;
+    border-color: var(--color-accent-lt);
+  }
+  .flatpickr-day.selected,
+  .flatpickr-day.selected:hover,
+  .flatpickr-day.selected:focus {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+  .flatpickr-day.flatpickr-disabled,
+  .flatpickr-day.flatpickr-disabled:hover {
+    color: var(--color-ink-muted);
+    opacity: 0.35;
+    background: transparent;
+    text-decoration: line-through;
+  }
+  .flatpickr-months .flatpickr-prev-month,
+  .flatpickr-months .flatpickr-next-month {
+    color: var(--color-accent);
+    fill: var(--color-accent);
+  }
+  .flatpickr-months .flatpickr-prev-month:hover svg,
+  .flatpickr-months .flatpickr-next-month:hover svg {
+    fill: var(--color-accent-dk);
+  }
+
+  /* Visual unidade picker */
+  .unit-picker {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .unit-picker input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+  .unit-picker label {
+    display: block;
+    height: 100%;
+  }
+  .unit-picker__opt {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    padding: 14px;
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.15s var(--ease), background 0.15s var(--ease), box-shadow 0.15s var(--ease);
+    text-align: left;
+    user-select: none;
+  }
+  .unit-picker__opt:hover { border-color: var(--color-accent); background: #fffdf8; }
+  .unit-picker__opt__city {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 600;
+    color: var(--color-ink);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .unit-picker__opt__addr {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 12px; line-height: 1.4;
+    color: var(--color-ink-muted);
+  }
+  .unit-picker input[type="radio"]:checked + .unit-picker__opt {
+    border-color: var(--color-accent);
+    background: rgba(155, 124, 92, 0.08);
+    box-shadow: 0 0 0 1px var(--color-accent) inset;
+  }
+  .unit-picker input[type="radio"]:focus-visible + .unit-picker__opt {
+    outline: 2px solid var(--color-accent-lt);
+    outline-offset: 2px;
+  }
+
+  .submit-btn {
+    margin-top: 6px;
+    padding: 16px 24px;
+    background: var(--color-bg-dark);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-radius: var(--radius);
+    transition: background 0.2s var(--ease), transform 0.1s var(--ease);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%;
+    min-height: 52px;
+  }
+  .submit-btn:hover { background: #1f130b; }
+  .submit-btn:active { transform: translateY(1px); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .submit-btn .spinner {
+    display: none;
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  .submit-btn.is-loading .spinner { display: inline-block; }
+  .submit-btn.is-loading .submit-btn__text { opacity: 0.85; }
+  .submit-btn .wp-icon { width: 16px; height: 16px; }
+  .submit-btn.is-loading .wp-icon { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .form__footnote {
+    text-align: center;
+    margin-top: 12px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-ink-muted);
+    line-height: 1.5;
+  }
+  .form__footnote svg { display: inline-block; vertical-align: -2px; margin-right: 4px; color: var(--color-success); }
+
+  /* ---------- SUCCESS STATE ---------- */
+
+  .form-success { display: none; }
+  .form-success.is-active { display: block; animation: fadeUp 0.4s var(--ease-out); }
+  .form-card.is-submitted .form,
+  .form-card.is-submitted .form-card__head { display: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-success__icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(74, 122, 63, 0.12);
+    color: var(--color-success);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+  }
+
+  .form-success__title {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 500;
+    color: var(--color-accent);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .form-success__text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+    margin-bottom: 22px;
+    text-align: center;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .reservation-summary {
+    background: var(--color-bg-soft);
+    border: 1px solid var(--color-line-soft);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 22px;
+    font-family: var(--font-body);
+    font-size: 14px;
+  }
+  .reservation-summary__row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 12px;
+    padding: 6px 0;
+  }
+  .reservation-summary__row + .reservation-summary__row {
+    border-top: 1px dashed var(--color-line-soft);
+  }
+  .reservation-summary__key {
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+  .reservation-summary__val {
+    color: var(--color-ink);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .form-success__notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    background: rgba(155, 124, 92, 0.08);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--color-ink-soft);
+    text-align: left;
+  }
+  .form-success__notice svg {
+    flex-shrink: 0;
+    color: var(--color-accent);
+    margin-top: 2px;
+  }
+  .form-success__notice b { color: var(--color-ink); font-weight: 700; }
+
+  .form-success__cta {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 24px;
+    background: var(--color-wp); color: #fff;
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-radius: var(--radius);
+    transition: background 0.2s var(--ease);
+    min-height: 52px;
+    width: 100%;
+  }
+  .form-success__cta:hover { background: #1ebd5a; }
+  .form-success__cta svg { width: 18px; height: 18px; }
+
+  .form-success__retry {
+    display: block;
+    margin-top: 12px;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-ink-muted);
+  }
+  .form-success__retry button {
+    color: var(--color-accent);
+    text-decoration: underline;
+    font-size: 12px;
+  }
+
+  /* ---------- SECTIONS ---------- */
+
+  section { padding: 84px 0; }
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .section-header .eyebrow { display: block; margin-bottom: 14px; }
+
+  /* ---------- AMBIENT GALLERY ---------- */
+
+  .ambient { background: var(--color-bg); }
+
+  .ambient__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: 200px 200px;
+    gap: 12px;
+  }
+
+  .ambient__item {
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--color-line-soft);
+    position: relative;
+  }
+  .ambient__item:nth-child(1) { grid-row: span 2; }
+  .ambient__item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+  }
+  .ambient__item:hover img { transform: scale(1.04); }
+
+  .ambient__item__caption {
+    position: absolute; bottom: 14px; left: 16px;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  /* ---------- EXPERIENCE ---------- */
+
+  .experience { background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%); }
+
+  .experience__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+
+  .feat { text-align: center; padding: 8px; }
+
+  .feat__icon {
+    width: 56px; height: 56px;
+    margin: 0 auto 18px;
+    color: var(--color-accent);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .feat__title {
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .feat__text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ---------- FAQ ---------- */
+
+  .faq { background: var(--color-bg); padding-bottom: 60px; }
+  .faq__list {
+    max-width: 760px; margin: 0 auto;
+    display: grid; gap: 12px;
+  }
+  .faq__item {
+    background: #fff;
+    border: 1px solid var(--color-line-soft);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .faq__item[open] {
+    border-color: var(--color-line);
+    box-shadow: var(--shadow-sm);
+  }
+  .faq__q {
+    list-style: none;
+    cursor: pointer;
+    padding: 18px 22px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    font-family: var(--font-display);
+    font-size: 15px; font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1.4;
+    user-select: none;
+  }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q__icon {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--color-bg-soft);
+    color: var(--color-accent);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.25s var(--ease);
+  }
+  .faq__item[open] .faq__q__icon { transform: rotate(45deg); background: var(--color-accent); color: #fff; }
+  .faq__a {
+    padding: 0 22px 20px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+  }
+
+  /* ---------- FINAL CTA ---------- */
+
+  .final-cta {
+    position: relative;
+    color: #fff;
+    padding: 110px 0;
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute; inset: 0; z-index: -2;
+    background: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=2000&q=82&fm=webp') center/cover no-repeat;
+    filter: contrast(1.05) saturate(1.1);
+  }
+
+  .final-cta::after {
+    content: '';
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, rgba(15,9,5,0.6) 0%, rgba(15,9,5,0.88) 100%);
+  }
+
+  .final-cta__title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 38px);
+    font-weight: 400;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin-bottom: 18px;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .final-cta__title b { font-weight: 600; color: var(--color-accent-lt); }
+
+  .final-cta__text {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: rgba(255,255,255,0.82);
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+
+  a.final-cta__btn,
+  a.final-cta__btn:link,
+  a.final-cta__btn:visited,
+  a.final-cta__btn:hover,
+  a.final-cta__btn:active,
+  a.final-cta__btn:focus {
+    color: #fff;
+    text-decoration: none;
+  }
+  .final-cta__btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 40px;
+    border: 1px solid rgba(255,255,255,0.45);
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border-radius: var(--radius);
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+    min-height: 52px;
+  }
+  .final-cta__btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.75); }
+
+  /* ---------- FOOTER ---------- */
+
+  .footer {
+    background: var(--color-bg-darker);
+    color: rgba(255,255,255,0.7);
+    padding: 56px 0 36px;
+    text-align: center;
+  }
+
+  .footer__logo {
+    height: 60px !important;
+    width: auto !important;
+    max-height: 60px;
+    max-width: 300px;
+    margin: 0 auto 28px;
+    object-fit: contain;
+  }
+
+  .footer__locations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    max-width: 720px;
+    margin: 0 auto 32px;
+    padding: 28px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer__loc__city {
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 600;
+    color: var(--color-accent-lt);
+    margin-bottom: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .footer__loc__detail {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+  .footer__loc__detail a {
+    color: rgba(255,255,255,0.85);
+    transition: color 0.15s var(--ease);
+  }
+  .footer__loc__detail a:hover { color: var(--color-accent-lt); }
+
+  .footer__hours {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+  }
+
+  .footer__copy {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- MOBILE STICKY CTA ---------- */
+
+  .sticky-cta {
+    position: fixed;
+    left: 12px; right: 12px;
+    bottom: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 50;
+    display: none;
+    transform: translateY(150%);
+    transition: transform 0.3s var(--ease-out);
+  }
+  .sticky-cta.is-visible { transform: translateY(0); }
+  .sticky-cta__btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%;
+    padding: 16px 22px;
+    background: var(--color-bg-darker);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-radius: var(--radius);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.08);
+    min-height: 52px;
+  }
+  .sticky-cta__btn svg { color: var(--color-accent-lt); }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  /* Visível por padrão (fallback se o JS for bloqueado, ex.: sanitização do WordPress).
+     Com JS, o IntersectionObserver adiciona .is-revealed e dispara a animação. */
+
+  @keyframes reveal-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  [data-reveal].is-revealed {
+    animation: reveal-up 0.7s var(--ease-out) backwards;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+
+  @media (max-width: 880px) {
+    .hero { padding: 110px 0 60px; min-height: auto; }
+    .hero__grid { grid-template-columns: 1fr; gap: 36px; }
+    .hero__copy { max-width: 100%; }
+    .form-card { padding: 26px 22px; }
+    .ambient__grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 160px 160px 160px;
+    }
+    .ambient__item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .experience__grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer__locations { grid-template-columns: 1fr; gap: 24px; }
+    section { padding: 60px 0; }
+    .sticky-cta { display: block; }
+    body.has-sticky-cta { padding-bottom: 76px; }
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 0 18px; }
+    .hero__title { font-size: 30px; }
+    .hero__lede { font-size: 15px; }
+    .field--row { grid-template-columns: 1fr; }
+    .unit-picker { grid-template-columns: 1fr; }
+    .experience__grid { grid-template-columns: 1fr; gap: 28px; }
+    .ambient__grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, 160px);
+    }
+    .ambient__item:nth-child(1) { grid-column: span 1; }
+    .form-card__title, .form-success__title { font-size: 18px; }
+    .top__logo { height: 44px !important; max-height: 44px; max-width: 220px; }
+  }
+
+  /* ---------- REDUCED MOTION ---------- */
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    [data-reveal] { opacity: 1; transform: none; }
+    .ambient__item:hover img { transform: none; }
+  }
+  /* ==================== EVENTOS ==================== */
+
+  /* ---------- Formulario em 2 passos ---------- */
+  .steps {
+    list-style: none;
+    display: flex; align-items: center; gap: 10px;
+    margin: 0 0 22px; padding: 0;
+  }
+  .steps__item {
+    display: flex; align-items: center; gap: 7px;
+    font-family: var(--font-display);
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--color-ink-muted);
+    transition: color 0.25s var(--ease);
+  }
+  .steps__item > span {
+    width: 20px; height: 20px; border-radius: 50%;
+    display: grid; place-items: center;
+    border: 1px solid var(--color-line);
+    background: #fff; font-size: 10px;
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+  }
+  .steps__item.is-active { color: var(--color-ink); }
+  .steps__item.is-active > span {
+    background: var(--color-accent); border-color: var(--color-accent); color: #fff;
+  }
+  .steps__item.is-done > span {
+    background: var(--color-success); border-color: var(--color-success); color: #fff;
+  }
+  .steps__item + .steps__item::before {
+    content: ''; width: 20px; height: 1px;
+    background: var(--color-line); margin-right: 3px;
+  }
+
+  /* Os campos ficam DENTRO de .step, entao o gap precisa estar aqui — o de .form
+     so alcanca os filhos diretos (.steps e .step). */
+  .step { display: grid; gap: 14px; animation: fadeUp 0.35s var(--ease-out); }
+  .step[hidden] { display: none; }
+
+  .btn-row { display: flex; gap: 10px; align-items: stretch; }
+  .btn-row .submit-btn { flex: 1; margin-top: 0; }
+
+  .back-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 0 16px;
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--color-ink-soft);
+    background: transparent;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .back-btn:hover { border-color: var(--color-accent); color: var(--color-ink); }
+  .back-btn svg { width: 14px; height: 14px; }
+
+  .checkbox {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 10px;
+    font-size: 13px; color: var(--color-ink-soft);
+    cursor: pointer;
+  }
+  .checkbox input { width: 15px; height: 15px; accent-color: var(--color-accent); cursor: pointer; }
+
+  /* ---------- Como funciona ---------- */
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px; margin-bottom: 48px;
+  }
+  .step-card { text-align: center; padding: 8px; }
+  .step-card__num {
+    width: 44px; height: 44px; margin: 0 auto 16px;
+    border-radius: 50%; display: grid; place-items: center;
+    font-family: var(--font-display); font-size: 16px; font-weight: 600;
+    color: #fff; background: var(--color-accent);
+  }
+
+  /* ---------- Menu de exemplo ---------- */
+  .menu-card {
+    background: #fff;
+    border: 1px solid var(--color-line-soft);
+    border-radius: var(--radius-lg);
+    padding: 34px 32px;
+    box-shadow: var(--shadow-sm);
+  }
+  .menu-card__head { text-align: center; margin-bottom: 30px; }
+  .menu-card__brand {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--color-accent); margin-bottom: 10px;
+  }
+  .menu-card__title {
+    font-family: var(--font-display);
+    font-size: 20px; font-weight: 600; color: var(--color-ink);
+    margin-bottom: 8px;
+  }
+  .menu-card__sub {
+    font-size: 14px; color: var(--color-ink-soft);
+    max-width: 46ch; margin: 0 auto; line-height: 1.6;
+  }
+  .menu-card__cols {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    border-top: 1px solid var(--color-line-soft);
+    padding-top: 26px;
+  }
+  .menu-card__col h4 {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-ink); margin-bottom: 12px;
+  }
+  .menu-card__col ul { list-style: none; margin: 0 0 14px; padding: 0; }
+  .menu-card__col li {
+    font-size: 14px; color: var(--color-ink-soft);
+    padding: 3px 0 3px 14px; position: relative;
+  }
+  .menu-card__col li::before {
+    content: ''; position: absolute; left: 0; top: 12px;
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--color-accent-lt);
+  }
+  .menu-card__note {
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-ink-muted); margin-bottom: 6px;
+  }
+
+  /* ---------- O espaco ---------- */
+  .experience__grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .espaco__note {
+    text-align: center; margin: 36px auto 0;
+    max-width: 58ch; font-size: 15px;
+    color: var(--color-ink-soft); line-height: 1.7;
+  }
+  .chips {
+    display: flex; flex-wrap: wrap; align-items: center;
+    justify-content: center; gap: 8px; margin-top: 26px;
+  }
+  .chips__label {
+    font-family: var(--font-display);
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-ink-muted); margin-right: 4px;
+  }
+  .chip {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--color-line);
+    border-radius: 100px;
+    background: #fff;
+    font-size: 13px; color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 900px) {
+    .steps-grid { grid-template-columns: 1fr; gap: 26px; margin-bottom: 36px; }
+    .menu-card__cols { grid-template-columns: 1fr; gap: 24px; }
+    .menu-card { padding: 28px 22px; }
+    .experience__grid--3 { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .steps__item { font-size: 9px; letter-spacing: 0.08em; }
+    .steps__item + .steps__item::before { width: 14px; }
+    .back-btn { padding: 0 13px; }
+    .menu-card__title { font-size: 18px; }
+  }
+
+</style>
+</head>
+<body>
+
+<a href="#form-card" class="skip-link">Pular para reserva</a>
+
+<section class="hero">
+  <div class="hero-grain" aria-hidden="true"></div>
+
+  <header class="top">
+    <div class="wrap top__inner">
+      <a href="https://mariaejose.com.br/" aria-label="Maria e Jose Parrilla - site oficial">
+        <img src="https://mariaejose.com.br/wp-content/uploads/2024/12/logo-branco.png" alt="Maria e Jose Parrilla" class="top__logo" width="498" height="107" />
+      </a>
+    </div>
+  </header>
+
+  <div class="wrap hero__grid">
+
+    <div class="hero__copy">
+      <div class="hero__rating" role="img" aria-label="4,5 estrelas com 923 avaliações no Google">
+        <span class="hero__rating__stars" aria-hidden="true">★★★★★</span>
+        <span class="hero__rating__text"><b>4,5</b> <span aria-hidden="true">·</span> 923 avaliações no Google</span>
+      </div>
+
+      <h1 class="hero__title">Seu evento <b>na melhor parrilla</b> do interior paulista.</h1>
+
+      <p class="hero__lede">Casamento, aniversário, batizado ou confraternização da empresa. Três salões, cardápio montado com você e a parrilla acesa. Falamos pelo WhatsApp e desenhamos o formato junto.</p>
+
+      <ul class="hero__bullets">
+        <li>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M2 7l3 3 7-7" /></svg>
+          Três salões: fechamento parcial, total ou a casa inteira
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M2 7l3 3 7-7" /></svg>
+          Menu fechado, montado com as suas escolhas
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M2 7l3 3 7-7" /></svg>
+          Unidades em Franca/SP e Araraquara/SP
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-card" id="form-card">
+      <div class="form-card__head">
+        <h2 class="form-card__title">Vamos planejar seu evento</h2>
+        <p class="form-card__subtitle">Dois passos rápidos · sem compromisso</p>
+      </div>
+
+      <form class="form" id="form_eventos" novalidate aria-describedby="form-footnote">
+
+        <ol class="steps" aria-label="Progresso do formulário">
+          <li class="steps__item is-active" data-dot="1"><span>1</span> Contato</li>
+          <li class="steps__item" data-dot="2"><span>2</span> Detalhes</li>
+        </ol>
+
+        <!-- ============ PASSO 1 — captura o lead ============ -->
+        <div class="step" data-panel="1">
+
+          <div class="field" data-field="nome">
+            <label class="field__label" for="nome">Nome <span class="req" aria-hidden="true">*</span></label>
+            <input class="field__input" type="text" id="nome" name="nome" required autocomplete="given-name" placeholder="Como podemos te chamar?" aria-describedby="err-nome" />
+            <p class="field__error" role="alert" id="err-nome">Digite seu nome.</p>
+          </div>
+
+          <div class="field" data-field="whatsapp">
+            <label class="field__label" for="whatsapp">WhatsApp <span class="req" aria-hidden="true">*</span></label>
+            <input class="field__input" type="tel" id="whatsapp" name="whatsapp" required inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" maxlength="16" aria-describedby="err-whatsapp" />
+            <p class="field__error" role="alert" id="err-whatsapp">Digite um WhatsApp com DDD.</p>
+          </div>
+
+          <div class="field" data-field="tipo_evento">
+            <label class="field__label" for="tipo_evento">Tipo de evento <span class="req" aria-hidden="true">*</span></label>
+            <select class="field__select" id="tipo_evento" name="tipo_evento" required aria-describedby="err-tipo_evento">
+              <option value="" disabled selected>Selecione</option>
+              <option value="Casamento">Casamento</option>
+              <option value="Aniversário">Aniversário</option>
+              <option value="Batizado">Batizado</option>
+              <option value="Confraternização empresarial">Confraternização empresarial</option>
+              <option value="Outro">Outro</option>
+            </select>
+            <p class="field__error" role="alert" id="err-tipo_evento">Escolha o tipo de evento.</p>
+          </div>
+
+          <div class="field" data-field="convidados">
+            <label class="field__label" for="convidados">Quantos convidados <span class="req" aria-hidden="true">*</span></label>
+            <select class="field__select" id="convidados" name="convidados" required aria-describedby="hint-convidados err-convidados">
+              <option value="" disabled selected>Selecione</option>
+              <option value="10 a 30">10 a 30 pessoas</option>
+              <option value="31 a 60">31 a 60 pessoas</option>
+              <option value="61 a 100">61 a 100 pessoas</option>
+              <option value="Mais de 100">Mais de 100 pessoas</option>
+            </select>
+            <p class="field__hint" id="hint-convidados">Temos três salões — dá para fechar um espaço, parte da casa ou a casa inteira.</p>
+            <p class="field__error" role="alert" id="err-convidados">Escolha uma faixa.</p>
+          </div>
+
+          <button type="button" class="submit-btn" id="step-next">
+            <span class="submit-btn__text">Continuar</span>
+            <svg class="wp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </button>
+
+          <p class="form__footnote">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M2 7l3 3 7-7" /></svg>
+            Seus dados são usados apenas para falar sobre o seu evento.
+          </p>
+        </div>
+
+        <!-- ============ PASSO 2 — qualificação ============ -->
+        <div class="step" data-panel="2" hidden>
+
+          <fieldset class="field" data-field="unidade">
+            <legend class="field__label">Unidade <span class="req" aria-hidden="true">*</span></legend>
+            <div class="unit-picker">
+              <label>
+                <input type="radio" name="unidade" value="franca" required />
+                <span class="unit-picker__opt">
+                  <span class="unit-picker__opt__city">Franca/SP</span>
+                  <span class="unit-picker__opt__addr">Av. Major Nicácio, 2060 - Centro</span>
+                </span>
+              </label>
+              <label>
+                <input type="radio" name="unidade" value="araraquara" required />
+                <span class="unit-picker__opt">
+                  <span class="unit-picker__opt__city">Araraquara/SP</span>
+                  <span class="unit-picker__opt__addr">Rua Voluntários da Pátria, 1505 - Centro</span>
+                </span>
+              </label>
+            </div>
+            <p class="field__error" role="alert" id="err-unidade">Escolha uma de nossas casas.</p>
+          </fieldset>
+
+          <div class="field" data-field="data">
+            <label class="field__label" for="data">Data prevista <span class="field__optional">(opcional)</span></label>
+            <input class="field__input" type="date" id="data" name="data" aria-describedby="hint-data" placeholder="dd/mm/aaaa" />
+            <label class="checkbox">
+              <input type="checkbox" id="sem-data" name="sem_data" value="1" />
+              <span>Ainda estou decidindo a data</span>
+            </label>
+            <p class="field__hint" id="hint-data">Sem data definida também está tudo bem — a gente ajuda a escolher.</p>
+            <p class="field__error" role="alert" id="err-data">Escolha uma data válida.</p>
+          </div>
+
+          <div class="field" data-field="observacao">
+            <label class="field__label" for="observacao">Conte sobre o evento <span class="field__optional">(opcional)</span></label>
+            <textarea class="field__input field__textarea" id="observacao" name="observacao" rows="3" maxlength="400" placeholder="Preferência de salão, decoração, horário, restrições alimentares…" aria-describedby="hint-observacao"></textarea>
+            <p class="field__hint" id="hint-observacao">Quanto mais detalhe, mais rápido montamos sua proposta.</p>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="back-btn" id="step-back">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
+              Voltar
+            </button>
+            <button type="submit" class="submit-btn" id="submit-btn">
+              <span class="spinner" aria-hidden="true"></span>
+              <svg class="wp-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              <span class="submit-btn__text">Enviar pelo WhatsApp</span>
+            </button>
+          </div>
+
+          <p class="form__footnote" id="form-footnote">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M2 7l3 3 7-7" /></svg>
+            Sem compromisso. Montamos a proposta e você decide.
+          </p>
+        </div>
+      </form>
+
+      <div class="form-success" id="form-success" role="status" aria-live="polite">
+        <div class="form-success__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <h3 class="form-success__title">Recebemos seu pedido!</h3>
+        <p class="form-success__text">Confira os dados e toque no botão para falar com nossa equipe pelo WhatsApp. Já podemos começar a montar sua proposta.</p>
+
+        <div class="reservation-summary" id="reservation-summary"></div>
+
+        <p class="form-success__notice">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.5" /><path d="M8 4.5v4l2.5 1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          Tolerância de <b>15 minutos~.</b> Atrasos maiores podem liberar a mesa.
+        </p>
+
+        <a href="#" class="form-success__cta" id="whatsapp-link" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Confirmar pelo WhatsApp
+        </a>
+
+        <p class="form-success__retry">
+          Errou alguma coisa? <button type="button" id="reset-btn">Editar reserva</button>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="ambient" aria-labelledby="ambient-title">
+  <div class="wrap">
+    <div class="section-header" data-reveal>
+      <span class="eyebrow">eventos na nossa casa</span>
+      <h2 class="section-title" id="ambient-title">Como fica na prática</h2>
+    </div>
+
+    <div class="ambient__grid">
+      <div class="ambient__item" data-reveal>
+        <img src="https://mariaejose.com.br/wp-content/uploads/2026/09/mesa-batizado.png" alt="Mesa de doces decorada montada no salão" loading="lazy" width="1448" height="1086" />
+        <div class="ambient__item__caption">Mesa montada</div>
+      </div>
+      <div class="ambient__item" data-reveal style="--reveal-delay: 80ms">
+        <img src="https://mariaejose.com.br/wp-content/uploads/2026/05/salao-acolhedor-scaled.webp" alt="Salão do Maria e Jose Parrilla com mesas de madeira e teto rústico" loading="lazy" width="1200" height="1600" />
+        <div class="ambient__item__caption">Um dos três salões</div>
+      </div>
+      <div class="ambient__item" data-reveal style="--reveal-delay: 160ms">
+        <img src="https://mariaejose.com.br/wp-content/uploads/2026/09/menu-batizado.png" alt="Menu impresso personalizado com o nome do evento" loading="lazy" width="1024" height="1536" />
+        <div class="ambient__item__caption">Menu personalizado</div>
+      </div>
+      <div class="ambient__item" data-reveal style="--reveal-delay: 80ms">
+        <img src="https://mariaejose.com.br/wp-content/uploads/2026/04/capa-3-2.png" alt="Mesa servida com taças de vinho" loading="lazy" width="700" height="400" />
+        <div class="ambient__item__caption">Adega à vista</div>
+      </div>
+      <div class="ambient__item" data-reveal style="--reveal-delay: 160ms">
+        <img src="https://mariaejose.com.br/wp-content/uploads/2026/09/bolo-batizado.png" alt="Bolo do evento sobre suporte de vidro" loading="lazy" width="1086" height="1448" />
+        <div class="ambient__item__caption">Do doce ao brinde</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="experience" aria-labelledby="experience-title">
+  <div class="wrap">
+    <div class="section-header" data-reveal>
+      <span class="eyebrow">menu fechado</span>
+      <h2 class="section-title" id="experience-title">Como funciona</h2>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card" data-reveal>
+        <div class="step-card__num" aria-hidden="true">1</div>
+        <h3 class="feat__title">Você conta o formato</h3>
+        <p class="feat__text">Tipo de evento, quantas pessoas e a data prevista. Se a data ainda estiver em aberto, a gente ajuda a escolher.</p>
+      </div>
+      <div class="step-card" data-reveal style="--reveal-delay: 80ms">
+        <div class="step-card__num" aria-hidden="true">2</div>
+        <h3 class="feat__title">Montamos o menu com você</h3>
+        <p class="feat__text">Um cardápio enxuto, com as suas escolhas de entrada, corte e acompanhamento. Menu kids quando tiver criança.</p>
+      </div>
+      <div class="step-card" data-reveal style="--reveal-delay: 160ms">
+        <div class="step-card__num" aria-hidden="true">3</div>
+        <h3 class="feat__title">Reservamos o espaço</h3>
+        <p class="feat__text">Definimos qual salão, se o fechamento é parcial, total ou da casa inteira, e deixamos tudo pronto para o seu dia.</p>
+      </div>
+    </div>
+
+    <div class="menu-card" data-reveal style="--reveal-delay: 120ms">
+      <div class="menu-card__head">
+        <span class="menu-card__brand">maria e jose · parrilla argentina</span>
+        <h3 class="menu-card__title">Exemplo de menu fechado</h3>
+        <p class="menu-card__sub">Formato real usado em um batizado na casa. O seu é montado do zero, com o nome do evento impresso.</p>
+      </div>
+      <div class="menu-card__cols">
+        <div class="menu-card__col">
+          <h4>Entradas</h4>
+          <ul>
+            <li>Pão de alho da casa</li>
+            <li>Linguiça artesanal</li>
+            <li>Pastel canastra</li>
+          </ul>
+        </div>
+        <div class="menu-card__col">
+          <h4>Menu adulto</h4>
+          <p class="menu-card__note">Cortes Angus · escolha 1</p>
+          <ul>
+            <li>Filet mignon</li>
+            <li>Picanha</li>
+          </ul>
+          <p class="menu-card__note">Acompanhamentos · escolha 2</p>
+          <ul>
+            <li>Salada Recoleta</li>
+            <li>Mandioca cozida</li>
+            <li>Arroz branco</li>
+            <li>Farofa San Telmo</li>
+            <li>Batata frita</li>
+          </ul>
+        </div>
+        <div class="menu-card__col">
+          <h4>Menu kids</h4>
+          <ul>
+            <li>Filet mignon kids</li>
+            <li>Arroz e batata frita</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="espaco" aria-labelledby="espaco-title">
+  <div class="wrap">
+    <div class="section-header" data-reveal>
+      <span class="eyebrow">o espaço</span>
+      <h2 class="section-title" id="espaco-title">Três salões, do intimista ao completo</h2>
+    </div>
+
+    <div class="experience__grid experience__grid--3">
+      <div class="feat" data-reveal>
+        <h3 class="feat__title">Fechamento parcial</h3>
+        <p class="feat__text">Um salão reservado só para o seu grupo, com a casa seguindo o movimento normal ao lado.</p>
+      </div>
+      <div class="feat" data-reveal style="--reveal-delay: 80ms">
+        <h3 class="feat__title">Fechamento total</h3>
+        <p class="feat__text">Mais de um salão reservado, para grupos maiores que precisam de circulação e espaço próprio.</p>
+      </div>
+      <div class="feat" data-reveal style="--reveal-delay: 160ms">
+        <h3 class="feat__title">Casa inteira</h3>
+        <p class="feat__text">A parrilla toda sua. Exclusividade total para o evento, sem outros clientes no salão.</p>
+      </div>
+    </div>
+
+    <p class="espaco__note" data-reveal>O formato certo depende da quantidade de convidados e do que você imaginou. Definimos isso junto, na conversa.</p>
+
+    <div class="chips" data-reveal style="--reveal-delay: 80ms">
+      <span class="chips__label">Já recebemos:</span>
+      <span class="chip">Casamentos</span>
+      <span class="chip">Aniversários</span>
+      <span class="chip">Batizados</span>
+      <span class="chip">Confraternizações empresariais</span>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="section-header" data-reveal>
+      <span class="eyebrow">dúvidas frequentes</span>
+      <h2 class="section-title" id="faq-title">Antes de fechar</h2>
+    </div>
+
+    <div class="faq__list">
+      <details class="faq__item" data-reveal>
+        <summary class="faq__q">
+          Cabe quantas pessoas?
+          <span class="faq__q__icon" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10" stroke-linecap="round" /></svg>
+          </span>
+        </summary>
+        <div class="faq__a">Depende do formato. São <b>três salões</b>, e dá para reservar um deles, mais de um, ou a casa inteira. Você nos diz quantos convidados espera e a gente indica o arranjo que funciona melhor.</div>
+      </details>
+
+      <details class="faq__item" data-reveal>
+        <summary class="faq__q">
+          O que é o menu fechado?
+          <span class="faq__q__icon" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10" stroke-linecap="round" /></svg>
+          </span>
+        </summary>
+        <div class="faq__a">Um cardápio mais enxuto que o do dia a dia, montado com as suas escolhas — entradas, corte principal e acompanhamentos. Serve mais rápido, o custo fica previsível e ninguém fica esperando. Menu kids quando houver criança.</div>
+      </details>
+
+      <details class="faq__item" data-reveal>
+        <summary class="faq__q">
+          Dá para fechar a casa inteira?
+          <span class="faq__q__icon" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10" stroke-linecap="round" /></svg>
+          </span>
+        </summary>
+        <div class="faq__a">Sim. Conforme a quantidade de pessoas e a necessidade do evento, fechamos parcial, total ou a casa toda em exclusividade.</div>
+      </details>
+
+      <details class="faq__item" data-reveal>
+        <summary class="faq__q">
+          Posso levar decoração, bolo e doces?
+          <span class="faq__q__icon" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10" stroke-linecap="round" /></svg>
+          </span>
+        </summary>
+        <div class="faq__a">Sim, é o mais comum. Combinamos no atendimento o horário de montagem e como fica a disposição das mesas no salão.</div>
+      </details>
+
+      <details class="faq__item" data-reveal>
+        <summary class="faq__q">
+          Quanto custa?
+          <span class="faq__q__icon" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10" stroke-linecap="round" /></svg>
+          </span>
+        </summary>
+        <div class="faq__a">Varia com o número de convidados, o menu escolhido e o tipo de fechamento. Preencha o formulário e montamos uma proposta com os valores para o seu caso.</div>
+      </details>
+
+      <details class="faq__item" data-reveal>
+        <summary class="faq__q">
+          Com quanta antecedência preciso reservar?
+          <span class="faq__q__icon" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10" stroke-linecap="round" /></svg>
+          </span>
+        </summary>
+        <div class="faq__a">Quanto antes, melhor — datas de fim de semana e fim de ano saem primeiro. Se a sua data está próxima, fale com a gente mesmo assim: às vezes dá para encaixar.</div>
+      </details>
+
+      <details class="faq__item" data-reveal>
+        <summary class="faq__q">
+          Quais dias vocês atendem?
+          <span class="faq__q__icon" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10" stroke-linecap="round" /></svg>
+          </span>
+        </summary>
+        <div class="faq__a">De <b>terça a domingo</b>, no almoço (11h às 16h) e no jantar (18h30 às 23h). Às segundas as duas casas ficam fechadas. Para eventos, horários fora dessa grade podem ser combinados.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" aria-labelledby="final-cta-title">
+  <div class="wrap">
+    <h2 class="final-cta__title" id="final-cta-title" data-reveal>Seu evento começa <b>com uma conversa</b>.</h2>
+    <p class="final-cta__text" data-reveal style="--reveal-delay: 80ms">Conte o que você imaginou e montamos a proposta. Sem compromisso.</p>
+    <a href="#form-card" class="final-cta__btn" data-reveal style="--reveal-delay: 160ms">
+      Reservar agora
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 7h8 M7 3l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <img src="https://mariaejose.com.br/wp-content/uploads/2024/12/logo-branco.png" alt="Maria e Jose Parrilla" class="footer__logo" width="498" height="107" />
+
+    <p class="footer__hours">Terça a domingo · Almoço 11h às 16h · Jantar 18h30 às 23h</p>
+
+    <div class="footer__locations">
+      <div>
+        <div class="footer__loc__city">Franca/SP</div>
+        <div class="footer__loc__detail">
+          <a href="https://maps.google.com/?q=Av.+Major+Nicácio,+2060,+Franca+SP" target="_blank" rel="noopener">Av. Major Nicácio, 2060 - Centro</a><br>
+          <a href="https://wa.me/5516999965739" target="_blank" rel="noopener">(16) 99996-5739</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__loc__city">Araraquara/SP</div>
+        <div class="footer__loc__detail">
+          <a href="https://maps.google.com/?q=Rua+Voluntários+da+Pátria,+1505,+Araraquara+SP" target="_blank" rel="noopener">Rua Voluntários da Pátria, 1505 - Centro</a><br>
+          <a href="https://wa.me/5516997130782" target="_blank" rel="noopener">(16) 99713-0782</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__copy">© 2026 Maria & Jose Parrilla - Todos os direitos reservados</div>
+  </div>
+</footer>
+
+<div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+  <a href="#form-card" class="sticky-cta__btn">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.5" /><path d="M2 6h12 M5 1.5v3 M11 1.5v3" stroke-linecap="round" /></svg>
+    Reservar mesa
+  </a>
+</div>
+
+<script>
+  // ---------- CONFIG ----------
+  const WHATSAPP_NUMBERS = {
+    franca:     '5516999965739',
+    araraquara: '5516997130782',
+  };
+  const UNIDADE_LABEL = {
+    franca:     'Franca/SP',
+    araraquara: 'Araraquara/SP',
+  };
+
+  // ---------- DESTINO DO LEAD (n8n) ----------
+  // Mesmo workflow da pagina de reservas. O campo `origem` separa os dois na planilha.
+  const N8N_WEBHOOK = 'https://n8n.overenterprise.com.br/webhook/reservas-mej';
+  const ORIGEM = 'eventos';
+
+  // ---------- EVENT ID (deduplicacao) ----------
+  // Um id por tentativa, gerado no load. O passo 1 e o passo 2 enviam com o MESMO id:
+  // no n8n o `appendOrUpdate` atualiza a linha em vez de criar outra, e no Meta o Lead
+  // repetido e descartado (mesmo event_name + event_id em ate 48h).
+  const LEAD_EVENT_ID = 'lead_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+  let leadFired = false;      // pixel Meta
+  let analyticsFired = false; // gtag + dataLayer
+
+  // ---------- DATA: HOJE ATE +18 MESES ----------
+  // Evento se planeja com muita antecedencia, entao a janela e bem maior que a de mesa.
+  const dataInput = document.getElementById('data');
+  const today = new Date();
+  const max = new Date();
+  max.setDate(max.getDate() + 540);
+  const isoLocal = (d) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
+  dataInput.min = isoLocal(today);
+  dataInput.max = isoLocal(max);
+
+  // ---------- FLATPICKR ----------
+  // Sem bloqueio de segunda-feira: para evento, horario fora da grade normal e combinavel.
+  let fpInstance = null;
+  function initFlatpickr() {
+    if (fpInstance || typeof flatpickr !== 'function') return;
+    fpInstance = flatpickr(dataInput, {
+      locale: (typeof flatpickr.l10ns !== 'undefined' && flatpickr.l10ns.pt) ? 'pt' : 'default',
+      dateFormat: 'Y-m-d',
+      altInput: true,
+      altFormat: 'd/m/Y',
+      altInputClass: 'field__input',
+      allowInput: true,
+      minDate: 'today',
+      maxDate: max,
+      disableMobile: true,
+      parseDate: function (str) {
+        if (!str) return undefined;
+        const m = String(str).match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/);
+        if (!m) return undefined;
+        let [, d, mo, y] = m;
+        d = parseInt(d, 10); mo = parseInt(mo, 10); y = parseInt(y, 10);
+        if (y < 100) y += 2000;
+        if (d < 1 || d > 31 || mo < 1 || mo > 12) return undefined;
+        const dt = new Date(y, mo - 1, d);
+        if (dt.getDate() !== d || dt.getMonth() !== mo - 1) return undefined;
+        return dt;
+      },
+      onReady: function (_, __, instance) {
+        if (!instance.altInput) return;
+        instance.altInput.placeholder = 'dd/mm/aaaa';
+        instance.altInput.setAttribute('inputmode', 'numeric');
+        instance.altInput.setAttribute('autocomplete', 'off');
+        instance.altInput.addEventListener('input', function (e) {
+          const isDelete = e.inputType && e.inputType.indexOf('delete') === 0;
+          let cleaned = e.target.value.replace(/[^\d/]/g, '').slice(0, 10);
+          const parts = cleaned.split('/');
+          if (parts.length > 3) cleaned = parts.slice(0, 3).join('/') + parts.slice(3).join('');
+          if (cleaned.indexOf('/') === -1) {
+            const digits = cleaned;
+            let out = '';
+            for (let k = 0; k < digits.length; k++) {
+              if (k === 2 || k === 4) out += '/';
+              out += digits[k];
+            }
+            if (!isDelete && (digits.length === 2 || digits.length === 4)) out += '/';
+            cleaned = out;
+          }
+          e.target.value = cleaned;
+        });
+      },
+      onChange: function () {
+        if (dataInput.value) semDataInput.checked = false;
+        setFieldValid('data', true);
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFlatpickr);
+  } else {
+    setTimeout(initFlatpickr, 0);
+  }
+  window.addEventListener('load', initFlatpickr);
+
+  // ---------- MASCARA WHATSAPP ----------
+  const whatsappInput = document.getElementById('whatsapp');
+  const isIntlPhone = (raw) => /^\s*(\+|00)/.test(raw);
+  whatsappInput.addEventListener('input', (e) => {
+    const raw = e.target.value;
+    if (isIntlPhone(raw)) {
+      const digits = raw.replace(/\D/g, '').replace(/^0+/, '').slice(0, 15);
+      e.target.value = '+' + digits;
+      return;
+    }
+    let v = raw.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 10) {
+      v = v.replace(/^(\d{2})(\d{5})(\d{0,4})$/, '($1) $2-$3');
+    } else if (v.length > 6) {
+      v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+    } else if (v.length > 2) {
+      v = v.replace(/^(\d{2})(\d{0,5})$/, '($1) $2');
+    } else if (v.length > 0) {
+      v = v.replace(/^(\d{0,2})$/, '($1');
+    }
+    e.target.value = v;
+  });
+
+  // ---------- VALIDACAO ----------
+  const semDataInput = document.getElementById('sem-data');
+
+  function setFieldValid(name, valid, customMsg) {
+    const field = document.querySelector(`[data-field="${name}"]`);
+    if (!field) return;
+    field.classList.toggle('is-invalid', !valid);
+    const control = field.querySelector('input, select, textarea');
+    if (control) {
+      if (valid) control.removeAttribute('aria-invalid');
+      else control.setAttribute('aria-invalid', 'true');
+    }
+    const errEl = field.querySelector('.field__error');
+    if (errEl && customMsg) errEl.textContent = customMsg;
+  }
+
+  function validateNome() {
+    const ok = document.getElementById('nome').value.trim().length >= 2;
+    setFieldValid('nome', ok);
+    return ok;
+  }
+  function validateWhatsapp() {
+    const raw = document.getElementById('whatsapp').value;
+    const v = raw.replace(/\D/g, '');
+    const ok = isIntlPhone(raw) ? v.length >= 8 : v.length >= 10;
+    setFieldValid('whatsapp', ok);
+    return ok;
+  }
+  function validateTipoEvento() {
+    const ok = !!document.getElementById('tipo_evento').value;
+    setFieldValid('tipo_evento', ok);
+    return ok;
+  }
+  function validateConvidados() {
+    const ok = !!document.getElementById('convidados').value;
+    setFieldValid('convidados', ok);
+    return ok;
+  }
+  function validateUnidade() {
+    const ok = !!document.querySelector('input[name="unidade"]:checked');
+    setFieldValid('unidade', ok);
+    return ok;
+  }
+  // Data e opcional: so reprova se preencheram algo invalido ou uma data passada.
+  function validateData() {
+    if (semDataInput.checked) { setFieldValid('data', true); return true; }
+    const v = dataInput.value;
+    if (!v) { setFieldValid('data', true); return true; }
+    const [y, m, d] = v.split('-').map(Number);
+    const dt = new Date(y, m - 1, d);
+    if (isNaN(dt.getTime())) {
+      setFieldValid('data', false, 'Data inválida. Use dd/mm/aaaa.');
+      return false;
+    }
+    const isPast = dt < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    if (isPast) {
+      setFieldValid('data', false, 'Escolha uma data a partir de hoje.');
+      return false;
+    }
+    setFieldValid('data', true);
+    return true;
+  }
+
+  semDataInput.addEventListener('change', () => {
+    if (semDataInput.checked) {
+      if (fpInstance) fpInstance.clear(); else dataInput.value = '';
+      setFieldValid('data', true);
+    }
+  });
+
+  // Validacao ao vivo so depois da primeira tentativa em cada passo.
+  const attempted = { 1: false, 2: false };
+  function gate(step, fn) {
+    return () => { if (attempted[step]) fn(); };
+  }
+  document.getElementById('nome').addEventListener('blur', gate(1, validateNome));
+  document.getElementById('nome').addEventListener('input', gate(1, validateNome));
+  whatsappInput.addEventListener('blur', gate(1, validateWhatsapp));
+  whatsappInput.addEventListener('input', gate(1, validateWhatsapp));
+  document.getElementById('tipo_evento').addEventListener('change', gate(1, validateTipoEvento));
+  document.getElementById('convidados').addEventListener('change', gate(1, validateConvidados));
+  document.querySelectorAll('input[name="unidade"]').forEach(r =>
+    r.addEventListener('change', gate(2, validateUnidade)));
+
+  function focusFirstInvalid(panel) {
+    const bad = panel.querySelector('.is-invalid');
+    if (!bad) return;
+    bad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const focusable = bad.querySelector('input, select, textarea');
+    if (focusable) focusable.focus({ preventScroll: true });
+  }
+
+  // ---------- NAVEGACAO ENTRE PASSOS ----------
+  const form = document.getElementById('form_eventos');
+  const formCard = document.getElementById('form-card');
+  const panel1 = form.querySelector('[data-panel="1"]');
+  const panel2 = form.querySelector('[data-panel="2"]');
+  const dot1 = form.querySelector('[data-dot="1"]');
+  const dot2 = form.querySelector('[data-dot="2"]');
+  const nextBtn = document.getElementById('step-next');
+  const backBtn = document.getElementById('step-back');
+
+  function goToStep(n) {
+    panel1.hidden = n !== 1;
+    panel2.hidden = n !== 2;
+    dot1.classList.toggle('is-active', n === 1);
+    dot1.classList.toggle('is-done', n === 2);
+    dot2.classList.toggle('is-active', n === 2);
+    formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function collect() {
+    const fd = new FormData(form);
+    const unidadeSlug = fd.get('unidade') || '';
+    return {
+      nome: (fd.get('nome') || '').trim(),
+      whatsapp: fd.get('whatsapp') || '',
+      tipo_evento: fd.get('tipo_evento') || '',
+      convidados: fd.get('convidados') || '',
+      unidade_slug: unidadeSlug,
+      unidade: UNIDADE_LABEL[unidadeSlug] || '',
+      data: semDataInput.checked ? '' : (fd.get('data') || ''),
+      sem_data: semDataInput.checked,
+      observacao: (fd.get('observacao') || '').trim(),
+    };
+  }
+
+  nextBtn.addEventListener('click', () => {
+    attempted[1] = true;
+    const ok = [
+      validateNome(),
+      validateWhatsapp(),
+      validateTipoEvento(),
+      validateConvidados(),
+    ].every(Boolean);
+
+    if (!ok) { focusFirstInvalid(panel1); return; }
+
+    const data = collect();
+
+    // O lead esta capturado AQUI. Quem abandonar o passo 2 ja virou lead.
+    fireLead(data);
+    sendLead(data, 'parcial');
+
+    goToStep(2);
+  });
+
+  backBtn.addEventListener('click', () => goToStep(1));
+
+  // ---------- PIXEL ----------
+  // Fonte unica: o Lead sai daqui. Se o GTM ganhar uma tag de Lead que tambem
+  // pegue esta pagina, remova uma das duas — senao sao dois Leads por pessoa.
+  // `leadFired` impede o disparo repetido; o eventID e a segunda camada.
+  function fireLead(data) {
+    if (typeof fbq === 'function' && !leadFired) {
+      fbq('track', 'Lead', {
+        content_name: 'Evento',
+        content_category: data.tipo_evento,
+        faixa_convidados: data.convidados,
+      }, { eventID: LEAD_EVENT_ID }); // 4o parametro, NUNCA dentro do custom data
+      leadFired = true;
+    }
+    if (analyticsFired) return;
+    analyticsFired = true;
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        method: 'whatsapp_evento',
+        origem: ORIGEM,
+        tipo_evento: data.tipo_evento,
+        faixa_convidados: data.convidados,
+      });
+    }
+    const digits = data.whatsapp.replace(/\D/g, '');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'generate_lead',
+      event_id: LEAD_EVENT_ID,
+      method: 'whatsapp_evento',
+      origem: ORIGEM,
+      telefone: isIntlPhone(data.whatsapp) ? '+' + digits : '+55' + digits,
+      tipo_evento: data.tipo_evento,
+      faixa_convidados: data.convidados,
+    });
+  }
+
+  // ---------- ENVIO AO N8N ----------
+  function getCookie(name) {
+    const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return m ? m.pop() : '';
+  }
+
+  // Fire-and-forget: nunca bloqueia o fluxo do WhatsApp nem quebra se falhar.
+  // Passo 1 manda `parcial`, passo 2 manda `completo` com o MESMO event_id —
+  // o n8n faz upsert e a linha e atualizada em vez de duplicada.
+  function sendLead(data, status) {
+    const qs = new URLSearchParams(location.search);
+    const fbclid = qs.get('fbclid') || '';
+    fetch(N8N_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true, // sobrevive ao window.open do WhatsApp
+      body: JSON.stringify({
+        event_id: LEAD_EVENT_ID,
+        origem: ORIGEM,
+        status: status,
+        nome: data.nome,
+        whatsapp: data.whatsapp,
+        tipo_evento: data.tipo_evento,
+        convidados: data.convidados,
+        // Espelha na chave `pessoas` porque o Code node do n8n ja mapeia essa coluna.
+        pessoas: data.convidados,
+        unidade: data.unidade,
+        unidade_slug: data.unidade_slug,
+        data: data.data,
+        sem_data: data.sem_data ? 'sim' : '',
+        observacao: data.observacao,
+        enviado_em: new Date().toISOString(),
+        url: location.href,
+        utm_source: qs.get('utm_source') || '',
+        utm_campaign: qs.get('utm_campaign') || '',
+        utm_content: qs.get('utm_content') || '',
+        fbclid: fbclid,
+        fbp: getCookie('_fbp'),
+        fbc: getCookie('_fbc') || (fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : ''),
+      }),
+    }).catch(() => { /* silencioso: o WhatsApp e o caminho principal */ });
+  }
+
+  // ---------- SUBMIT (passo 2) ----------
+  const submitBtn = document.getElementById('submit-btn');
+  const successEl = document.getElementById('form-success');
+  const whatsappLink = document.getElementById('whatsapp-link');
+  const summaryEl = document.getElementById('reservation-summary');
+  const resetBtn = document.getElementById('reset-btn');
+
+  function formatDateBR(iso) {
+    if (!iso) return '';
+    const [y, m, d] = iso.split('-');
+    return `${d}/${m}/${y}`;
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    attempted[2] = true;
+
+    const ok = [validateUnidade(), validateData()].every(Boolean);
+    if (!ok) { focusFirstInvalid(panel2); return; }
+
+    submitBtn.classList.add('is-loading');
+    submitBtn.disabled = true;
+    submitBtn.querySelector('.submit-btn__text').textContent = 'Enviando…';
+
+    const data = collect();
+    const dataLabel = data.data ? formatDateBR(data.data) : 'A definir';
+
+    summaryEl.innerHTML = `
+      <div class="reservation-summary__row"><span class="reservation-summary__key">Nome</span><span class="reservation-summary__val">${escapeHtml(data.nome)}</span></div>
+      <div class="reservation-summary__row"><span class="reservation-summary__key">Evento</span><span class="reservation-summary__val">${escapeHtml(data.tipo_evento)}</span></div>
+      <div class="reservation-summary__row"><span class="reservation-summary__key">Convidados</span><span class="reservation-summary__val">${escapeHtml(data.convidados)}</span></div>
+      <div class="reservation-summary__row"><span class="reservation-summary__key">Casa</span><span class="reservation-summary__val">${escapeHtml(data.unidade)}</span></div>
+      <div class="reservation-summary__row"><span class="reservation-summary__key">Data</span><span class="reservation-summary__val">${escapeHtml(dataLabel)}</span></div>
+      ${data.observacao ? `<div class="reservation-summary__row"><span class="reservation-summary__key">Sobre</span><span class="reservation-summary__val">${escapeHtml(data.observacao)}</span></div>` : ''}
+    `;
+
+    const msg =
+      `Olá! Gostaria de falar sobre um evento no Maria e Jose Parrilla.\n\n` +
+      `*Nome:* ${data.nome}\n` +
+      `*Tipo de evento:* ${data.tipo_evento}\n` +
+      `*Convidados:* ${data.convidados}\n` +
+      `*Unidade:* ${data.unidade}\n` +
+      `*Data prevista:* ${dataLabel}\n` +
+      `*WhatsApp:* ${data.whatsapp}\n` +
+      (data.observacao ? `*Sobre o evento:* ${data.observacao}\n` : '');
+
+    const url = `https://wa.me/${WHATSAPP_NUMBERS[data.unidade_slug]}?text=${encodeURIComponent(msg)}`;
+    whatsappLink.href = url;
+
+    // Atualiza a linha ja criada no passo 1 (mesmo event_id).
+    sendLead(data, 'completo');
+    // Rede de seguranca: se o pixel ainda nao carregara no passo 1, dispara agora.
+    fireLead(data);
+
+    setTimeout(() => {
+      formCard.classList.add('is-submitted');
+      successEl.classList.add('is-active');
+      formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => { window.open(url, '_blank'); }, 800);
+    }, 400);
+  });
+
+  resetBtn.addEventListener('click', () => {
+    submitBtn.classList.remove('is-loading');
+    submitBtn.disabled = false;
+    submitBtn.querySelector('.submit-btn__text').textContent = 'Enviar pelo WhatsApp';
+    formCard.classList.remove('is-submitted');
+    successEl.classList.remove('is-active');
+    goToStep(2);
+  });
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  // ---------- STICKY CTA MOBILE ----------
+  const stickyCta = document.getElementById('sticky-cta');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      const formInView = entries[0].isIntersecting;
+      const submitted = formCard.classList.contains('is-submitted');
+      const show = !formInView && !submitted;
+      stickyCta.classList.toggle('is-visible', show);
+      stickyCta.setAttribute('aria-hidden', show ? 'false' : 'true');
+      document.body.classList.toggle('has-sticky-cta', show);
+    }, { rootMargin: '-80px 0px -200px 0px', threshold: 0 });
+    io.observe(formCard);
+  }
+
+  // ---------- SCROLL REVEAL ----------
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const reveal = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          reveal.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    document.querySelectorAll('[data-reveal]').forEach(el => reveal.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-revealed'));
+  }
+</script>
+
+</body>
+</html>

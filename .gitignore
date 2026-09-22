@@ -1,0 +1,7 @@
+# arquivos locais do editor e do sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# configuracao local da sessao, nao entra no repositorio publico
+.claude/settings.local.json
