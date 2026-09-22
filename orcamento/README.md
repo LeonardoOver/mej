@@ -19,17 +19,17 @@ Os arquivos ficam no GitHub e são servidos pelo GitHub Pages. O widget do Eleme
 
 ### Primeira vez
 
-1. Crie um repositório **público** no GitHub (Pages gratuito exige público).
-2. No terminal, dentro da pasta do projeto:
+Já está feito. O repositório é [LeonardoOver/mej](https://github.com/LeonardoOver/mej) e o Pages serve em `https://leonardoover.github.io/mej/`.
 
-   ```bash
-   git remote add origin https://github.com/SEU-USUARIO/SEU-REPO.git
-   git push -u origin main
-   ```
+As três páginas do projeto seguem o mesmo formato:
 
-3. No GitHub: **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)`**. Salve e espere o primeiro build, que leva um ou dois minutos.
-4. Confira se a página responde em `https://SEU-USUARIO.github.io/SEU-REPO/orcamento/`.
-5. Abra `embed.html`, troque `SEU-USUARIO` e `SEU-REPO` pelos nomes reais e cole o conteúdo num widget **HTML** do Elementor, dentro de uma **seção de largura total** com padding lateral **0**.
+| Página | Preview no Pages | Colar no Elementor |
+|---|---|---|
+| Orçamento | `https://leonardoover.github.io/mej/orcamento/` | `orcamento/embed.html` |
+| Eventos | `https://leonardoover.github.io/mej/eventos/` | `eventos/embed.html` |
+| Reservas | `https://leonardoover.github.io/mej/reservas/` | `reservas/embed.html` |
+
+Cada `embed.html` já vem com as URLs reais. Cole o conteúdo num widget **HTML** do Elementor, dentro de uma **seção de largura total** com padding lateral **0**.
 
 ### Depois disso
 
