@@ -2,29 +2,50 @@
 
 Página de orçamento online, mobile first, com cálculo em tempo real, desconto automático de dia de semana e envio da cotação pelo WhatsApp.
 
-Arquivo único: [`index.html`](index.html). Sem build, sem dependência de framework.
+Sem build e sem framework. Servido pelo GitHub Pages, carregado pelo Elementor em três linhas.
 
 ---
 
-## 1. Como publicar no WordPress + Elementor
+## 1. Como publicar
 
-1. Crie uma página nova no WordPress (ex.: `/orcamento`).
-2. Edite com o Elementor e adicione uma **seção de largura total** (Full Width), com padding lateral **0**.
-3. Dentro dela, adicione o widget **HTML**.
-4. Abra `index.html`, copie tudo que está entre os comentários:
+Os arquivos ficam no GitHub e são servidos pelo GitHub Pages. O widget do Elementor guarda só três linhas e nunca mais precisa ser editado: publicar uma alteração é um `git push`.
 
+| Arquivo | O que é |
+|---|---|
+| `app.css` | Todo o CSS, escopado em `.mejo` |
+| `app.js` | Todo o comportamento, com o markup da página dentro |
+| `index.html` | Casca fina, sem markup próprio. Serve para preview local e é a página do GitHub Pages |
+| `embed.html` | O trecho para colar no Elementor, uma vez só |
+
+### Primeira vez
+
+1. Crie um repositório **público** no GitHub (Pages gratuito exige público).
+2. No terminal, dentro da pasta do projeto:
+
+   ```bash
+   git remote add origin https://github.com/SEU-USUARIO/SEU-REPO.git
+   git push -u origin main
    ```
-   <!-- INICIO DO BLOCO PARA O ELEMENTOR -->
-   ...
-   <!-- FIM DO BLOCO PARA O ELEMENTOR -->
-   ```
 
-   e cole no widget HTML. **Não** copie `<!doctype html>`, `<html>`, `<head>`, `</body>` nem `</html>`.
-5. Publique.
+3. No GitHub: **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)`**. Salve e espere o primeiro build, que leva um ou dois minutos.
+4. Confira se a página responde em `https://SEU-USUARIO.github.io/SEU-REPO/orcamento/`.
+5. Abra `embed.html`, troque `SEU-USUARIO` e `SEU-REPO` pelos nomes reais e cole o conteúdo num widget **HTML** do Elementor, dentro de uma **seção de largura total** com padding lateral **0**.
 
-O bloco já traz as fontes (Google Fonts), o Flatpickr (calendário), todo o CSS e todo o JavaScript. O CSS está inteiramente escopado em `.mejo`, então não vaza para o tema e o tema não quebra a página.
+### Depois disso
 
-**Dica:** se o tema aplicar um container estreito, use Elementor → Layout da seção → Largura do conteúdo: Largura total.
+```bash
+git add -A && git commit -m "ajuste" && git push
+```
+
+O GitHub Pages guarda o arquivo em cache por cerca de 10 minutos. Para conferir na hora, abra a URL do `app.js` com `?v=2` no fim, ou use uma janela anônima.
+
+### Preços e regras sem tocar no GitHub
+
+O `embed.html` traz um bloco comentado com `window.MEJ_ORCAMENTO_CONFIG`. Descomentar e ajustar ali muda preços, desconto, webhook e limites de ambiente direto pelo Elementor, sem commit. Detalhes na seção 2.
+
+### Por que não um iframe
+
+Seria mais simples de montar e pior de usar. `position: fixed` dentro de um iframe se prende ao iframe, não à janela, então a barra fixa com o total sai da tela no celular e a barra de progresso sticky para de funcionar. A rolagem entre sub-etapas mexeria no conteúdo do iframe em vez da página, e o GTM do site não enxergaria os eventos. O carregador mantém tudo no documento da página e nada disso muda.
 
 ---
 
