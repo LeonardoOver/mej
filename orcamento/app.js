@@ -24,20 +24,20 @@
          alt="" aria-hidden="true" fetchpriority="high" width="1600" height="900" />
     <div class="mejo-hero__inner">
       <img class="mejo-hero__logo" src="https://mariaejose.com.br/wp-content/uploads/2024/12/logo-branco.png"
-           alt="Maria e Jose Parrilla" width="260" height="62" />
-      <p class="mejo-eyebrow mejo-hero__eyebrow">Orcamento online</p>
+           alt="Maria e José Parrilla" width="260" height="62" />
+      <p class="mejo-eyebrow mejo-hero__eyebrow">Orçamento online</p>
       <h1 class="mejo-hero__title">Monte seu evento<strong>e veja o valor na hora</strong></h1>
       <p class="mejo-hero__sub">
-        Escolha data, ambiente e cardapio. O valor por pessoa e o total aparecem
-        na tela conforme voce escolhe, sem precisar esperar atendimento.
+        Escolha data, ambiente e cardápio. O valor por pessoa e o total aparecem
+        na tela conforme você escolhe, sem precisar esperar atendimento.
       </p>
       <a href="#mejo-form" class="mejo-btn mejo-btn--accent mejo-btn--lg" id="mejo-start" style="max-width:340px;margin:0 auto;">
-        Comecar minha cotacao
+        Começar minha cotação
       </a>
       <div class="mejo-hero__badges">
-        <span class="mejo-hero__badge">20% off de terca a quinta</span>
+        <span class="mejo-hero__badge">20% off de terça a quinta</span>
         <span class="mejo-hero__badge">3 ambientes</span>
-        <span class="mejo-hero__badge">Menu ou rodizio</span>
+        <span class="mejo-hero__badge">Menu ou rodízio</span>
       </div>
     </div>
   </header>
@@ -52,7 +52,7 @@
         <span class="mejo-progress__step is-active" data-pstep="1">Dados</span>
         <span class="mejo-progress__step" data-pstep="2">Ambiente</span>
         <span class="mejo-progress__step" data-pstep="3">Consumo</span>
-        <span class="mejo-progress__step" data-pstep="4">Cardapio</span>
+        <span class="mejo-progress__step" data-pstep="4">Cardápio</span>
         <span class="mejo-progress__step" data-pstep="5">Resumo</span>
       </div>
       <p class="mejo-progress__now" id="mejo-progress-now"></p>
@@ -69,7 +69,7 @@
         <div class="mejo-step__head">
           <p class="mejo-eyebrow">Etapa 1 de 5</p>
           <h2 class="mejo-h2">Dados do evento</h2>
-          <p class="mejo-lead">Comece pelo basico. Leva menos de um minuto.</p>
+          <p class="mejo-lead">Comece pelo básico. Leva menos de um minuto.</p>
         </div>
 
         <div class="mejo-field">
@@ -91,9 +91,9 @@
           <input class="mejo-input" type="date" id="mejo-data" />
           <label class="mejo-check">
             <input type="checkbox" id="mejo-sem-data" />
-            <span>Ainda nao tenho a data definida</span>
+            <span>Ainda não tenho a data definida</span>
           </label>
-          <p class="mejo-error" id="mejo-err-data">Escolha uma data ou marque a opcao acima.</p>
+          <p class="mejo-error" id="mejo-err-data">Escolha uma data ou marque a opção acima.</p>
           <p class="mejo-hint" id="mejo-dia-detect"></p>
         </div>
 
@@ -103,12 +103,12 @@
             <option value="">Selecione o dia</option>
           </select>
           <p class="mejo-error" id="mejo-err-dia">Escolha o dia da semana.</p>
-          <p class="mejo-hint">De terca a quinta o evento tem <strong>20% de desconto</strong>.</p>
+          <p class="mejo-hint">De terça a quinta o evento tem <strong>20% de desconto</strong>.</p>
         </div>
 
         <div class="mejo-block">
           <p class="mejo-block__title">Turno <span class="mejo-req">*</span></p>
-          <p class="mejo-block__hint">Almoco ou jantar.</p>
+          <p class="mejo-block__hint">Almoço ou jantar.</p>
           <div class="mejo-options mejo-options--2" id="mejo-turnos"></div>
           <p class="mejo-error" id="mejo-err-turno">Escolha o turno.</p>
         </div>
@@ -120,7 +120,7 @@
           <div class="mejo-field" id="mejo-field-tema-outro" hidden style="margin-top:12px;margin-bottom:0">
             <label class="mejo-label" for="mejo-tema-outro">Qual?</label>
             <input class="mejo-input" type="text" id="mejo-tema-outro" maxlength="60"
-                   placeholder="Ex.: formatura, confraternizacao da empresa" />
+                   placeholder="Ex.: formatura, confraternização da empresa" />
           </div>
           <p class="mejo-error" id="mejo-err-tema">Escolha o tema do evento.</p>
         </div>
@@ -137,32 +137,32 @@
         <div class="mejo-step__head">
           <p class="mejo-eyebrow">Etapa 2 de 5</p>
           <h2 class="mejo-h2">Convidados e ambiente</h2>
-          <p class="mejo-lead">O numero de convidados define o valor total e quais ambientes ficam disponiveis.</p>
+          <p class="mejo-lead">O número de convidados define o valor total e quais ambientes ficam disponíveis.</p>
         </div>
 
         <div class="mejo-field">
-          <label class="mejo-label" for="mejo-conv">Numero de convidados <span class="mejo-req">*</span></label>
+          <label class="mejo-label" for="mejo-conv">Número de convidados <span class="mejo-req">*</span></label>
           <div class="mejo-stepper" style="width:max-content">
             <button type="button" class="mejo-stepper__btn" data-conv="-10" aria-label="Diminuir 10 convidados">&minus;</button>
             <input class="mejo-stepper__input" type="number" id="mejo-conv" inputmode="numeric"
                    min="1" step="1" style="width:78px" />
             <button type="button" class="mejo-stepper__btn" data-conv="10" aria-label="Aumentar 10 convidados">+</button>
           </div>
-          <p class="mejo-error" id="mejo-err-conv">Informe um numero inteiro de convidados, maior que zero.</p>
+          <p class="mejo-error" id="mejo-err-conv">Informe um número inteiro de convidados, maior que zero.</p>
           <p class="mejo-hint" id="mejo-conv-hint"></p>
         </div>
 
         <div class="mejo-block">
           <p class="mejo-block__title">Ambiente privativo? <span class="mejo-req">*</span></p>
-          <p class="mejo-block__hint">Um espaco reservado so para o seu grupo.</p>
+          <p class="mejo-block__hint">Um espaço reservado só para o seu grupo.</p>
           <div class="mejo-options mejo-options--2" id="mejo-privativo"></div>
           <p class="mejo-error" id="mejo-err-privativo">Responda se deseja ambiente privativo.</p>
           <p class="mejo-hint" id="mejo-privativo-nota"></p>
         </div>
 
         <div class="mejo-block">
-          <p class="mejo-block__title">Preferencia de ambiente <span class="mejo-req">*</span></p>
-          <p class="mejo-block__hint">A disponibilidade da data e do espaco e confirmada pela nossa equipe.</p>
+          <p class="mejo-block__title">Preferência de ambiente <span class="mejo-req">*</span></p>
+          <p class="mejo-block__hint">A disponibilidade da data e do espaço é confirmada pela nossa equipe.</p>
           <div class="mejo-place" id="mejo-ambientes"></div>
           <p class="mejo-error" id="mejo-err-ambiente">Escolha um ambiente.</p>
         </div>
@@ -191,10 +191,10 @@
         </div>
 
         <div class="mejo-block" id="mejo-block-cardapio">
-          <p class="mejo-block__title">Cardapio personalizado impresso? <span class="mejo-req">*</span></p>
+          <p class="mejo-block__title">Cardápio personalizado impresso? <span class="mejo-req">*</span></p>
           <p class="mejo-block__hint" id="mejo-cardapio-hint">Menus impressos com o nome do seu evento nas mesas.</p>
           <div class="mejo-options mejo-options--2" id="mejo-impresso"></div>
-          <p class="mejo-error" id="mejo-err-impresso">Responda sobre o cardapio impresso.</p>
+          <p class="mejo-error" id="mejo-err-impresso">Responda sobre o cardápio impresso.</p>
         </div>
 
         <div class="mejo-alert" id="mejo-alert-3"></div>
@@ -206,11 +206,11 @@
       </section>
 
       <!-- ---------- ETAPA 4: CARDAPIO ---------- -->
-      <section class="mejo-step" data-step="4" aria-label="Cardapio">
+      <section class="mejo-step" data-step="4" aria-label="Cardápio">
         <div class="mejo-step__head">
           <p class="mejo-eyebrow">Etapa 4 de 5</p>
-          <h2 class="mejo-h2">Monte seu cardapio</h2>
-          <p class="mejo-lead">Selecione os itens que gostaria de incluir e obtenha seu orcamento na hora.</p>
+          <h2 class="mejo-h2">Monte seu cardápio</h2>
+          <p class="mejo-lead">Selecione os itens que gostaria de incluir e obtenha seu orçamento na hora.</p>
         </div>
 
         <div class="mejo-sub" id="mejo-sub" hidden>
@@ -230,16 +230,16 @@
 
         <div class="mejo-nav">
           <button type="button" class="mejo-nav__back" data-back="4">&larr; Voltar</button>
-          <button type="button" class="mejo-btn mejo-btn--dark" data-next="4">Ver cotacao</button>
+          <button type="button" class="mejo-btn mejo-btn--dark" data-next="4">Ver cotação</button>
         </div>
       </section>
 
       <!-- ---------- ETAPA 5: RESUMO ---------- -->
-      <section class="mejo-step" data-step="5" aria-label="Sua cotacao">
+      <section class="mejo-step" data-step="5" aria-label="Sua cotação">
         <div class="mejo-quote">
           <div class="mejo-quote__head">
-            <p class="mejo-quote__eyebrow">Maria &amp; Jose Parrilla</p>
-            <p class="mejo-quote__title">Sua cotacao</p>
+            <p class="mejo-quote__eyebrow">Maria &amp; José Parrilla</p>
+            <p class="mejo-quote__title">Sua cotação</p>
           </div>
           <div class="mejo-quote__body">
 
@@ -265,8 +265,8 @@
               </div>
 
               <p class="mejo-disclaimer">
-                Esta e uma estimativa de investimento. A confirmacao da disponibilidade
-                da data, ambiente e demais condicoes sera realizada pela nossa equipe.
+                Esta é uma estimativa de investimento. A confirmação da disponibilidade
+                da data, ambiente e demais condições será realizada pela nossa equipe.
               </p>
             </div>
 
@@ -277,7 +277,7 @@
               </a>
 
               <p class="mejo-actions__note">
-                Nao encontrou exatamente o que procura?<br />
+                Não encontrou exatamente o que procura?<br />
                 Nossa equipe pode criar uma proposta personalizada para o seu evento.
               </p>
               <a href="#" class="mejo-btn mejo-btn--accent mejo-btn--lg" id="mejo-cta-proposta" target="_blank" rel="noopener">
@@ -286,7 +286,7 @@
 
               <button type="button" class="mejo-edit" data-back="5">&larr; Voltar e editar</button>
               <p class="mejo-copy">
-                <button type="button" class="mejo-copy__btn" id="mejo-copy">Copiar link desta cotacao</button>
+                <button type="button" class="mejo-copy__btn" id="mejo-copy">Copiar link desta cotação</button>
               </p>
             </div>
 
@@ -295,7 +295,7 @@
       </section>
 
       <p class="mejo-ajuda">
-        Ficou com duvida no meio do caminho?
+        Ficou com dúvida no meio do caminho?
         <a href="https://wa.me/5516982540005" target="_blank" rel="noopener" id="mejo-ajuda-link">
           Fale com nossa equipe
         </a>
@@ -319,12 +319,12 @@
   <!-- ================= FOOTER ================= -->
   <footer class="mejo-foot">
     <img class="mejo-foot__logo" src="https://mariaejose.com.br/wp-content/uploads/2024/12/logo-branco.png"
-         alt="Maria e Jose Parrilla" loading="lazy" width="190" height="42" />
+         alt="Maria e José Parrilla" loading="lazy" width="190" height="42" />
     <p class="mejo-foot__txt">
-      Duvidas sobre o seu evento?<br />
+      Dúvidas sobre o seu evento?<br />
       <a href="https://wa.me/5516982540005" target="_blank" rel="noopener">(16) 98254-0005</a>
     </p>
-    <p class="mejo-foot__copy">&copy; 2026 Maria &amp; Jose Parrilla. Todos os direitos reservados</p>
+    <p class="mejo-foot__copy">&copy; 2026 Maria &amp; José Parrilla. Todos os direitos reservados</p>
   </footer>
 
 </div>
@@ -363,14 +363,14 @@
     /* ---- dias disponiveis para cotacao ---- */
     // PENDENCIA DE VALIDACAO: segunda-feira (1) fica fora ate o restaurante definir.
     diasSemana: [
-      { v: 2, label: 'Terca-feira' },
+      { v: 2, label: 'Terça-feira' },
       { v: 3, label: 'Quarta-feira' },
       { v: 4, label: 'Quinta-feira' },
       { v: 5, label: 'Sexta-feira' },
-      { v: 6, label: 'Sabado' },
+      { v: 6, label: 'Sábado' },
       { v: 0, label: 'Domingo' }
     ],
-    msgDiaIndisponivel: 'Essa data cai em um dia que ainda nao esta aberto para cotacao online. Escolha outra data ou fale com nossa equipe pelo WhatsApp.',
+    msgDiaIndisponivel: 'Essa data cai em um dia que ainda não está aberto para cotação online. Escolha outra data ou fale com nossa equipe pelo WhatsApp.',
     maxDiasFuturo: 540,                 // janela do calendario (18 meses)
 
     /* ---- convidados ---- */
@@ -382,16 +382,16 @@
     /* ---- turno ---- */
     // PENDENCIA DE VALIDACAO: turno nao altera preco nem disponibilidade.
     turnos: [
-      { id: 'almoco', label: 'Almoco', desc: 'Evento durante o dia' },
-      { id: 'jantar', label: 'Jantar', desc: 'Evento a noite' }
+      { id: 'almoco', label: 'Almoço', desc: 'Evento durante o dia' },
+      { id: 'jantar', label: 'Jantar', desc: 'Evento à noite' }
     ],
 
     /* ---- tema ---- */
     temas: [
       { id: 'casamento',     label: 'Casamento / Noivado' },
       { id: 'batizado',      label: 'Batizado' },
-      { id: 'aniv-adulto',   label: 'Aniversario adulto' },
-      { id: 'aniv-infantil', label: 'Aniversario infantil' },
+      { id: 'aniv-adulto',   label: 'Aniversário adulto' },
+      { id: 'aniv-infantil', label: 'Aniversário infantil' },
       { id: 'bodas',         label: 'Bodas' },
       { id: 'outro',         label: 'Outro' }
     ],
@@ -404,7 +404,7 @@
       afetaPreco: false,
       filtraAmbientes: false,
       taxa: { tipo: 'nenhuma', valor: 0 },
-      nota: 'Registramos sua preferencia. A exclusividade do espaco e confirmada pela equipe no atendimento.'
+      nota: 'Registramos sua preferência. A exclusividade do espaço é confirmada pela equipe no atendimento.'
     },
 
     /* ---- ambientes ---- */
@@ -412,22 +412,22 @@
     // e se algum ambiente tem taxa. min/max null = sem validacao ("sob consulta").
     ambientes: [
       {
-        id: 'fonte', nome: 'Salao da Fonte',
-        desc: 'Salao interno com a fonte, mesas de madeira e luz baixa.',
+        id: 'fonte', nome: 'Salão da Fonte',
+        desc: 'Salão interno com a fonte, mesas de madeira e luz baixa.',
         min: 50, max: null, privativo: true,
         foto: 'https://mariaejose.com.br/wp-content/uploads/2026/05/salao-acolhedor-scaled.webp',
         taxa: { tipo: 'nenhuma', valor: 0 }
       },
       {
-        id: 'lareira', nome: 'Salao da Lareira',
+        id: 'lareira', nome: 'Salão da Lareira',
         desc: 'Ambiente aconchegante em volta da lareira, ideal para grupos reunidos.',
         min: null, max: null, privativo: true,
         foto: 'https://mariaejose.com.br/wp-content/uploads/2026/05/mesa-completa.png',
         taxa: { tipo: 'nenhuma', valor: 0 }
       },
       {
-        id: 'quintal', nome: 'Espaco Quintal',
-        desc: 'Area aberta, ao ar livre, com clima de quintal de casa.',
+        id: 'quintal', nome: 'Espaço Quintal',
+        desc: 'Área aberta, ao ar livre, com clima de quintal de casa.',
         min: null, max: null, privativo: false,
         foto: 'https://mariaejose.com.br/wp-content/uploads/2026/09/mesa-batizado.png',
         taxa: { tipo: 'nenhuma', valor: 0 }
@@ -437,12 +437,12 @@
     /* ---- forma de pagamento / consumo ---- */
     // PENDENCIA DE VALIDACAO: hoje nenhuma das tres altera o calculo.
     consumo: [
-      { id: 'adesao', label: '100% Adesao',
-        desc: 'Tudo sera pago pelos convidados atraves de comandas individuais.' },
+      { id: 'adesao', label: '100% Adesão',
+        desc: 'Tudo será pago pelos convidados através de comandas individuais.' },
       { id: 'misto', label: 'Misto',
-        desc: 'Alguns itens serao pagos pelo anfitriao e outros ficarao nas comandas individuais dos convidados.' },
-      { id: 'comanda-unica', label: '100% Comanda Unica',
-        desc: 'O anfitriao sera responsavel por todo o consumo. Os convidados nao pagarao nada.' }
+        desc: 'Alguns itens serão pagos pelo anfitrião e outros ficarão nas comandas individuais dos convidados.' },
+      { id: 'comanda-unica', label: '100% Comanda Única',
+        desc: 'O anfitrião será responsável por todo o consumo. Os convidados não pagarão nada.' }
     ],
 
     /* ---- cardapio personalizado impresso ---- */
@@ -454,7 +454,7 @@
       modo: 'fixo',
       valor: 0,
       aplicaDesconto: true,
-      nota: 'Valor do cardapio impresso a combinar com a equipe.'
+      nota: 'Valor do cardápio impresso a combinar com a equipe.'
     },
 
     /* ---- bebidas alcoolicas ---- */
@@ -472,41 +472,41 @@
       {
         id: 'entradas', nome: 'Entradas', obrigatorio: true,
         pacotes: [
-          { id: 'basico', tier: 'Basico', preco: 20, itens: [
-            'Pao de alho artesanal', 'Linguica Dom Jose', 'Pastel Canastra'
+          { id: 'basico', tier: 'Básico', preco: 20, itens: [
+            'Pão de alho artesanal', 'Linguiça Dom José', 'Pastel Canastra'
           ] },
           { id: 'premium', tier: 'Premium', preco: 30, itens: [
-            'Pao de alho artesanal', 'Linguica Dom Jose',
-            'Pastel Canastra com molho artesanal de pimenta dedo-de-moca',
-            'Queijo coalho com melaco de maca verde', 'Provoleta'
+            'Pão de alho artesanal', 'Linguiça Dom José',
+            'Pastel Canastra com molho artesanal de pimenta dedo-de-moça',
+            'Queijo coalho com melaço de maçã verde', 'Provoleta'
           ] }
         ]
       },
       {
         id: 'principal', nome: 'Principal + acompanhamentos', obrigatorio: true,
-        distTitulo: 'Distribuicao dos pratos principais',
+        distTitulo: 'Distribuição dos pratos principais',
         distHint: 'Cada convidado tem direito a um prato principal. Informe quantos de cada.',
         distUnidade: 'pratos principais',
         pacotes: [
-          { id: 'basico', tier: 'Basico', preco: 60, salada: true, distribuir: true, opcoes: [
+          { id: 'basico', tier: 'Básico', preco: 60, salada: true, distribuir: true, opcoes: [
             { curto: 'Chorizo Angus', nome: 'Chorizo Angus com batata ao murro, chimichurri e Farofa Puerto Madero' },
             { curto: 'Costela Angus', nome: 'Costela Angus com Arroz Biro-Biro e mandioca cozida na manteiga' },
-            { curto: 'Galeto na brasa', nome: 'Galeto na brasa com arroz e batata rustica' }
+            { curto: 'Galeto na brasa', nome: 'Galeto na brasa com arroz e batata rústica' }
           ] },
           { id: 'premium', tier: 'Premium', preco: 75, salada: true, distribuir: true, opcoes: [
             { curto: 'Picanha Angus', nome: 'Picanha Angus com batata ao murro, chimichurri e Farofa Puerto Madero' },
             { curto: 'Filet Mignon', nome: 'Filet Mignon com Arroz Biro-Biro e mandioca cozida na manteiga' },
-            { curto: 'Salmao na brasa', nome: 'Salmao na brasa com arroz e mix de legumes braseados' }
+            { curto: 'Salmão na brasa', nome: 'Salmão na brasa com arroz e mix de legumes braseados' }
           ] }
         ]
       },
       {
         id: 'sobremesa', nome: 'Sobremesa', obrigatorio: true,
-        distTitulo: 'Distribuicao das sobremesas',
+        distTitulo: 'Distribuição das sobremesas',
         distHint: 'Cada convidado tem direito a uma sobremesa. Informe quantas de cada.',
         distUnidade: 'sobremesas',
         pacotes: [
-          { id: 'basico', tier: 'Basico', preco: 15, distribuir: false, itens: [
+          { id: 'basico', tier: 'Básico', preco: 15, distribuir: false, itens: [
             'Pudim de leite condensado'
           ] },
           { id: 'premium', tier: 'Premium', preco: 22, distribuir: true, opcoes: [
@@ -517,18 +517,18 @@
         ]
       },
       {
-        id: 'bebidas_nao_alc', nome: 'Bebidas nao alcoolicas', obrigatorio: true,
+        id: 'bebidas_nao_alc', nome: 'Bebidas não alcoólicas', obrigatorio: true,
         pacotes: [
-          { id: 'basico', tier: 'Basico', preco: 23, itens: ['Agua', 'Suco', 'Refrigerante em lata'] },
+          { id: 'basico', tier: 'Básico', preco: 23, itens: ['Água', 'Suco', 'Refrigerante em lata'] },
           { id: 'premium', tier: 'Premium', preco: 30, itens: [
-            '2 mocktails (drinks nao alcoolicos)', 'Agua', 'Suco natural', 'Refrigerante em lata'
+            '2 mocktails (drinks não alcoólicos)', 'Água', 'Suco natural', 'Refrigerante em lata'
           ] }
         ]
       },
       {
-        id: 'bebidas_alc', nome: 'Bebidas alcoolicas', obrigatorio: true, alcool: true,
+        id: 'bebidas_alc', nome: 'Bebidas alcoólicas', obrigatorio: true, alcool: true,
         pacotes: [
-          { id: 'basico', tier: 'Basico', preco: 30, itens: ['Cerveja 600 ml'] },
+          { id: 'basico', tier: 'Básico', preco: 30, itens: ['Cerveja 600 ml'] },
           { id: 'premium', tier: 'Premium', preco: 40, itens: [
             'Chopp Heineken', 'Caipirinha', 'Caipiroska', 'Vinho'
           ] }
@@ -539,37 +539,37 @@
     /* ---- RODIZIO ---- */
     rodizios: [
       {
-        id: 'basico', nome: 'Rodizio Basico', preco: 160,
+        id: 'basico', nome: 'Rodízio Básico', preco: 160,
         blocos: [
-          { titulo: 'Entradas', itens: ['Pao de alho artesanal', 'Linguica Dom Jose', 'Pastel Canastra'] },
+          { titulo: 'Entradas', itens: ['Pão de alho artesanal', 'Linguiça Dom José', 'Pastel Canastra'] },
           { titulo: 'Sobremesa', itens: ['Pudim de leite condensado'] },
-          { titulo: 'Bebidas nao alcoolicas', itens: ['Agua', 'Suco', 'Refrigerante em lata'] },
-          { titulo: 'Bebida alcoolica', itens: ['Cerveja 600 ml'] }
+          { titulo: 'Bebidas não alcoólicas', itens: ['Água', 'Suco', 'Refrigerante em lata'] },
+          { titulo: 'Bebida alcoólica', itens: ['Cerveja 600 ml'] }
         ],
         salada: true,
         principais: [
           { curto: 'Chorizo Angus', nome: 'Chorizo Angus com batata ao murro, chimichurri e Farofa Puerto Madero' },
           { curto: 'Costela Angus', nome: 'Costela Angus com Arroz Biro-Biro e mandioca cozida na manteiga' },
-          { curto: 'Galeto na brasa', nome: 'Galeto na brasa com arroz e batata rustica' }
+          { curto: 'Galeto na brasa', nome: 'Galeto na brasa com arroz e batata rústica' }
         ],
         sobremesas: null
       },
       {
-        id: 'premium', nome: 'Rodizio Premium', preco: 200,
+        id: 'premium', nome: 'Rodízio Premium', preco: 200,
         blocos: [
           { titulo: 'Entradas', itens: [
-            'Pao de alho artesanal', 'Linguica Dom Jose',
-            'Pastel Canastra com molho artesanal de pimenta dedo-de-moca',
-            'Queijo coalho com melaco de maca verde', 'Provoleta'
+            'Pão de alho artesanal', 'Linguiça Dom José',
+            'Pastel Canastra com molho artesanal de pimenta dedo-de-moça',
+            'Queijo coalho com melaço de maçã verde', 'Provoleta'
           ] },
-          { titulo: 'Bebidas nao alcoolicas', itens: ['2 mocktails', 'Agua', 'Suco natural', 'Refrigerante em lata'] },
-          { titulo: 'Bebidas alcoolicas', itens: ['Chopp Heineken', 'Caipirinha', 'Caipiroska', 'Vinho'] }
+          { titulo: 'Bebidas não alcoólicas', itens: ['2 mocktails', 'Água', 'Suco natural', 'Refrigerante em lata'] },
+          { titulo: 'Bebidas alcoólicas', itens: ['Chopp Heineken', 'Caipirinha', 'Caipiroska', 'Vinho'] }
         ],
         salada: true,
         principais: [
           { curto: 'Picanha Angus', nome: 'Picanha Angus com batata ao murro, chimichurri e Farofa Puerto Madero' },
           { curto: 'Filet Mignon', nome: 'Filet Mignon com Arroz Biro-Biro e mandioca cozida na manteiga' },
-          { curto: 'Salmao na brasa', nome: 'Salmao na brasa com arroz e mix de legumes braseados' }
+          { curto: 'Salmão na brasa', nome: 'Salmão na brasa com arroz e mix de legumes braseados' }
         ],
         sobremesas: [
           { curto: 'Brownie', nome: 'Brownie chocolatudo com sorvete de creme' },
@@ -581,8 +581,8 @@
 
     /* ---- textos comerciais editaveis ---- */
     textos: {
-      whatsappAbertura: 'Ola! Fiz uma cotacao de evento no Maria e Jose Parrilla e gostaria de falar com a equipe sobre minha proposta.',
-      propostaAbertura: 'Ola! Fiz uma cotacao no site e gostaria de uma proposta totalmente personalizada para o meu evento.'
+      whatsappAbertura: 'Olá! Fiz uma cotação de evento no Maria e José Parrilla e gostaria de falar com a equipe sobre minha proposta.',
+      propostaAbertura: 'Olá! Fiz uma cotação no site e gostaria de uma proposta totalmente personalizada para o meu evento.'
     }
   };
 
@@ -618,8 +618,8 @@
     });
   }
   var DIA_LABEL = {
-    0: 'Domingo', 1: 'Segunda-feira', 2: 'Terca-feira', 3: 'Quarta-feira',
-    4: 'Quinta-feira', 5: 'Sexta-feira', 6: 'Sabado'
+    0: 'Domingo', 1: 'Segunda-feira', 2: 'Terça-feira', 3: 'Quarta-feira',
+    4: 'Quinta-feira', 5: 'Sexta-feira', 6: 'Sábado'
   };
   function pad2(n) { return String(n).length < 2 ? '0' + n : String(n); }
   function parseISO(iso) {
@@ -645,6 +645,7 @@
      ========================================================================== */
 
   var S = {
+    comecou: false,
     nome: '', whats: '', data: '', semData: false, dia: null,
     turno: '', tema: '', temaOutro: '',
     convidados: null, privativo: '', ambiente: '',
@@ -741,14 +742,14 @@
       if (r) {
         if (r.principais && r.principais.length) {
           out.push({
-            key: 'principal', titulo: 'Distribuicao dos pratos principais',
+            key: 'principal', titulo: 'Distribuição dos pratos principais',
             hint: 'Cada convidado tem direito a um prato principal. Informe quantos de cada.',
             unidade: 'pratos principais', opcoes: r.principais
           });
         }
         if (r.sobremesas && r.sobremesas.length) {
           out.push({
-            key: 'sobremesa', titulo: 'Distribuicao das sobremesas',
+            key: 'sobremesa', titulo: 'Distribuição das sobremesas',
             hint: 'Cada convidado tem direito a uma sobremesa. Informe quantas de cada.',
             unidade: 'sobremesas', opcoes: r.sobremesas
           });
@@ -809,7 +810,7 @@
     var ci = CONFIG.cardapioImpresso;
     if (ci.ativo && S.impresso === 'sim' && Number(ci.valor) > 0) {
       adicionais.push({
-        label: 'Cardapio personalizado impresso',
+        label: 'Cardápio personalizado impresso',
         valor: ci.modo === 'por_pessoa' ? round2(Number(ci.valor) * g) : round2(Number(ci.valor)),
         desconta: !!(ci.aplicaDesconto && CONFIG.desconto.itens.cardapio)
       });
@@ -897,8 +898,8 @@
     }).join('');
 
     $('mejo-privativo').innerHTML =
-      optCard('mejo-priv', 'sim', 'Sim', 'Quero um espaco reservado', '', false, false) +
-      optCard('mejo-priv', 'nao', 'Nao', 'Pode ser ambiente compartilhado', '', false, false);
+      optCard('mejo-priv', 'sim', 'Sim', 'Quero um espaço reservado', '', false, false) +
+      optCard('mejo-priv', 'nao', 'Não', 'Pode ser ambiente compartilhado', '', false, false);
     $('mejo-privativo-nota').textContent = CONFIG.privativo.nota || '';
 
     $('mejo-consumo').innerHTML = CONFIG.consumo.map(function (c) {
@@ -914,7 +915,7 @@
         : 'valor a combinar';
       $('mejo-impresso').innerHTML =
         optCard('mejo-impresso-r', 'sim', 'Sim', '', metaSim, false, false) +
-        optCard('mejo-impresso-r', 'nao', 'Nao', '', 'sem custo', false, false);
+        optCard('mejo-impresso-r', 'nao', 'Não', '', 'sem custo', false, false);
       if (Number(ci.valor) <= 0 && ci.nota) $('mejo-cardapio-hint').textContent = ci.nota;
     }
 
@@ -935,8 +936,8 @@
       '<label class="mejo-format__opt">' +
         '<input type="radio" name="mejo-formato-r" value="rodizio" />' +
         '<span class="mejo-format__box">' +
-          '<span class="mejo-format__name">Rodizio</span>' +
-          '<span class="mejo-format__desc">Tudo a vontade, com entradas, principais, sobremesa e bebidas inclusos.</span>' +
+          '<span class="mejo-format__name">Rodízio</span>' +
+          '<span class="mejo-format__desc">Tudo à vontade, com entradas, principais, sobremesa e bebidas inclusos.</span>' +
           '<span class="mejo-format__from">A partir de ' + money(menorRod) + ' por pessoa</span>' +
         '</span>' +
       '</label>';
@@ -953,10 +954,10 @@
       if (g > 0) {
         if (a.min && g < a.min) {
           bloqueio = 'O ' + a.nome + ' possui minimo de ' + a.min +
-            ' convidados. Altere o numero de convidados ou escolha outro ambiente.';
+            ' convidados. Altere o número de convidados ou escolha outro ambiente.';
         } else if (a.max && g > a.max) {
           bloqueio = 'O ' + a.nome + ' acomoda ate ' + a.max +
-            ' convidados. Altere o numero de convidados ou escolha outro ambiente.';
+            ' convidados. Altere o número de convidados ou escolha outro ambiente.';
         }
       }
       if (!bloqueio && CONFIG.privativo.filtraAmbientes && querPriv && !a.privativo) {
@@ -965,8 +966,8 @@
 
       var cap;
       if (a.min && a.max)  cap = 'De ' + a.min + ' a ' + a.max + ' convidados';
-      else if (a.min)      cap = 'Minimo de ' + a.min + ' convidados';
-      else if (a.max)      cap = 'Ate ' + a.max + ' convidados';
+      else if (a.min)      cap = 'Mínimo de ' + a.min + ' convidados';
+      else if (a.max)      cap = 'Até ' + a.max + ' convidados';
       else                 cap = 'Capacidade sob consulta';
 
       return '' +
@@ -1004,7 +1005,7 @@
     });
     if (p.opcoes && p.opcoes.length) {
       linhas += '<span class="mejo-pack__item mejo-pack__item--fixed">' +
-        'Um por convidado - voce distribui as quantidades</span>';
+        'Um por convidado - você distribui as quantidades</span>';
     }
 
     return '' +
@@ -1023,7 +1024,7 @@
 
   function msgDist(grp, soma, g) {
     if (soma > g) return 'A quantidade de ' + grp.unidade + ' selecionada ultrapassa o numero de convidados.';
-    if (soma < g) return 'Voce possui ' + g + ' convidados. Ainda faltam selecionar ' +
+    if (soma < g) return 'Você possui ' + g + ' convidados. Ainda faltam selecionar ' +
       (g - soma) + ' ' + grp.unidade + '.';
     return '';
   }
@@ -1087,7 +1088,7 @@
       });
     }
     if (S.formato === 'rodizio') {
-      return [{ tipo: 'rodizio', titulo: 'Escolha o rodizio' }];
+      return [{ tipo: 'rodizio', titulo: 'Escolha o rodízio' }];
     }
     return [];
   }
@@ -1151,7 +1152,7 @@
           (cat.alcool && CONFIG.bebidasAlcoolicas.permitirSem
             ? '<label class="mejo-check"><input type="checkbox" id="mejo-sem-alcool"' +
               (S.semAlcool ? ' checked' : '') +
-              ' /><span>Nao desejo bebidas alcoolicas no meu evento</span></label>'
+              ' /><span>Não desejo bebidas alcoólicas no meu evento</span></label>'
             : '') +
           grupos.map(distBlock).join('') +
           '<p class="mejo-error" id="mejo-err-pack-' + esc(cat.id) + '">Escolha um pacote de ' +
@@ -1202,10 +1203,10 @@
 
     caixa.innerHTML = '' +
       '<div class="mejo-block">' +
-        '<p class="mejo-block__title">Escolha o rodizio <span class="mejo-req">*</span></p>' +
-        '<p class="mejo-block__hint">Tudo a vontade. O valor por pessoa inclui todos os itens listados.</p>' +
+        '<p class="mejo-block__title">Escolha o rodízio <span class="mejo-req">*</span></p>' +
+        '<p class="mejo-block__hint">Tudo à vontade. O valor por pessoa inclui todos os itens listados.</p>' +
         '<div class="mejo-pack">' + cards + '</div>' +
-        '<p class="mejo-error" id="mejo-err-rodizio">Escolha um rodizio.</p>' +
+        '<p class="mejo-error" id="mejo-err-rodizio">Escolha um rodízio.</p>' +
         grupos.map(distBlock).join('') +
       '</div>';
   }
@@ -1228,7 +1229,7 @@
     if (S.formato === 'sequencial') return 'Menu Sequencial';
     if (S.formato === 'rodizio') {
       var r = getRodizio(S.rodizio);
-      return r ? r.nome : 'Rodizio';
+      return r ? r.nome : 'Rodízio';
     }
     return '-';
   }
@@ -1255,7 +1256,7 @@
       ['Turno', (getTurno(S.turno) || {}).label || '-'],
       ['Convidados', String(c.convidados)],
       ['Ambiente', (getAmbiente(S.ambiente) || {}).nome || '-'],
-      ['Ambiente privativo', S.privativo === 'sim' ? 'Sim' : (S.privativo === 'nao' ? 'Nao' : '-')],
+      ['Ambiente privativo', S.privativo === 'sim' ? 'Sim' : (S.privativo === 'nao' ? 'Não' : '-')],
       ['Forma de consumo', (getConsumo(S.consumo) || {}).label || '-'],
       ['Formato', labelFormato()]
     ];
@@ -1267,7 +1268,7 @@
     var itens = [];
     if (S.formato === 'sequencial') {
       CONFIG.categorias.forEach(function (cat) {
-        if (cat.alcool && S.semAlcool) { itens.push([cat.nome, 'Sem bebidas alcoolicas']); return; }
+        if (cat.alcool && S.semAlcool) { itens.push([cat.nome, 'Sem bebidas alcoólicas']); return; }
         var p = getPacote(cat, S.pacotes[cat.id]);
         if (!p) return;
         var det = [];
@@ -1295,9 +1296,9 @@
     var ds = distTexto('sobremesa');
     if (ds) itens.push(['Sobremesas', ds]);
     if (CONFIG.cardapioImpresso.ativo) {
-      itens.push(['Cardapio personalizado impresso', S.impresso === 'sim'
+      itens.push(['Cardápio personalizado impresso', S.impresso === 'sim'
         ? (Number(CONFIG.cardapioImpresso.valor) > 0 ? 'Sim' : 'Sim - valor a combinar com a equipe')
-        : 'Nao']);
+        : 'Não']);
     }
     $('mejo-res-itens').innerHTML = itens.map(function (i) {
       return '<div class="mejo-item"><p class="mejo-item__cat">' + esc(i[0]) +
@@ -1348,7 +1349,7 @@
     var L = [];
     L.push(abertura);
     L.push('');
-    L.push('*MINHA COTACAO*');
+    L.push('*MINHA COTAÇÃO*');
     L.push('Nome: ' + (S.nome || '-'));
     L.push('WhatsApp: ' + (S.whats || '-'));
     L.push('Data: ' + (S.data ? fmtBR(S.data) : 'a definir'));
@@ -1357,7 +1358,7 @@
     L.push('Tema: ' + labelTema());
     L.push('Convidados: ' + c.convidados);
     L.push('Ambiente: ' + ((getAmbiente(S.ambiente) || {}).nome || '-'));
-    L.push('Ambiente privativo: ' + (S.privativo === 'sim' ? 'Sim' : 'Nao'));
+    L.push('Ambiente privativo: ' + (S.privativo === 'sim' ? 'Sim' : 'Não'));
     L.push('Forma de consumo: ' + ((getConsumo(S.consumo) || {}).label || '-'));
     L.push('Formato: ' + labelFormato());
     L.push('');
@@ -1379,9 +1380,9 @@
     L.push('');
     L.push('*ADICIONAIS*');
     if (CONFIG.cardapioImpresso.ativo) {
-      L.push('- Cardapio impresso: ' + (S.impresso === 'sim'
+      L.push('- Cardápio impresso: ' + (S.impresso === 'sim'
         ? (Number(CONFIG.cardapioImpresso.valor) > 0 ? 'Sim' : 'Sim (valor a combinar)')
-        : 'Nao'));
+        : 'Não'));
     }
     if (c.adicionais.length) {
       c.adicionais.forEach(function (a) { L.push('- ' + a.label + ': ' + money(a.valor)); });
@@ -1508,10 +1509,10 @@
       if (!whatsValido(S.whats)) falha('mejo-err-whats', $('mejo-whats'));
 
       if (!S.data && !S.semData) {
-        falha('mejo-err-data', $('mejo-data'), 'Escolha uma data ou marque a opcao acima.');
+        falha('mejo-err-data', $('mejo-data'), 'Escolha uma data ou marque a opção acima.');
       } else if (S.data) {
         var d = parseISO(S.data);
-        if (!d) falha('mejo-err-data', $('mejo-data'), 'Data invalida.');
+        if (!d) falha('mejo-err-data', $('mejo-data'), 'Data inválida.');
         else if (!diaPermitido(d.getDay())) {
           falha('mejo-err-data', $('mejo-data'), CONFIG.msgDiaIndisponivel);
         }
@@ -1522,7 +1523,7 @@
       if (!S.turno) falha('mejo-err-turno', null);
       if (!S.tema) falha('mejo-err-tema', null);
       else if (S.tema === 'outro' && !String(S.temaOutro || '').trim()) {
-        falha('mejo-err-tema', $('mejo-tema-outro'), 'Conte pra gente qual e o tipo de evento.');
+        falha('mejo-err-tema', $('mejo-tema-outro'), 'Conte pra gente qual é o tipo de evento.');
       }
       if (!ok) alerta(1, 'Confira os campos destacados para continuar.');
     }
@@ -1531,7 +1532,7 @@
       var g = Number(S.convidados);
       if (!g || !isFinite(g) || g <= 0 || Math.floor(g) !== g) {
         falha('mejo-err-conv', $('mejo-conv'),
-          'Informe um numero inteiro de convidados, maior que zero.');
+          'Informe um número inteiro de convidados, maior que zero.');
       } else if (CONFIG.minConvidadosGeral && g < CONFIG.minConvidadosGeral) {
         falha('mejo-err-conv', $('mejo-conv'),
           'Atendemos eventos a partir de ' + CONFIG.minConvidadosGeral + ' convidados.');
@@ -1546,10 +1547,10 @@
         var amb = getAmbiente(S.ambiente);
         if (amb && amb.min && g && g < amb.min) {
           falha('mejo-err-ambiente', null, 'O ' + amb.nome + ' possui minimo de ' + amb.min +
-            ' convidados. Altere o numero de convidados ou escolha outro ambiente.');
+            ' convidados. Altere o número de convidados ou escolha outro ambiente.');
         } else if (amb && amb.max && g && g > amb.max) {
           falha('mejo-err-ambiente', null, 'O ' + amb.nome + ' acomoda ate ' + amb.max +
-            ' convidados. Altere o numero de convidados ou escolha outro ambiente.');
+            ' convidados. Altere o número de convidados ou escolha outro ambiente.');
         }
       }
       if (!ok) alerta(2, 'Confira os campos destacados para continuar.');
@@ -1567,7 +1568,7 @@
       if (SUB === 0) {
         if (!S.formato) {
           showErr('mejo-err-formato', true);
-          alerta(4, 'Escolha entre Menu Sequencial e Rodizio.');
+          alerta(4, 'Escolha entre Menu Sequencial e Rodízio.');
           if (foco) scrollPara($('mejo-formato'));
           return false;
         }
@@ -1623,11 +1624,21 @@
   function atualizaPrimario() {
     var botao = document.querySelector('.mejo-step[data-step="4"] [data-next]');
     if (!botao) return;
-    botao.textContent = (SUB >= totalPassos() && SUB > 0) ? 'Ver cotacao' : 'Continuar';
+    botao.textContent = (SUB >= totalPassos() && SUB > 0) ? 'Ver cotação' : 'Continuar';
     if (STEP === 4) {
       var barraCta = $('mejo-bar-cta');
       if (barraCta) barraCta.textContent = botao.textContent;
     }
+  }
+
+  // Uma vez comecada a cotacao, o hero nao volta. Fica gravado no estado,
+  // entao recarregar a pagina no meio do preenchimento tambem nao o traz.
+  function colapsarHero() {
+    if (S.comecou) return false;
+    S.comecou = true;
+    $('mejo').classList.add('comecou');
+    salvar();
+    return true;
   }
 
   function irPara(n, semScroll) {
@@ -1814,7 +1825,7 @@
       campoDia.hidden = !S.semData;
       hint.textContent = S.semData
         ? ''
-        : 'Se preferir, marque a opcao acima e informe apenas o dia da semana.';
+        : 'Se preferir, marque a opção acima e informe apenas o dia da semana.';
     }
     showErr('mejo-err-data', false);
     renderBarra();
@@ -1829,7 +1840,7 @@
           : amb.min ? 'minimo de ' + amb.min + ' convidados'
           : 'ate ' + amb.max + ' convidados') + '.';
     } else {
-      el.textContent = 'O valor total e calculado por pessoa.';
+      el.textContent = 'O valor total é calculado por pessoa.';
     }
   }
 
@@ -2177,6 +2188,9 @@
         var n = Number(b.getAttribute('data-next'));
         if (!validaStep(n, true)) return;
 
+        // quem rola direto para o formulario, sem tocar no CTA, tambem comecou
+        if (n === 1) colapsarHero();
+
         if (n === 1 && !leadParcialEnviado) {
           leadParcialEnviado = true;
           track('orcamento_iniciado', {});
@@ -2234,15 +2248,13 @@
     $('mejo-start').addEventListener('click', function (e) {
       e.preventDefault();
       track('orcamento_start_click', {});
-      var barra = $('mejo-progress');
-      var offset = (barra ? barra.offsetHeight : 58) +
-        (parseFloat(getComputedStyle($('mejo')).getPropertyValue('--topo')) || 0) + 8;
-      var alvo = $('mejo-form').getBoundingClientRect().top + window.pageYOffset - offset;
-      window.scrollTo({ top: Math.max(0, alvo), behavior: 'smooth' });
+      // com o hero fora, o formulario passa a ser o topo da pagina
+      colapsarHero();
+      window.scrollTo(0, 0);
       setTimeout(function () {
         var nome = $('mejo-nome');
         if (nome && !nome.value) { try { nome.focus({ preventScroll: true }); } catch (err) { nome.focus(); } }
-      }, 520);
+      }, 60);
     });
 
     /* ------- CTAs finais ------- */
@@ -2259,7 +2271,7 @@
       var url = window.location.href.split('#')[0] + '#c=' + encodeState();
       function feito() {
         btn.textContent = 'Link copiado!';
-        setTimeout(function () { btn.textContent = 'Copiar link desta cotacao'; }, 2200);
+        setTimeout(function () { btn.textContent = 'Copiar link desta cotação'; }, 2200);
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(feito, function () { window.prompt('Copie o link:', url); });
@@ -2293,6 +2305,7 @@
     window.addEventListener('orientationchange', function () { setTimeout(reagir, 250); });
     if (window.visualViewport) window.visualViewport.addEventListener('resize', reagir);
 
+    if (S.comecou) $('mejo').classList.add('comecou');
     ajustarTopo();
     atualizaPrimario();
     $('mejo-ajuda-link').href = 'https://wa.me/' + CONFIG.whatsapp;

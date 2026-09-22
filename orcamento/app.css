@@ -252,6 +252,13 @@
   transform: none !important; box-shadow: none;
 }
 
+/* Depois que a pessoa comeca, o hero sai de cena. Ele ja fez o trabalho
+   dele, e deixa-lo no caminho so alonga a rolagem, permite voltar para a
+   peca de venda no meio do preenchimento e ainda mantem um botao
+   "Comecar" que nao faz mais sentido. A marca continua presente pelo
+   cabecalho do proprio site. */
+.mejo.comecou .mejo-hero { display: none; }
+
 /* ---------- PROGRESSO ---------- */
 
 .mejo-progress {
