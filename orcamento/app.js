@@ -45,6 +45,12 @@
   <!-- ================= PROGRESSO ================= -->
   <div class="mejo-progress" id="mejo-progress" aria-hidden="true">
     <div class="mejo-wrap">
+      <div class="mejo-progress__marca">
+        <img class="mejo-progress__logo"
+             src="https://mariaejose.com.br/wp-content/uploads/2024/12/logo-2.png"
+             alt="Maria e José Parrilla" width="150" height="26" />
+        <p class="mejo-progress__now" id="mejo-progress-now-topo"></p>
+      </div>
       <div class="mejo-progress__track">
         <div class="mejo-progress__fill" id="mejo-progress-fill"></div>
       </div>
@@ -645,7 +651,6 @@
      ========================================================================== */
 
   var S = {
-    comecou: false,
     nome: '', whats: '', data: '', semData: false, dia: null,
     turno: '', tema: '', temaOutro: '',
     convidados: null, privativo: '', ambiente: '',
@@ -1631,13 +1636,25 @@
     }
   }
 
-  // Uma vez comecada a cotacao, o hero nao volta. Fica gravado no estado,
-  // entao recarregar a pagina no meio do preenchimento tambem nao o traz.
+  // O hero sai de cena quando a pessoa comeca, e a barra de progresso assume
+  // a marca no lugar dele. A escolha NAO e gravada no estado: recarregar a
+  // pagina na etapa 1 traz o hero de volta, que e o que se espera de um
+  // recarregamento. Da etapa 2 em diante ele fica fora de qualquer forma,
+  // porque ai a peca de venda so atrapalha quem esta preenchendo.
+  var comecouNestaVisita = false;
+
+  function heroVisivel() {
+    return !comecouNestaVisita && STEP < 2;
+  }
+
+  function aplicarHero() {
+    $('mejo').classList.toggle('comecou', !heroVisivel());
+  }
+
   function colapsarHero() {
-    if (S.comecou) return false;
-    S.comecou = true;
-    $('mejo').classList.add('comecou');
-    salvar();
+    if (comecouNestaVisita) return false;
+    comecouNestaVisita = true;
+    aplicarHero();
     return true;
   }
 
@@ -1655,6 +1672,8 @@
       s.classList.toggle('is-active', v === STEP);
       s.classList.toggle('is-done', v < STEP);
     });
+    aplicarHero();
+
     // rodape completo so no resultado; durante o fluxo, so a linha de ajuda
     $('mejo').classList.toggle('mostra-rodape', STEP === MAX_STEP);
     $('mejo').classList.toggle('mostra-ajuda', STEP < MAX_STEP);
@@ -1664,8 +1683,10 @@
 
     // versao compacta do progresso, usada em telas estreitas
     var rotulo = document.querySelector('.mejo-progress__step[data-pstep="' + STEP + '"]');
-    $('mejo-progress-now').innerHTML = '<span>Etapa ' + STEP + ' de ' + MAX_STEP + '</span> &middot; ' +
+    var texto = '<span>Etapa ' + STEP + ' de ' + MAX_STEP + '</span> &middot; ' +
       (rotulo ? rotulo.textContent : '');
+    $('mejo-progress-now').innerHTML = texto;
+    $('mejo-progress-now-topo').innerHTML = texto;
 
     // a barra fixa dispara o mesmo botao da etapa, entao usa o mesmo rotulo
     var primario = document.querySelector('.mejo-step.is-active [data-next]');
@@ -2305,7 +2326,7 @@
     window.addEventListener('orientationchange', function () { setTimeout(reagir, 250); });
     if (window.visualViewport) window.visualViewport.addEventListener('resize', reagir);
 
-    if (S.comecou) $('mejo').classList.add('comecou');
+    aplicarHero();
     ajustarTopo();
     atualizaPrimario();
     $('mejo-ajuda-link').href = 'https://wa.me/' + CONFIG.whatsapp;

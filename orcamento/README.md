@@ -303,7 +303,13 @@ Em 320px a varredura tinha acusado três defeitos que já foram corrigidos: os r
 
 ## 10. Decisões de fluxo
 
-**O CTA do topo não é só rolagem.** Ele leva até o formulário e coloca o cursor no primeiro campo, então a pessoa começa a digitar em vez de procurar por onde começar. No celular isso abre o teclado direto.
+**O CTA do topo não é só rolagem.** Ele tira o hero de cena e coloca o cursor no primeiro campo, então a pessoa começa a digitar em vez de procurar por onde começar. No celular isso abre o teclado direto.
+
+**O hero sai quando a cotação começa, e a marca vai para a barra de progresso.** Deixar o hero no caminho alonga toda rolagem, permite voltar para a peça de venda no meio do preenchimento e mantém um botão "Começar" que não significa mais nada. Mas a página do WordPress é só este bloco, sem cabeçalho de tema por cima, então some-lo por completo deixaria a pessoa preenchendo sem saber de quem é a página. A barra de progresso passa a mostrar o logo junto da etapa atual.
+
+Num 375x812: a página cai de 1752px para 1279px e o primeiro campo sobe de y=725 para y=253. A barra sticky vai de 55px para 86px, que é o custo do logo.
+
+A escolha **não** é gravada no estado. Recarregar a página traz o hero de volta, que é o que se espera de um recarregamento. Vale saber que a etapa também não é persistida: recarregar volta para a etapa 1 com os dados preenchidos.
 
 **O rodapé sai de cena durante o preenchimento.** Logo, telefone e copyright no fim de cada etapa só oferecem saída e alongam a rolagem. Ele volta na tela de resultado, onde as ações finais vivem. No lugar dele, durante o fluxo, fica uma linha discreta de ajuda com o WhatsApp, para quem travar no meio do caminho.
 
