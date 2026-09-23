@@ -212,7 +212,7 @@ Eventos enviados para `dataLayer` (GTM) e `gtag`, quando presentes:
 - **WhatsApp** com a cotação inteira já formatada na mensagem.
 - **Voltar e editar** sem perder nada; recalcula automaticamente.
 - **Link compartilhável**: "Copiar link desta cotação" gera uma URL com o estado codificado no hash (`#c=...`). Quem abrir cai direto no resumo.
-- **Retomada automática**: o estado fica em `localStorage`, então recarregar a página não apaga o preenchimento.
+- **Retomada automática**: o estado fica em `localStorage`, então recarregar a página não apaga o preenchimento. A cotação salva vale por `validadeDiasSalvos` dias (padrão 14) contados da última alteração; depois disso é descartada. Uma data que já passou é apagada ao carregar e a pessoa escolhe outra. Quando há dados salvos, a etapa 1 mostra "Continuando a cotação de [nome]" com o botão "Começar uma nova", que apaga tudo e gera um novo `event_id` para o lead.
 - Acessibilidade: foco visível, `aria-live` nas trocas de etapa, rótulos em todos os controles, respeito a `prefers-reduced-motion`.
 
 ---

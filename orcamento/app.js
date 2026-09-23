@@ -78,6 +78,11 @@
           <p class="mejo-lead">Comece pelo básico. Leva menos de um minuto.</p>
         </div>
 
+        <div class="mejo-retomar" id="mejo-retomar" hidden>
+          <p class="mejo-retomar__txt" id="mejo-retomar-txt"></p>
+          <button type="button" class="mejo-retomar__nova" id="mejo-retomar-nova">Começar uma nova</button>
+        </div>
+
         <div class="mejo-field">
           <label class="mejo-label" for="mejo-nome">Seu nome <span class="mejo-req">*</span></label>
           <input class="mejo-input" type="text" id="mejo-nome" autocomplete="name"
@@ -379,6 +384,10 @@
     msgDiaIndisponivel: 'Essa data cai em um dia que ainda não está aberto para cotação online. Escolha outra data ou fale com nossa equipe pelo WhatsApp.',
     maxDiasFuturo: 540,                 // janela do calendario (18 meses)
 
+    // Dias sem uso ate a cotacao salva no aparelho ser descartada. Conta a
+    // partir da ultima alteracao, nao da primeira visita.
+    validadeDiasSalvos: 14,
+
     /* ---- convidados ---- */
     // PENDENCIA DE VALIDACAO: minimo geral de convidados. null = sem minimo geral.
     minConvidadosGeral: null,
@@ -650,21 +659,27 @@
      3. ESTADO
      ========================================================================== */
 
-  var S = {
-    nome: '', whats: '', data: '', semData: false, dia: null,
-    turno: '', tema: '', temaOutro: '',
-    convidados: null, privativo: '', ambiente: '',
-    consumo: '', impresso: '',
-    formato: '', rodizio: '',
-    pacotes: {}, semAlcool: false,
-    dist: { principal: {}, sobremesa: {} }
-  };
+  function estadoVazio() {
+    return {
+      nome: '', whats: '', data: '', semData: false, dia: null,
+      turno: '', tema: '', temaOutro: '',
+      convidados: null, privativo: '', ambiente: '',
+      consumo: '', impresso: '',
+      formato: '', rodizio: '',
+      pacotes: {}, semAlcool: false,
+      dist: { principal: {}, sobremesa: {} }
+    };
+  }
+  var S = estadoVazio();
 
   var STEP = 1;
   var SUB = 0;          // 0 = escolha do formato; 1..n = passos do cardapio
   var MAX_STEP = 5;
   var stepAlcancado = 1;
-  var EVENT_ID = 'orc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+  function novoEventId() {
+    return 'orc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+  }
+  var EVENT_ID = novoEventId();
   var leadParcialEnviado = false;
 
   /* ==========================================================================
@@ -1518,6 +1533,7 @@
       } else if (S.data) {
         var d = parseISO(S.data);
         if (!d) falha('mejo-err-data', $('mejo-data'), 'Data inválida.');
+        else if (d < hojeZero()) falha('mejo-err-data', $('mejo-data'), 'Essa data já passou. Escolha outra.');
         else if (!diaPermitido(d.getDay())) {
           falha('mejo-err-data', $('mejo-data'), CONFIG.msgDiaIndisponivel);
         }
@@ -1725,11 +1741,22 @@
 
   var LS_KEY = 'mejo_orcamento_v1';
 
+  var DIA_MS = 24 * 60 * 60 * 1000;
+
   function salvar() {
     try {
       S.sub = SUB;
-      localStorage.setItem(LS_KEY, JSON.stringify(S));
+      // a data de gravacao fica fora do S para nao entrar no link compartilhavel
+      var dados = JSON.parse(JSON.stringify(S));
+      dados._salvoEm = Date.now();
+      localStorage.setItem(LS_KEY, JSON.stringify(dados));
     } catch (e) { /* noop */ }
+  }
+
+  function hojeZero() {
+    var d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
   }
   function aplicar(obj) {
     if (!obj || typeof obj !== 'object') return;
@@ -1742,13 +1769,34 @@
     if (!S.dist.sobremesa) S.dist.sobremesa = {};
     if (obj.sub !== undefined) SUB = Math.max(0, Number(obj.sub) || 0);
   }
+  // Devolve o que foi recuperado, para o aviso de retomada:
+  // null quando nao ha nada, ou { dataVencida } quando ha.
   function carregarLocal() {
     try {
       var raw = localStorage.getItem(LS_KEY);
-      if (!raw) return false;
-      aplicar(JSON.parse(raw));
-      return true;
-    } catch (e) { return false; }
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      var validade = (Number(CONFIG.validadeDiasSalvos) || 14) * DIA_MS;
+      if (obj && obj._salvoEm && Date.now() - obj._salvoEm > validade) {
+        localStorage.removeItem(LS_KEY);
+        return null;
+      }
+      aplicar(obj);
+
+      // uma data que ja passou nao serve para nada, e mantida ela ainda
+      // puxaria o desconto do dia da semana para um evento impossivel
+      var dataVencida = false;
+      var d = parseISO(S.data);
+      if (d && d < hojeZero()) {
+        S.data = '';
+        dataVencida = true;
+      }
+      return { dataVencida: dataVencida };
+    } catch (e) { return null; }
+  }
+
+  function esquecerCotacao() {
+    try { localStorage.removeItem(LS_KEY); } catch (e) { /* noop */ }
   }
   function encodeState() {
     try {
@@ -1922,6 +1970,51 @@
     renderAmbientes();
   }
 
+  // Aviso no topo da etapa 1 quando a pessoa volta com dados salvos. Explica
+  // por que os campos ja vem preenchidos, diz que ficam neste aparelho e da
+  // uma saida para quem quer outra cotacao ou nao e a mesma pessoa.
+  function mostrarRetomada(r) {
+    var caixa = $('mejo-retomar');
+    if (!r || !String(S.nome || '').trim()) { caixa.hidden = true; return; }
+    var txt = 'Continuando a cotação de <strong>' + esc(S.nome.trim()) + '</strong>. ' +
+      'Suas respostas ficaram salvas neste aparelho.';
+    if (r.dataVencida) txt += ' A data que você tinha escolhido já passou, escolha outra.';
+    $('mejo-retomar-txt').innerHTML = txt;
+    caixa.hidden = false;
+  }
+
+  function comecarNova() {
+    esquecerCotacao();
+    S = estadoVazio();
+    S.convidados = Number(CONFIG.convidadosPadrao) || null;
+    SUB = 0;
+    stepAlcancado = 1;
+    // cotacao nova, lead novo: o parcial da anterior ja foi enviado
+    EVENT_ID = novoEventId();
+    leadParcialEnviado = false;
+
+    Array.prototype.forEach.call(
+      document.querySelectorAll('#mejo input[type=radio], #mejo input[type=checkbox]'),
+      function (el) { el.checked = false; });
+    Array.prototype.forEach.call(document.querySelectorAll('#mejo .is-invalid'),
+      function (el) { el.classList.remove('is-invalid'); });
+    Array.prototype.forEach.call(document.querySelectorAll('#mejo .mejo-error.is-visible'),
+      function (el) { el.classList.remove('is-visible'); });
+    $('mejo-dia').value = '';
+    var fp = $('mejo-data')._flatpickr;
+    if (fp) fp.clear(false);
+
+    hidratar();
+    atualizaDia();
+    atualizaHintConv();
+    renderCardapio();
+    renderBarra();
+    $('mejo-retomar').hidden = true;
+    track('orcamento_nova_cotacao', {});
+    irPara(1, true);
+    try { $('mejo-nome').focus({ preventScroll: true }); } catch (e) { $('mejo-nome').focus(); }
+  }
+
   function iniciaFlatpickr() {
     var dataEl = $('mejo-data');
     var limite = new Date();
@@ -1976,11 +2069,14 @@
     renderEstaticos();
 
     var veioDeLink = lerHash();
-    if (!veioDeLink) carregarLocal();
+    var retomada = veioDeLink ? null : carregarLocal();
     if (!S.convidados) S.convidados = Number(CONFIG.convidadosPadrao) || null;
     hidratar();
+    mostrarRetomada(retomada);
 
     /* ------- etapa 1 ------- */
+    $('mejo-retomar-nova').addEventListener('click', comecarNova);
+
     var nome = $('mejo-nome');
     nome.addEventListener('input', function () {
       S.nome = nome.value;
