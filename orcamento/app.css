@@ -296,7 +296,7 @@
   object-fit: contain; flex: 0 0 auto;
 }
 .mejo-progress__marca .mejo-progress__now {
-  display: block; margin-left: auto; text-align: right;
+  margin-left: auto; text-align: right;
 }
 .mejo-progress__now {
   display: none;
@@ -308,6 +308,8 @@
 @media (max-width: 419px) {
   .mejo-progress__steps { display: none; }
   .mejo-progress__now { display: block; }
+  /* com a marca na barra, o rótulo sobe para o lado do logo e o de baixo sai */
+  .mejo.comecou #mejo-progress-now { display: none; }
   .mejo-progress__logo { height: 22px !important; max-width: 120px; }
   /* o progresso compacto ja informa a etapa */
   .mejo-step__head > .mejo-eyebrow { display: none; }
@@ -585,6 +587,26 @@
   border-radius: 50%; background: var(--c-accent-lt);
 }
 .mejo-pack__item--fixed { color: var(--c-ink); font-weight: 700; }
+
+/* Título de grupo no card do rodízio. Sem marcador e com respiro acima,
+   para o grupo se ler como bloco e não como mais um item da lista. */
+.mejo-pack__titulo {
+  display: block; margin-top: 8px;
+  font-size: 13.2px; line-height: 1.45; font-weight: 700;
+  color: var(--c-ink);
+}
+.mejo-pack__titulo:first-child { margin-top: 0; }
+.mejo-pack__titulo small {
+  font-size: inherit; font-weight: 400; color: var(--c-ink-soft);
+}
+.mejo-pack__titulo small::before { content: '· '; }
+
+/* Nota de regra no fim do card sequencial: é instrução, não item. */
+.mejo-pack__nota {
+  display: block; margin-top: 4px;
+  font-size: 12.5px; line-height: 1.45; font-style: italic;
+  color: var(--c-ink-soft);
+}
 
 /* ---------- SUB-ETAPA DO CARDAPIO ---------- */
 

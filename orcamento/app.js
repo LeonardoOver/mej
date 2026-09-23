@@ -1009,8 +1009,8 @@
       linhas += '<span class="mejo-pack__item">' + esc(o.nome) + '</span>';
     });
     if (p.opcoes && p.opcoes.length) {
-      linhas += '<span class="mejo-pack__item mejo-pack__item--fixed">' +
-        'Um por convidado - você distribui as quantidades</span>';
+      linhas += '<span class="mejo-pack__nota">' +
+        'Um por convidado. Você distribui as quantidades.</span>';
     }
 
     return '' +
@@ -1172,24 +1172,24 @@
         ? [{ titulo: 'Acompanhamento', itens: [CONFIG.saladaLabel] }].concat(r.blocos)
         : r.blocos;
 
+      // O título da categoria não leva marcador: o ponto fica só nos itens,
+      // e é essa diferença que deixa o olho separar um grupo do outro.
       var lista = '';
-      blocos.forEach(function (b) {
-        lista += '<span class="mejo-pack__item mejo-pack__item--fixed">' + esc(b.titulo) + '</span>';
-        b.itens.forEach(function (i) {
+      function grupo(titulo, nota, itens) {
+        lista += '<span class="mejo-pack__titulo">' + esc(titulo) +
+          (nota ? ' <small>' + esc(nota) + '</small>' : '') + '</span>';
+        itens.forEach(function (i) {
           lista += '<span class="mejo-pack__item">' + esc(i) + '</span>';
         });
-      });
+      }
+      function nomes(ops) { return ops.map(function (o) { return o.nome; }); }
+
+      blocos.forEach(function (b) { grupo(b.titulo, '', b.itens); });
       if (r.principais && r.principais.length) {
-        lista += '<span class="mejo-pack__item mejo-pack__item--fixed">Principais - um por convidado</span>';
-        r.principais.forEach(function (o) {
-          lista += '<span class="mejo-pack__item">' + esc(o.nome) + '</span>';
-        });
+        grupo('Principais', 'um por convidado', nomes(r.principais));
       }
       if (r.sobremesas && r.sobremesas.length) {
-        lista += '<span class="mejo-pack__item mejo-pack__item--fixed">Sobremesas - uma por convidado</span>';
-        r.sobremesas.forEach(function (o) {
-          lista += '<span class="mejo-pack__item">' + esc(o.nome) + '</span>';
-        });
+        grupo('Sobremesas', 'uma por convidado', nomes(r.sobremesas));
       }
 
       return '' +
