@@ -1659,6 +1659,7 @@
   }
 
   function irPara(n, semScroll) {
+    var anterior = STEP;
     STEP = Math.max(1, Math.min(MAX_STEP, n));
     if (STEP > stepAlcancado) {
       stepAlcancado = STEP;
@@ -1693,10 +1694,14 @@
     if (primario) $('mejo-bar-cta').textContent = primario.textContent.trim();
 
     if (STEP === 4) {
-      // volta da tela de resultado cai na ultima decisao do cardapio
+      // Quem chega pela etapa 3 comeca o cardapio pela escolha do formato,
+      // mesmo com escolhas salvas: elas continuam marcadas, mas a pessoa
+      // passa por cada sub-etapa em vez de cair direto na ultima. So quem
+      // volta da tela de resultado cai na ultima decisao do cardapio.
       var total = totalPassos();
+      if (anterior < 4) SUB = 0;
+      else if (anterior > 4 && S.formato && total > 0) SUB = total;
       if (SUB > total) SUB = total;
-      if (S.formato && SUB === 0 && total > 0) SUB = total;
       renderCardapio();
       atualizaPrimario();
     }
