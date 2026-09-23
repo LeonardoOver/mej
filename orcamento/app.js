@@ -311,7 +311,7 @@
 
       <p class="mejo-ajuda">
         Ficou com dúvida no meio do caminho?
-        <a href="https://wa.me/5516982540005" target="_blank" rel="noopener" id="mejo-ajuda-link">
+        <a href="https://wa.me/5516982540124" target="_blank" rel="noopener" id="mejo-ajuda-link">
           Fale com nossa equipe
         </a>
       </p>
@@ -337,7 +337,7 @@
          alt="Maria e José Parrilla" loading="lazy" width="190" height="42" />
     <p class="mejo-foot__txt">
       Dúvidas sobre o seu evento?<br />
-      <a href="https://wa.me/5516982540005" target="_blank" rel="noopener">(16) 98254-0005</a>
+      <a href="https://wa.me/5516982540124" target="_blank" rel="noopener">(16) 98254-0124</a>
     </p>
     <p class="mejo-foot__copy">&copy; 2026 Maria &amp; José Parrilla. Todos os direitos reservados</p>
   </footer>
@@ -359,7 +359,7 @@
   var DEFAULTS = {
 
     /* ---- contato / integracoes ---- */
-    whatsapp: '5516982540005',          // numero que recebe a cotacao
+    whatsapp: '5516982540124',          // numero que recebe a cotacao
     // Altura de um cabecalho fixo do tema, em pixels. null = detecta
     // sozinho a barra do WordPress e assume o resto como zero.
     topoFixo: null,
