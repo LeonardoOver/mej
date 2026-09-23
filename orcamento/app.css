@@ -259,6 +259,11 @@
    cabecalho do proprio site. */
 .mejo.comecou .mejo-hero { display: none; }
 
+/* O atributo hidden precisa ganhar de qualquer display dos componentes.
+   Sem isso o selo de desconto aparecia como uma pilula vazia sob o total
+   nos dias sem desconto. */
+.mejo [hidden] { display: none !important; }
+
 /* ---------- PROGRESSO ---------- */
 
 .mejo-progress {
@@ -577,6 +582,12 @@
   text-transform: uppercase; color: var(--c-ink-muted); text-align: right;
 }
 .mejo-pack__list { display: grid; gap: 6px; }
+/* linha de apoio do pacote, antes dos itens */
+.mejo-pack__desc {
+  display: block; margin-bottom: 2px;
+  font-size: 13.2px; line-height: 1.45; font-weight: 600;
+  color: var(--c-ink);
+}
 .mejo-pack__item {
   display: flex; gap: 8px; font-size: 13.2px;
   color: var(--c-ink-soft); line-height: 1.45;
@@ -974,6 +985,23 @@
 }
 
 .mejo-actions { display: grid; gap: 11px; margin-top: 24px; }
+
+/* Prazo para fechar e validade da proposta, logo acima do WhatsApp */
+.mejo-oferta {
+  background: var(--c-bg-soft);
+  border-left: 3px solid var(--c-accent-dk);
+  border-radius: var(--r);
+  padding: 14px 16px; margin-bottom: 5px;
+}
+.mejo-oferta[hidden], .mejo-oferta p[hidden] { display: none; }
+.mejo-oferta__destaque {
+  margin: 0; font-size: 15px; line-height: 1.45; color: var(--c-ink);
+}
+.mejo-oferta__destaque strong { font-weight: 700; }
+.mejo-oferta__validade {
+  margin: 6px 0 0; font-size: 13.2px; line-height: 1.5; color: var(--c-ink-soft);
+}
+.mejo-oferta__destaque[hidden] + .mejo-oferta__validade { margin-top: 0; }
 .mejo-actions__note {
   text-align: center; font-size: 13.5px; color: var(--c-ink-soft);
   line-height: 1.55; margin-bottom: 2px !important;

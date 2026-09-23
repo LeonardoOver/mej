@@ -282,6 +282,10 @@
             </div>
 
             <div class="mejo-actions">
+              <div class="mejo-oferta" id="mejo-oferta">
+                <p class="mejo-oferta__destaque" id="mejo-oferta-48h"></p>
+                <p class="mejo-oferta__validade" id="mejo-oferta-validade"></p>
+              </div>
               <a href="#" class="mejo-btn mejo-btn--wp mejo-btn--lg" id="mejo-cta-whats" target="_blank" rel="noopener">
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.6.1-.9-.4-1.7-.9-2.4-1.6-.6-.7-1.1-1.4-1.5-2.2-.1-.2 0-.4.1-.5.2-.2.5-.6.7-.9.1-.2.1-.4 0-.6l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.9.9-1.2 2-1 3.2.3 1.4 1 2.6 1.9 3.7 1.5 1.9 3.4 3.2 5.7 3.8.6.2 1.3.2 1.9.1.9-.1 1.6-.7 2-1.5.2-.4.2-.9.1-1.3l-.2-.1M12 21.5c-1.7 0-3.3-.4-4.8-1.3l-.3-.2-3.6.9.9-3.4-.2-.4c-2.5-4.2-1.4-9.6 2.5-12.4C10.5 2 15.9 2.6 19 6.2c3 3.6 2.8 8.9-.5 12.2-1.7 1.9-4.1 3-6.5 3.1m9.2-16.3C17.9.9 11.7-.2 7 2.6 2.4 5.4.7 11.4 3.1 16.2L2 21.4c-.1.3.1.6.4.7h.3l5.1-1.3c1.3.7 2.8 1.1 4.3 1.1 6 0 10.9-4.8 10.9-10.8 0-2.1-.6-4.2-1.8-5.9"/></svg>
                 Falar com nossa equipe
@@ -408,6 +412,7 @@
       { id: 'aniv-adulto',   label: 'Aniversário adulto' },
       { id: 'aniv-infantil', label: 'Aniversário infantil' },
       { id: 'bodas',         label: 'Bodas' },
+      { id: 'empresa',       label: 'Evento de empresa' },
       { id: 'outro',         label: 'Outro' }
     ],
 
@@ -461,13 +466,12 @@
     ],
 
     /* ---- cardapio personalizado impresso ---- */
-    // PENDENCIA DE VALIDACAO: cobranca por evento ou por pessoa.
     // modo: 'fixo' (valor por evento) | 'por_pessoa'
     // valor 0 = aparece na cotacao como "a combinar" e NAO entra no calculo.
     cardapioImpresso: {
       ativo: true,
-      modo: 'fixo',
-      valor: 0,
+      modo: 'por_pessoa',
+      valor: 1.5,
       aplicaDesconto: true,
       nota: 'Valor do cardápio impresso a combinar com a equipe.'
     },
@@ -482,41 +486,58 @@
     saladaObrigatoria: true,
     saladaLabel: 'Salada para todos os convidados',
 
+    /* ---- distribuicao de pratos ---- */
+    // false = o convidado escolhe o prato no dia, e o anfitriao nao informa
+    // quantidades. true = volta a pedir a distribuicao somando os convidados.
+    distribuirQuantidades: false,
+
     /* ---- MENU SEQUENCIAL ---- */
+    // Campos opcionais de cada pacote:
+    //   desc        linha de apoio no topo da lista de itens
+    //   precoTexto  substitui o valor em reais (ex.: 'A parte'), com precoNota embaixo
+    //   semPreco    true = o card nao mostra preco (ex.: 'Sem sobremesa')
+    //   semPacote   true = o resumo mostra so o nome, sem a palavra 'Pacote'
+    // notaOpcoes da categoria aparece no fim dos cards que listam opcoes.
     categorias: [
       {
         id: 'entradas', nome: 'Entradas', obrigatorio: true,
         pacotes: [
-          { id: 'basico', tier: 'Básico', preco: 20, itens: [
+          { id: 'basico', tier: 'Básico', preco: 25, itens: [
             'Pão de alho artesanal', 'Linguiça Dom José', 'Pastel Canastra'
           ] },
-          { id: 'premium', tier: 'Premium', preco: 30, itens: [
+          { id: 'premium', tier: 'Premium', preco: 39, itens: [
             'Pão de alho artesanal', 'Linguiça Dom José',
             'Pastel Canastra com molho artesanal de pimenta dedo-de-moça',
             'Queijo coalho com melaço de maçã verde', 'Provoleta'
-          ] }
+          ] },
+          { id: 'cardapio', tier: 'Cardápio normal', preco: 0, semPacote: true,
+            precoTexto: 'À parte', precoNota: 'conforme consumo',
+            desc: 'As entradas são pedidas do cardápio do restaurante e lançadas conforme o consumo.' }
         ]
       },
       {
         id: 'principal', nome: 'Principal + acompanhamentos', obrigatorio: true,
+        notaOpcoes: 'Cada convidado escolhe uma opção.',
         distTitulo: 'Distribuição dos pratos principais',
         distHint: 'Cada convidado tem direito a um prato principal. Informe quantos de cada.',
         distUnidade: 'pratos principais',
         pacotes: [
-          { id: 'basico', tier: 'Básico', preco: 60, salada: true, distribuir: true, opcoes: [
+          { id: 'basico', tier: 'Básico', preco: 65, salada: true, distribuir: true, opcoes: [
             { curto: 'Chorizo Angus', nome: 'Chorizo Angus com batata ao murro, chimichurri e Farofa Puerto Madero' },
             { curto: 'Costela Angus', nome: 'Costela Angus com Arroz Biro-Biro e mandioca cozida na manteiga' },
             { curto: 'Galeto na brasa', nome: 'Galeto na brasa com arroz e batata rústica' }
           ] },
-          { id: 'premium', tier: 'Premium', preco: 75, salada: true, distribuir: true, opcoes: [
+          { id: 'premium', tier: 'Premium', preco: 85, salada: true, distribuir: true, opcoes: [
             { curto: 'Picanha Angus', nome: 'Picanha Angus com batata ao murro, chimichurri e Farofa Puerto Madero' },
             { curto: 'Filet Mignon', nome: 'Filet Mignon com Arroz Biro-Biro e mandioca cozida na manteiga' },
+            { curto: 'Costela Angus', nome: 'Costela Angus com Arroz Biro-Biro e mandioca cozida na manteiga' },
             { curto: 'Salmão na brasa', nome: 'Salmão na brasa com arroz e mix de legumes braseados' }
           ] }
         ]
       },
       {
         id: 'sobremesa', nome: 'Sobremesa', obrigatorio: true,
+        notaOpcoes: 'Uma por convidado.',
         distTitulo: 'Distribuição das sobremesas',
         distHint: 'Cada convidado tem direito a uma sobremesa. Informe quantas de cada.',
         distUnidade: 'sobremesas',
@@ -526,27 +547,33 @@
           ] },
           { id: 'premium', tier: 'Premium', preco: 22, distribuir: true, opcoes: [
             { curto: 'Brownie', nome: 'Brownie chocolatudo com sorvete de creme' },
-            { curto: 'Batata Maravilha', nome: 'Batata Maravilha',
+            { curto: 'Banana Maravilha', nome: 'Banana Maravilha',
               desc: 'Banana na brasa finalizada com caramelo e canela, uma bola de sorvete de creme e uma colher de doce de leite argentino.' }
-          ] }
+          ] },
+          { id: 'sem', tier: 'Sem sobremesa', preco: 0, semPacote: true, semPreco: true,
+            desc: 'O evento não terá sobremesa.' }
         ]
       },
       {
-        id: 'bebidas_nao_alc', nome: 'Bebidas não alcoólicas', obrigatorio: true,
+        id: 'bebidas', nome: 'Bebidas à vontade', obrigatorio: true,
         pacotes: [
-          { id: 'basico', tier: 'Básico', preco: 23, itens: ['Água', 'Suco', 'Refrigerante em lata'] },
-          { id: 'premium', tier: 'Premium', preco: 30, itens: [
-            '2 mocktails (drinks não alcoólicos)', 'Água', 'Suco natural', 'Refrigerante em lata'
-          ] }
-        ]
-      },
-      {
-        id: 'bebidas_alc', nome: 'Bebidas alcoólicas', obrigatorio: true, alcool: true,
-        pacotes: [
-          { id: 'basico', tier: 'Básico', preco: 30, itens: ['Cerveja 600 ml'] },
-          { id: 'premium', tier: 'Premium', preco: 40, itens: [
-            'Chopp Heineken', 'Caipirinha', 'Caipiroska', 'Vinho'
-          ] }
+          { id: 'basico', tier: 'Básico', preco: 30,
+            desc: 'Bebidas não alcoólicas à vontade',
+            itens: ['Água com e sem gás', 'Suco natural', 'Refrigerante em lata'] },
+          { id: 'premium', tier: 'Premium', preco: 50,
+            desc: 'Bebidas não alcoólicas e chopp à vontade',
+            itens: ['Água com e sem gás', 'Suco natural', 'Refrigerante em lata', 'Chopp Heineken'] },
+          { id: 'super', tier: 'Super Premium', preco: 80,
+            desc: 'Bebidas não alcoólicas e chopp à vontade',
+            itens: [
+              'Água com e sem gás', 'Suco natural', 'Refrigerante em lata',
+              'Chopp Heineken', 'Chopp Lagunitas IPA', 'Chopp Blue Moon',
+              'Vinho branco chileno', 'Vinho tinto argentino',
+              '3 drinks alcoólicos à sua escolha'
+            ] },
+          { id: 'parte', tier: 'Sem pacote de bebidas', preco: 0, semPacote: true,
+            precoTexto: 'À parte', precoNota: 'conforme consumo',
+            desc: 'As bebidas serão pedidas à parte, conforme o consumo.' }
         ]
       }
     ],
@@ -588,7 +615,7 @@
         ],
         sobremesas: [
           { curto: 'Brownie', nome: 'Brownie chocolatudo com sorvete de creme' },
-          { curto: 'Batata Maravilha', nome: 'Batata Maravilha',
+          { curto: 'Banana Maravilha', nome: 'Banana Maravilha',
             desc: 'Banana na brasa finalizada com caramelo e canela, uma bola de sorvete de creme e uma colher de doce de leite argentino.' }
         ]
       }
@@ -597,7 +624,10 @@
     /* ---- textos comerciais editaveis ---- */
     textos: {
       whatsappAbertura: 'Olá! Fiz uma cotação de evento no Maria e José Parrilla e gostaria de falar com a equipe sobre minha proposta.',
-      propostaAbertura: 'Olá! Fiz uma cotação no site e gostaria de uma proposta totalmente personalizada para o meu evento.'
+      propostaAbertura: 'Olá! Fiz uma cotação no site e gostaria de uma proposta totalmente personalizada para o meu evento.',
+      // aparecem no resultado, logo acima do botão do WhatsApp; vazio = não mostra
+      ofertaFechamento: 'Você tem <strong>48h</strong> para fechar o evento e <strong>ganhar o cardápio impresso sem custo</strong>.',
+      validadeProposta: 'Proposta válida por uma semana. Para fechar, clique no botão do WhatsApp abaixo.'
     }
   };
 
@@ -746,6 +776,7 @@
   /* grupos de distribuicao ativos agora: [{key, titulo, hint, unidade, opcoes}] */
   function gruposDist() {
     var out = [];
+    if (!CONFIG.distribuirQuantidades) return out;
     if (S.formato === 'sequencial') {
       ['principal', 'sobremesa'].forEach(function (cid) {
         var cat = getCat(cid);
@@ -930,12 +961,10 @@
       $('mejo-block-cardapio').hidden = true;
     } else {
       var ci = CONFIG.cardapioImpresso;
-      var metaSim = Number(ci.valor) > 0
-        ? money(ci.valor) + (ci.modo === 'por_pessoa' ? ' por pessoa' : ' por evento')
-        : 'valor a combinar';
+      var metaSim = Number(ci.valor) > 0 ? metaImpresso() : 'valor a combinar';
       $('mejo-impresso').innerHTML =
         optCard('mejo-impresso-r', 'sim', 'Sim', '', metaSim, false, false) +
-        optCard('mejo-impresso-r', 'nao', 'Não', '', 'sem custo', false, false);
+        optCard('mejo-impresso-r', 'nao', 'Não quero', '', 'sem custo', false, false);
       if (Number(ci.valor) <= 0 && ci.nota) $('mejo-cardapio-hint').textContent = ci.nota;
     }
 
@@ -1011,8 +1040,32 @@
     if (!$('mejo-ambientes').querySelector('input:checked')) S.ambiente = '';
   }
 
-  function packCard(catId, p, checked) {
+  function precoCard(p) {
+    if (p.semPreco) return '';
+    if (p.precoTexto) {
+      return '<span class="mejo-pack__price">' + esc(p.precoTexto) +
+        (p.precoNota ? '<small>' + esc(p.precoNota) + '</small>' : '') + '</span>';
+    }
+    return '<span class="mejo-pack__price">' + money(p.preco) + '<small>por pessoa</small></span>';
+  }
+
+  // usados no resumo e na mensagem do WhatsApp
+  function nomePacote(p) { return p.semPacote ? p.tier : 'Pacote ' + p.tier; }
+  function precoResumo(p) {
+    if (p.semPreco) return 'sem custo';
+    if (p.precoTexto) return (p.precoTexto + (p.precoNota ? ' ' + p.precoNota : '')).toLowerCase();
+    return money(p.preco) + ' por pessoa';
+  }
+
+  function metaImpresso() {
+    var ci = CONFIG.cardapioImpresso;
+    return money(ci.valor) + (ci.modo === 'por_pessoa' ? ' por pessoa' : ' por evento');
+  }
+
+  function packCard(cat, p, checked) {
+    var catId = cat.id;
     var linhas = '';
+    if (p.desc) linhas += '<span class="mejo-pack__desc">' + esc(p.desc) + '</span>';
     if (p.salada && CONFIG.saladaObrigatoria) {
       linhas += '<span class="mejo-pack__item mejo-pack__item--fixed">' +
         esc(CONFIG.saladaLabel) + '</span>';
@@ -1024,8 +1077,10 @@
       linhas += '<span class="mejo-pack__item">' + esc(o.nome) + '</span>';
     });
     if (p.opcoes && p.opcoes.length) {
-      linhas += '<span class="mejo-pack__nota">' +
-        'Um por convidado. Você distribui as quantidades.</span>';
+      var nota = CONFIG.distribuirQuantidades
+        ? 'Um por convidado. Você distribui as quantidades.'
+        : (cat.notaOpcoes || '');
+      if (nota) linhas += '<span class="mejo-pack__nota">' + esc(nota) + '</span>';
     }
 
     return '' +
@@ -1035,7 +1090,7 @@
         '<span class="mejo-pack__box">' +
           '<span class="mejo-pack__top">' +
             '<span class="mejo-pack__tier">' + esc(p.tier) + '</span>' +
-            '<span class="mejo-pack__price">' + money(p.preco) + '<small>por pessoa</small></span>' +
+            precoCard(p) +
           '</span>' +
           '<span class="mejo-pack__list">' + linhas + '</span>' +
         '</span>' +
@@ -1164,10 +1219,10 @@
         '<div class="mejo-block">' +
           '<p class="mejo-block__title">' + esc(cat.nome) +
             (cat.obrigatorio ? ' <span class="mejo-req">*</span>' : '') + '</p>' +
-          '<p class="mejo-block__hint">Escolha um pacote nesta categoria.</p>' +
+          '<p class="mejo-block__hint">Escolha uma opção nesta categoria.</p>' +
           (semAlc ? '' :
             '<div class="mejo-pack">' + cat.pacotes.map(function (pk) {
-              return packCard(cat.id, pk, escolhido === pk.id);
+              return packCard(cat, pk, escolhido === pk.id);
             }).join('') + '</div>') +
           (cat.alcool && CONFIG.bebidasAlcoolicas.permitirSem
             ? '<label class="mejo-check"><input type="checkbox" id="mejo-sem-alcool"' +
@@ -1201,7 +1256,8 @@
 
       blocos.forEach(function (b) { grupo(b.titulo, '', b.itens); });
       if (r.principais && r.principais.length) {
-        grupo('Principais', 'um por convidado', nomes(r.principais));
+        grupo('Principais', CONFIG.distribuirQuantidades ? 'um por convidado' : 'cada convidado escolhe um',
+          nomes(r.principais));
       }
       if (r.sobremesas && r.sobremesas.length) {
         grupo('Sobremesas', 'uma por convidado', nomes(r.sobremesas));
@@ -1292,13 +1348,15 @@
         var p = getPacote(cat, S.pacotes[cat.id]);
         if (!p) return;
         var det = [];
+        if (p.desc) det.push(p.desc);
         if (p.salada && CONFIG.saladaObrigatoria) det.push(CONFIG.saladaLabel);
         (p.itens || []).forEach(function (i) { det.push(i); });
-        if (!det.length && p.opcoes) {
-          det = p.opcoes.map(function (o) { return o.curto; });
+        // sem distribuicao, as opcoes so aparecem aqui
+        if (p.opcoes && p.opcoes.length && !grupoPorKey(cat.id)) {
+          det.push('Opções: ' + p.opcoes.map(function (o) { return o.curto; }).join(', '));
         }
         itens.push([
-          cat.nome + ' - Pacote ' + p.tier + ' (' + money(p.preco) + ' por pessoa)',
+          cat.nome + ' - ' + nomePacote(p) + ' (' + precoResumo(p) + ')',
           det.join(' | ')
         ]);
       });
@@ -1308,6 +1366,11 @@
         var det2 = [];
         if (r.salada && CONFIG.saladaObrigatoria) det2.push(CONFIG.saladaLabel);
         (r.blocos || []).forEach(function (b) { det2.push(b.titulo + ': ' + b.itens.join(', ')); });
+        if (!CONFIG.distribuirQuantidades) {
+          var curtos = function (ops) { return ops.map(function (o) { return o.curto; }).join(', '); };
+          if (r.principais && r.principais.length) det2.push('Principais: ' + curtos(r.principais));
+          if (r.sobremesas && r.sobremesas.length) det2.push('Sobremesas: ' + curtos(r.sobremesas));
+        }
         itens.push([r.nome + ' (' + money(r.preco) + ' por pessoa)', det2.join(' | ')]);
       }
     }
@@ -1317,7 +1380,7 @@
     if (ds) itens.push(['Sobremesas', ds]);
     if (CONFIG.cardapioImpresso.ativo) {
       itens.push(['Cardápio personalizado impresso', S.impresso === 'sim'
-        ? (Number(CONFIG.cardapioImpresso.valor) > 0 ? 'Sim' : 'Sim - valor a combinar com a equipe')
+        ? (Number(CONFIG.cardapioImpresso.valor) > 0 ? 'Sim (' + metaImpresso() + ')' : 'Sim - valor a combinar com a equipe')
         : 'Não']);
     }
     $('mejo-res-itens').innerHTML = itens.map(function (i) {
@@ -1359,6 +1422,14 @@
       badge.hidden = true;
     }
 
+    var oferta = CONFIG.textos.ofertaFechamento || '';
+    var validade = CONFIG.textos.validadeProposta || '';
+    $('mejo-oferta').hidden = !oferta && !validade;
+    $('mejo-oferta-48h').innerHTML = oferta;
+    $('mejo-oferta-48h').hidden = !oferta;
+    $('mejo-oferta-validade').textContent = validade;
+    $('mejo-oferta-validade').hidden = !validade;
+
     $('mejo-cta-whats').href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' +
       encodeURIComponent(montarMensagem(c, CONFIG.textos.whatsappAbertura));
     $('mejo-cta-proposta').href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' +
@@ -1387,7 +1458,7 @@
       CONFIG.categorias.forEach(function (cat) {
         if (cat.alcool && S.semAlcool) { L.push('- ' + cat.nome + ': sem bebidas alcoolicas'); return; }
         var p = getPacote(cat, S.pacotes[cat.id]);
-        if (p) L.push('- ' + cat.nome + ': ' + p.tier + ' (' + money(p.preco) + ' por pessoa)');
+        if (p) L.push('- ' + cat.nome + ': ' + p.tier + ' (' + precoResumo(p) + ')');
       });
     } else {
       var r = getRodizio(S.rodizio);
@@ -1399,9 +1470,11 @@
     if (ds) { L.push(''); L.push('*SOBREMESAS*'); L.push(ds); }
     L.push('');
     L.push('*ADICIONAIS*');
-    if (CONFIG.cardapioImpresso.ativo) {
+    // quando cobrado, o impresso ja aparece com o valor na lista de adicionais
+    var impressoCobrado = S.impresso === 'sim' && Number(CONFIG.cardapioImpresso.valor) > 0;
+    if (CONFIG.cardapioImpresso.ativo && !impressoCobrado) {
       L.push('- Cardápio impresso: ' + (S.impresso === 'sim'
-        ? (Number(CONFIG.cardapioImpresso.valor) > 0 ? 'Sim' : 'Sim (valor a combinar)')
+        ? (Number(CONFIG.cardapioImpresso.valor) > 0 ? 'Sim (' + metaImpresso() + ')' : 'Sim (valor a combinar)')
         : 'Não'));
     }
     if (c.adicionais.length) {
@@ -1420,6 +1493,9 @@
     }
     L.push('TOTAL ESTIMADO: ' + money(c.total));
     if (c.convidados) L.push('(' + money(c.perPessoaFinal) + ' por convidado)');
+    L.push('');
+    // a equipe precisa da data para contar as 48h e a semana de validade
+    L.push('Cotação gerada em ' + fmtBR(isoLocal(new Date())) + '.');
     return L.join('\n');
   }
 

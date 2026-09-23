@@ -91,9 +91,10 @@ Isso é o gancho para o painel administrativo do briefing (seção 28): um plugi
 | `cardapioImpresso` | `ativo`, `modo` (`fixo` \| `por_pessoa`), `valor`, `aplicaDesconto` |
 | `bebidasAlcoolicas` | `obrigatorio`, `permitirSem` (libera "não desejo bebidas alcoólicas") |
 | `saladaObrigatoria` | Se a salada aparece como item fixo dos pacotes de principal e rodízios |
-| `categorias[]` | Pacotes do Menu Sequencial: preço, itens, opções de distribuição |
+| `categorias[]` | Pacotes do Menu Sequencial: preço, itens, opções. Campos opcionais do pacote: `desc` (linha de apoio), `precoTexto` + `precoNota` (ex.: "À parte / conforme consumo"), `semPreco`, `semPacote`. `notaOpcoes` da categoria aparece nos cards com opções |
+| `distribuirQuantidades` | `false` (padrão): o convidado escolhe o prato no dia. `true`: o anfitrião informa quantos de cada, somando o número de convidados |
 | `rodizios[]` | Rodízio Básico e Premium: preço, blocos de itens, principais, sobremesas |
-| `textos` | Mensagens de abertura do WhatsApp |
+| `textos` | Mensagens de abertura do WhatsApp; `ofertaFechamento` (48h) e `validadeProposta`, mostrados acima do botão do WhatsApp. Vazio = não mostra |
 
 ### Taxas de ambiente
 
@@ -146,13 +147,13 @@ Nenhuma regra comercial foi inventada. Cada pendência foi implementada como **p
 | 5 | Segunda-feira disponível? | **Fora** da lista de dias | `diasSemana` (adicionar `{ v: 1, label: 'Segunda-feira' }`) |
 | 6 | Turno altera preço/disponibilidade? | Só registra | `turnos` |
 | 7 | Forma de consumo altera preço? | Só registra | `consumo` |
-| 8 | Cardápio impresso: por evento ou por pessoa? | `modo: 'fixo'`, `valor: 0` → mostra "valor a combinar" e não soma | `cardapioImpresso.modo` / `.valor` |
+| 8 | Cardápio impresso: por evento ou por pessoa? | **Resolvido pelo cliente:** R$ 1,50 por pessoa | `cardapioImpresso.modo` / `.valor` |
 | 9 | Salada no Principal Premium? | Incluída (regra consolidada) | `saladaObrigatoria` / `categorias[1].pacotes[1].salada` |
 | 10 | Salada no Rodízio Premium? | Incluída | `rodizios[1].salada` |
 | 11 | Bebidas alcoólicas obrigatórias? | Obrigatórias, sem opção de recusar | `bebidasAlcoolicas.permitirSem: true` |
 | 12 | Desconto incide sobre taxa de ambiente? | Sim (regra consolidada) | `desconto.itens.ambiente` |
 | 13 | Desconto sobre todos os adicionais futuros? | Sim | `desconto.itens` |
-| 14 | Distribuição de pratos é escolha prévia ou estimativa? | Tratada como estimativa de planejamento; texto da tela não afirma nada | `categorias[].distHint` |
+| 14 | Distribuição de pratos é escolha prévia ou estimativa? | **Resolvido pelo cliente:** nenhuma das duas, o convidado escolhe no dia | `distribuirQuantidades` |
 
 Ao mudar o percentual da pendência 8 para `por_pessoa`, o valor passa a multiplicar pelo número de convidados automaticamente.
 
@@ -206,7 +207,7 @@ Eventos enviados para `dataLayer` (GTM) e `gtag`, quando presentes:
 - **5 etapas** com barra de progresso: Dados → Ambiente → Consumo → Cardápio → Resumo.
 - **Data opcional** com calendário em `dd/mm/aaaa`; o dia da semana é detectado automaticamente e o desconto é anunciado na hora. Sem data, o cliente escolhe apenas o dia da semana.
 - **Validação de convidados**: apenas inteiros positivos; ambientes abaixo do mínimo ou acima da capacidade ficam desabilitados com a mensagem exata do briefing.
-- **Distribuição de pratos e sobremesas** com stepper, contador "Total selecionado: X de Y", botão "Distribuir igualmente" e bloqueio de avanço enquanto a soma não fecha. A distribuição se reajusta sozinha quando o número de convidados muda.
+- **Distribuição de pratos e sobremesas** (desligada por padrão, `distribuirQuantidades`) com stepper, contador "Total selecionado: X de Y", botão "Distribuir igualmente" e bloqueio de avanço enquanto a soma não fecha. A distribuição se reajusta sozinha quando o número de convidados muda.
 - **Barra fixa de total** nas etapas 2 a 4, com valor total e valor por convidado atualizados em tempo real.
 - **Resumo completo** com dados do evento, itens selecionados, distribuições, memória de cálculo e total.
 - **WhatsApp** com a cotação inteira já formatada na mensagem.
