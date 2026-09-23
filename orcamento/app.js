@@ -43,25 +43,25 @@
   </header>
 
   <!-- ================= PROGRESSO ================= -->
-  <div class="mejo-progress" id="mejo-progress" aria-hidden="true">
+  <div class="mejo-progress" id="mejo-progress">
     <div class="mejo-wrap">
       <div class="mejo-progress__marca">
         <img class="mejo-progress__logo"
              src="https://mariaejose.com.br/wp-content/uploads/2024/12/logo-2.png"
              alt="Maria e José Parrilla" width="150" height="26" />
-        <p class="mejo-progress__now" id="mejo-progress-now-topo"></p>
+        <p class="mejo-progress__now" id="mejo-progress-now-topo" aria-hidden="true"></p>
       </div>
-      <div class="mejo-progress__track">
+      <div class="mejo-progress__track" aria-hidden="true">
         <div class="mejo-progress__fill" id="mejo-progress-fill"></div>
       </div>
-      <div class="mejo-progress__steps">
-        <span class="mejo-progress__step is-active" data-pstep="1">Dados</span>
-        <span class="mejo-progress__step" data-pstep="2">Ambiente</span>
-        <span class="mejo-progress__step" data-pstep="3">Consumo</span>
-        <span class="mejo-progress__step" data-pstep="4">Cardápio</span>
-        <span class="mejo-progress__step" data-pstep="5">Resumo</span>
-      </div>
-      <p class="mejo-progress__now" id="mejo-progress-now"></p>
+      <nav class="mejo-progress__steps" aria-label="Etapas da cotação">
+        <button type="button" class="mejo-progress__step is-active" data-pstep="1">Dados</button>
+        <button type="button" class="mejo-progress__step" data-pstep="2">Ambiente</button>
+        <button type="button" class="mejo-progress__step" data-pstep="3">Consumo</button>
+        <button type="button" class="mejo-progress__step" data-pstep="4">Cardápio</button>
+        <button type="button" class="mejo-progress__step" data-pstep="5">Resumo</button>
+      </nav>
+      <p class="mejo-progress__now" id="mejo-progress-now" aria-hidden="true"></p>
     </div>
   </div>
 
@@ -731,6 +731,38 @@
     }
     return null;
   }
+  // Pacote que ja vem marcado. Os outros mostram o preco como diferenca
+  // sobre ele. Marque padrao: true num pacote para trocar; sem isso vale o
+  // de id 'basico', e na falta dele o primeiro da lista.
+  function pacotePadrao(lista) {
+    var i;
+    for (i = 0; i < lista.length; i++) if (lista[i].padrao) return lista[i];
+    for (i = 0; i < lista.length; i++) if (lista[i].id === 'basico') return lista[i];
+    return lista[0] || null;
+  }
+
+  // Escolher o formato ja deixa o Basico marcado em tudo, para o total
+  // responder na hora em vez de ficar parado ate a ultima tela.
+  function aplicarPadroes() {
+    if (S.formato === 'sequencial') {
+      CONFIG.categorias.forEach(function (cat) {
+        if (getPacote(cat, S.pacotes[cat.id])) return;
+        var p = pacotePadrao(cat.pacotes);
+        if (p) S.pacotes[cat.id] = p.id;
+      });
+    } else if (S.formato === 'rodizio' && !getRodizio(S.rodizio)) {
+      var r = pacotePadrao(CONFIG.rodizios);
+      if (r) S.rodizio = r.id;
+    }
+  }
+
+  // "+R$ 14,00" para o upgrade, valor cheio para o pacote base
+  function precoRelativo(p, base) {
+    var delta = base ? (Number(p.preco) || 0) - (Number(base.preco) || 0) : 0;
+    var valor = (base && p !== base && delta > 0) ? '+' + money(delta) : money(p.preco);
+    return '<span class="mejo-pack__price">' + valor + '<small>por pessoa</small></span>';
+  }
+
   function getRodizio(id) {
     for (var i = 0; i < CONFIG.rodizios.length; i++) {
       if (CONFIG.rodizios[i].id === id) return CONFIG.rodizios[i];
@@ -1042,13 +1074,13 @@
     if (!$('mejo-ambientes').querySelector('input:checked')) S.ambiente = '';
   }
 
-  function precoCard(p) {
+  function precoCard(p, base) {
     if (p.semPreco) return '';
     if (p.precoTexto) {
       return '<span class="mejo-pack__price">' + esc(p.precoTexto) +
         (p.precoNota ? '<small>' + esc(p.precoNota) + '</small>' : '') + '</span>';
     }
-    return '<span class="mejo-pack__price">' + money(p.preco) + '<small>por pessoa</small></span>';
+    return precoRelativo(p, base);
   }
 
   // usados no resumo e na mensagem do WhatsApp
@@ -1092,7 +1124,7 @@
         '<span class="mejo-pack__box">' +
           '<span class="mejo-pack__top">' +
             '<span class="mejo-pack__tier">' + esc(p.tier) + '</span>' +
-            precoCard(p) +
+            precoCard(p, pacotePadrao(cat.pacotes)) +
           '</span>' +
           '<span class="mejo-pack__list">' + linhas + '</span>' +
         '</span>' +
@@ -1221,7 +1253,7 @@
         '<div class="mejo-block">' +
           '<p class="mejo-block__title">' + esc(cat.nome) +
             (cat.obrigatorio ? ' <span class="mejo-req">*</span>' : '') + '</p>' +
-          '<p class="mejo-block__hint">Escolha uma opção nesta categoria.</p>' +
+          '<p class="mejo-block__hint">O Básico já vem marcado. Toque em outra opção para trocar.</p>' +
           (semAlc ? '' :
             '<div class="mejo-pack">' + cat.pacotes.map(function (pk) {
               return packCard(cat, pk, escolhido === pk.id);
@@ -1275,7 +1307,7 @@
           '<span class="mejo-pack__box">' +
             '<span class="mejo-pack__top">' +
               '<span class="mejo-pack__tier">' + esc(r.nome) + '</span>' +
-              '<span class="mejo-pack__price">' + money(r.preco) + '<small>por pessoa</small></span>' +
+              precoRelativo(r, pacotePadrao(CONFIG.rodizios)) +
             '</span>' +
             '<span class="mejo-pack__list">' + lista + '</span>' +
           '</span>' +
@@ -1780,6 +1812,10 @@
       var v = Number(s.getAttribute('data-pstep'));
       s.classList.toggle('is-active', v === STEP);
       s.classList.toggle('is-done', v < STEP);
+      // volta para qualquer etapa anterior; avanca so ate onde ja chegou
+      s.disabled = !(v !== STEP && (v < STEP || v <= stepAlcancado));
+      if (v === STEP) s.setAttribute('aria-current', 'step');
+      else s.removeAttribute('aria-current');
     });
     aplicarHero();
 
@@ -1825,6 +1861,54 @@
       var top = $('mejo-form').getBoundingClientRect().top + window.pageYOffset - offset;
       window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     }
+  }
+
+  // O cardapio inteiro, e nao so a sub-etapa aberta, para o salto pela
+  // barra de progresso nao passar por cima de uma escolha que falta.
+  function cardapioCompleto() {
+    if (!S.formato) return false;
+    if (S.formato === 'sequencial') {
+      var falta = CONFIG.categorias.some(function (cat) {
+        if (cat.alcool && S.semAlcool) return false;
+        return cat.obrigatorio && !getPacote(cat, S.pacotes[cat.id]);
+      });
+      if (falta) return false;
+    } else if (!getRodizio(S.rodizio)) {
+      return false;
+    }
+    var g = Number(S.convidados) || 0;
+    return gruposDist().every(function (grp) { return somaDist(grp.key) === g; });
+  }
+
+  function concluirCotacao() {
+    var c = calc();
+    track('orcamento_concluido', {
+      convidados: c.convidados,
+      valor_total: c.total,
+      valor_por_pessoa: c.perPessoa,
+      formato: labelFormato()
+    });
+    enviarLead('completo');
+  }
+
+  // Clique numa etapa da barra de progresso. Voltar e livre. Avancar valida
+  // cada etapa no caminho e para na primeira que tiver pendencia, mostrando
+  // o erro ali, como faria o botao Continuar.
+  function saltarPara(alvo) {
+    if (alvo === STEP) return;
+    if (alvo > STEP) {
+      for (var s = STEP; s < alvo; s++) {
+        var ok = s === 4 ? cardapioCompleto() : validaStep(s, false);
+        if (!ok) {
+          if (s !== STEP) irPara(s);
+          if (s !== 4) validaStep(s, true);
+          return;
+        }
+      }
+      if (alvo === 5) concluirCotacao();
+    }
+    track('orcamento_salto_etapa', { de: STEP, para: alvo });
+    irPara(alvo);
   }
 
   /* ==========================================================================
@@ -2164,6 +2248,8 @@
     var veioDeLink = lerHash();
     var retomada = veioDeLink ? null : carregarLocal();
     if (!S.convidados) S.convidados = Number(CONFIG.convidadosPadrao) || null;
+    // cotacoes salvas antes da mudanca, ou com categoria nova, ganham o Basico
+    aplicarPadroes();
     hidratar();
     mostrarRetomada(retomada);
 
@@ -2312,6 +2398,7 @@
       S.rodizio = '';
       S.semAlcool = false;
       S.dist = { principal: {}, sobremesa: {} };
+      aplicarPadroes();
       SUB = 0;
       showErr('mejo-err-formato', false);
       alerta(4, '');
@@ -2425,16 +2512,7 @@
           return;
         }
 
-        if (n === 4) {
-          var c = calc();
-          track('orcamento_concluido', {
-            convidados: c.convidados,
-            valor_total: c.total,
-            valor_por_pessoa: c.perPessoa,
-            formato: labelFormato()
-          });
-          enviarLead('completo');
-        }
+        if (n === 4) concluirCotacao();
         irPara(n + 1);
       });
     });
@@ -2454,6 +2532,13 @@
         irPara(n - 1);
       });
     });
+    Array.prototype.forEach.call(document.querySelectorAll('.mejo-progress__step'), function (b) {
+      b.addEventListener('click', function () {
+        if (b.disabled) return;
+        saltarPara(Number(b.getAttribute('data-pstep')));
+      });
+    });
+
     $('mejo-bar-cta').addEventListener('click', function () {
       var b = document.querySelector('.mejo-step.is-active [data-next]');
       if (b) b.click();

@@ -204,7 +204,8 @@ Eventos enviados para `dataLayer` (GTM) e `gtag`, quando presentes:
 
 ## 7. Recursos implementados
 
-- **5 etapas** com barra de progresso: Dados → Ambiente → Consumo → Cardápio → Resumo.
+- **5 etapas** com barra de progresso: Dados → Ambiente → Consumo → Cardápio → Resumo. A partir de 420px de largura, as etapas da barra são clicáveis: voltar é livre, e avançar vai só até onde a pessoa já chegou, validando cada etapa no caminho.
+- **Básico já marcado**: escolher o formato marca o pacote base de cada categoria (ou o Rodízio Básico), então o total aparece na hora. Os outros pacotes mostram a diferença ("+R$ 14,00 por pessoa"). Para mudar o pacote base, use `padrao: true` no pacote.
 - **Data opcional** com calendário em `dd/mm/aaaa`; o dia da semana é detectado automaticamente e o desconto é anunciado na hora. Sem data, o cliente escolhe apenas o dia da semana.
 - **Validação de convidados**: apenas inteiros positivos; ambientes abaixo do mínimo ou acima da capacidade ficam desabilitados com a mensagem exata do briefing.
 - **Distribuição de pratos e sobremesas** (desligada por padrão, `distribuirQuantidades`) com stepper, contador "Total selecionado: X de Y", botão "Distribuir igualmente" e bloqueio de avanço enquanto a soma não fecha. A distribuição se reajusta sozinha quando o número de convidados muda.

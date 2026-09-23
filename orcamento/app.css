@@ -320,16 +320,33 @@
   .mejo-step__head > .mejo-eyebrow { display: none; }
   .mejo-step__head { margin-bottom: 22px; }
 }
-.mejo-progress__step {
+.mejo .mejo-progress__step {
   font-family: var(--f-display); font-size: 9.5px; font-weight: 500;
   letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--c-ink-muted);
+  color: var(--c-ink-muted) !important;
+  background-color: transparent !important;
   transition: color 0.3s var(--ease);
   white-space: nowrap;
+  /* alvo de toque de 44px sem mexer na altura da barra */
+  min-height: 44px; padding: 0 6px; margin: -15px -6px;
+  border-radius: var(--r);
 }
-.mejo-progress__step.is-active { color: var(--c-accent-dk); font-weight: 700; }
-.mejo-progress__step.is-done { color: var(--c-accent); }
-@media (min-width: 480px) { .mejo-progress__step { font-size: 10.5px; } }
+.mejo .mejo-progress__step:disabled { cursor: default; opacity: 1; }
+.mejo .mejo-progress__step:not(:disabled) { cursor: pointer; }
+.mejo .mejo-progress__step.is-active { color: var(--c-accent-dk) !important; font-weight: 700; }
+.mejo .mejo-progress__step.is-done { color: var(--c-accent-dk) !important; }
+/* etapa a frente que ja foi visitada: da para voltar a ela, entao nao fica apagada */
+.mejo .mejo-progress__step:not(:disabled):not(.is-done):not(.is-active) { color: var(--c-ink-soft) !important; }
+@media (hover: hover) {
+  .mejo .mejo-progress__step:not(:disabled):hover {
+    color: var(--c-ink) !important;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+}
+.mejo .mejo-progress__step:focus-visible {
+  outline: 2px solid var(--c-accent-dk); outline-offset: -8px;
+}
+@media (min-width: 480px) { .mejo .mejo-progress__step { font-size: 10.5px; } }
 
 /* ---------- STEPS ---------- */
 
