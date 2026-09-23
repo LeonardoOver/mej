@@ -94,7 +94,7 @@ Isso é o gancho para o painel administrativo do briefing (seção 28): um plugi
 | `categorias[]` | Pacotes do Menu Sequencial: preço, itens, opções. Campos opcionais do pacote: `desc` (linha de apoio), `precoTexto` + `precoNota` (ex.: "À parte / conforme consumo"), `semPreco`, `semPacote`. `notaOpcoes` da categoria aparece nos cards com opções |
 | `distribuirQuantidades` | `false` (padrão): o convidado escolhe o prato no dia. `true`: o anfitrião informa quantos de cada, somando o número de convidados |
 | `rodizios[]` | Rodízio Básico e Premium: preço, blocos de itens, principais, sobremesas |
-| `textos` | Mensagens de abertura do WhatsApp; `ofertaFechamento` (48h) e `validadeProposta`, mostrados acima do botão do WhatsApp. Vazio = não mostra |
+| `textos` | Mensagens de abertura do WhatsApp; `ofertaFechamento` (48h), `ofertaEconomia` (com `{valor}`, o preço do impresso para os convidados) e `validadeProposta`, mostrados acima do botão do WhatsApp. Vazio = não mostra |
 
 ### Taxas de ambiente
 

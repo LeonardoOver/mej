@@ -628,8 +628,11 @@
       whatsappAbertura: 'Olá! Fiz uma cotação de evento no Maria e José Parrilla e gostaria de falar com a equipe sobre minha proposta.',
       propostaAbertura: 'Olá! Fiz uma cotação no site e gostaria de uma proposta totalmente personalizada para o meu evento.',
       // aparecem no resultado, logo acima do botão do WhatsApp; vazio = não mostra
-      ofertaFechamento: 'Você tem <strong>48h</strong> para fechar o evento e <strong>ganhar o cardápio impresso sem custo</strong>.',
-      validadeProposta: 'Proposta válida por uma semana. Para fechar, clique no botão do WhatsApp abaixo.'
+      // Pedido direto e beneficio na frente. {valor} vira o preco do impresso
+      // para o numero de convidados; sem valor, a frase de economia some.
+      ofertaFechamento: '<strong>Feche em até 48h</strong> e ganhe o cardápio impresso.',
+      ofertaEconomia: 'Economia de {valor}.',
+      validadeProposta: 'Proposta válida por 7 dias.'
     }
   };
 
@@ -1470,6 +1473,11 @@
     }
 
     var oferta = CONFIG.textos.ofertaFechamento || '';
+    var ciOf = CONFIG.cardapioImpresso;
+    var brinde = ciOf.modo === 'por_pessoa' ? Number(ciOf.valor) * c.convidados : Number(ciOf.valor);
+    if (oferta && CONFIG.textos.ofertaEconomia && ciOf.ativo && brinde > 0) {
+      oferta += ' ' + CONFIG.textos.ofertaEconomia.replace('{valor}', '<strong>' + money(brinde) + '</strong>');
+    }
     var validade = CONFIG.textos.validadeProposta || '';
     $('mejo-oferta').hidden = !oferta && !validade;
     $('mejo-oferta-48h').innerHTML = oferta;
