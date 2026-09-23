@@ -477,9 +477,11 @@
     },
 
     /* ---- bebidas alcoolicas ---- */
-    // PENDENCIA DE VALIDACAO: obrigatoriedade.
     // permitirSem = true libera a opcao "nao desejo bebidas alcoolicas".
-    bebidasAlcoolicas: { obrigatorio: true, permitirSem: false },
+    // No menu sequencial o pacote Basico de bebidas ja e so nao alcoolico;
+    // no rodizio a opcao aparece como caixa de selecao abaixo dos cards.
+    // PENDENCIA DE VALIDACAO: o rodizio sem alcool muda de preco? Hoje nao.
+    bebidasAlcoolicas: { obrigatorio: false, permitirSem: true },
 
     /* ---- salada ---- */
     // PENDENCIA DE VALIDACAO: salada no Principal Premium e no Rodizio Premium.
@@ -586,7 +588,7 @@
           { titulo: 'Entradas', itens: ['Pão de alho artesanal', 'Linguiça Dom José', 'Pastel Canastra'] },
           { titulo: 'Sobremesa', itens: ['Pudim de leite condensado'] },
           { titulo: 'Bebidas não alcoólicas', itens: ['Água', 'Suco', 'Refrigerante em lata'] },
-          { titulo: 'Bebida alcoólica', itens: ['Cerveja 600 ml'] }
+          { titulo: 'Bebida alcoólica', alcool: true, itens: ['Cerveja 600 ml'] }
         ],
         salada: true,
         principais: [
@@ -605,7 +607,7 @@
             'Queijo coalho com melaço de maçã verde', 'Provoleta'
           ] },
           { titulo: 'Bebidas não alcoólicas', itens: ['2 mocktails', 'Água', 'Suco natural', 'Refrigerante em lata'] },
-          { titulo: 'Bebidas alcoólicas', itens: ['Chopp Heineken', 'Caipirinha', 'Caipiroska', 'Vinho'] }
+          { titulo: 'Bebidas alcoólicas', alcool: true, itens: ['Chopp Heineken', 'Caipirinha', 'Caipiroska', 'Vinho'] }
         ],
         salada: true,
         principais: [
@@ -1254,7 +1256,10 @@
       }
       function nomes(ops) { return ops.map(function (o) { return o.nome; }); }
 
-      blocos.forEach(function (b) { grupo(b.titulo, '', b.itens); });
+      blocos.forEach(function (b) {
+        if (b.alcool && S.semAlcool) return;
+        grupo(b.titulo, '', b.itens);
+      });
       if (r.principais && r.principais.length) {
         grupo('Principais', CONFIG.distribuirQuantidades ? 'um por convidado' : 'cada convidado escolhe um',
           nomes(r.principais));
@@ -1281,6 +1286,12 @@
       '<div class="mejo-block">' +
         '<p class="mejo-block__title">Escolha o rodízio <span class="mejo-req">*</span></p>' +
         '<p class="mejo-block__hint">Tudo à vontade. O valor por pessoa inclui todos os itens listados.</p>' +
+        // acima dos cards: o card Premium e longo e a caixa sumia la embaixo
+        (CONFIG.bebidasAlcoolicas.permitirSem
+          ? '<label class="mejo-check mejo-check--topo"><input type="checkbox" id="mejo-sem-alcool"' +
+            (S.semAlcool ? ' checked' : '') +
+            ' /><span>Não desejo bebidas alcoólicas no meu evento</span></label>'
+          : '') +
         '<div class="mejo-pack">' + cards + '</div>' +
         '<p class="mejo-error" id="mejo-err-rodizio">Escolha um rodízio.</p>' +
         grupos.map(distBlock).join('') +
@@ -1365,7 +1376,11 @@
       if (r) {
         var det2 = [];
         if (r.salada && CONFIG.saladaObrigatoria) det2.push(CONFIG.saladaLabel);
-        (r.blocos || []).forEach(function (b) { det2.push(b.titulo + ': ' + b.itens.join(', ')); });
+        (r.blocos || []).forEach(function (b) {
+          if (b.alcool && S.semAlcool) return;
+          det2.push(b.titulo + ': ' + b.itens.join(', '));
+        });
+        if (S.semAlcool) det2.push('Sem bebidas alcoólicas');
         if (!CONFIG.distribuirQuantidades) {
           var curtos = function (ops) { return ops.map(function (o) { return o.curto; }).join(', '); };
           if (r.principais && r.principais.length) det2.push('Principais: ' + curtos(r.principais));
@@ -1463,6 +1478,7 @@
     } else {
       var r = getRodizio(S.rodizio);
       if (r) L.push('- ' + r.nome + ' (' + money(r.preco) + ' por pessoa)');
+      if (r && S.semAlcool) L.push('- Sem bebidas alcoólicas');
     }
     var dp = distTexto('principal');
     if (dp) { L.push(''); L.push('*PRATOS PRINCIPAIS*'); L.push(dp); }
@@ -1934,6 +1950,7 @@
       pratos: distTexto('principal'),
       sobremesas: distTexto('sobremesa'),
       cardapio_impresso: S.impresso,
+      sem_bebidas_alcoolicas: !!S.semAlcool,
       valor_por_pessoa: c.perPessoa,
       subtotal_convidados: c.subConv,
       adicionais: c.totalAdic,
@@ -2293,6 +2310,7 @@
       S.formato = e.target.value;
       S.pacotes = {};
       S.rodizio = '';
+      S.semAlcool = false;
       S.dist = { principal: {}, sobremesa: {} };
       SUB = 0;
       showErr('mejo-err-formato', false);

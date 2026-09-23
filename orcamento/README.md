@@ -150,7 +150,7 @@ Nenhuma regra comercial foi inventada. Cada pendência foi implementada como **p
 | 8 | Cardápio impresso: por evento ou por pessoa? | **Resolvido pelo cliente:** R$ 1,50 por pessoa | `cardapioImpresso.modo` / `.valor` |
 | 9 | Salada no Principal Premium? | Incluída (regra consolidada) | `saladaObrigatoria` / `categorias[1].pacotes[1].salada` |
 | 10 | Salada no Rodízio Premium? | Incluída | `rodizios[1].salada` |
-| 11 | Bebidas alcoólicas obrigatórias? | Obrigatórias, sem opção de recusar | `bebidasAlcoolicas.permitirSem: true` |
+| 11 | Bebidas alcoólicas obrigatórias? | **Resolvido pelo cliente:** não. No sequencial, o Básico de bebidas já é só não alcoólico; no rodízio há a caixa "Não desejo bebidas alcoólicas", que tira os blocos alcoólicos do card e do resumo. **Ainda pendente:** o rodízio sem álcool muda de preço? Hoje não | `bebidasAlcoolicas.permitirSem` |
 | 12 | Desconto incide sobre taxa de ambiente? | Sim (regra consolidada) | `desconto.itens.ambiente` |
 | 13 | Desconto sobre todos os adicionais futuros? | Sim | `desconto.itens` |
 | 14 | Distribuição de pratos é escolha prévia ou estimativa? | **Resolvido pelo cliente:** nenhuma das duas, o convidado escolhe no dia | `distribuirQuantidades` |
