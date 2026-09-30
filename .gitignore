@@ -5,3 +5,6 @@ Thumbs.db
 
 # configuracao local da sessao, nao entra no repositorio publico
 .claude/settings.local.json
+
+# auditoria de layout rodada no navegador durante o desenvolvimento
+_auditoria.js

@@ -15,7 +15,8 @@
   --c-bg-darker: #1f130b;
   --c-ink:       #2b1c12;
   --c-ink-soft:  #5c4a3d;
-  --c-ink-muted: #8a7868;
+  /* #8a7868 dava 3,9:1 sobre o creme; este passa de 4,5:1 ate no fundo bege */
+  --c-ink-muted: #766555;
   --c-accent:    #9b7c5c;
   --c-accent-dk: #7a5d3f;
   --c-accent-lt: #c9a878;
@@ -110,7 +111,7 @@
 .mejo-eyebrow {
   font-family: var(--f-display);
   font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--c-accent); font-weight: 500;
+  color: var(--c-accent-dk); font-weight: 600;
 }
 .mejo-h2 {
   font-family: var(--f-display); font-weight: 500;
@@ -179,7 +180,7 @@
   .mejo-hero__title { font-size: 27px; margin: 12px 0 14px !important; }
   .mejo-hero__sub { font-size: 14.5px; line-height: 1.55; margin-bottom: 22px !important; }
   .mejo-hero__badges { gap: 7px; margin-top: 20px; }
-  .mejo-hero__badge { font-size: 9.5px; letter-spacing: 0.1em; padding: 6px 11px; }
+  .mejo-hero__badge { font-size: 11px; letter-spacing: 0.08em; padding: 6px 11px; }
 }
 @media (max-height: 600px) and (max-width: 700px) {
   .mejo-hero { min-height: 0; padding: 40px 18px 32px; }
@@ -503,9 +504,9 @@
 .mejo-opt__desc { display: block; font-size: 13px; color: var(--c-ink-soft); line-height: 1.5; }
 .mejo-opt__meta {
   display: block;
-  font-family: var(--f-display); font-size: 10.5px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--c-accent); margin-top: 2px;
+  /* preco em caixa alta quebrava em duas linhas no celular e lia mal */
+  font-family: var(--f-body); font-size: 13.5px; font-weight: 700;
+  color: var(--c-accent-dk); margin-top: 3px;
 }
 .mejo-opt--inline .mejo-opt__box {
   flex-direction: row; align-items: center; justify-content: center;
@@ -551,9 +552,9 @@
 }
 .mejo-place__cap {
   display: block;
-  font-family: var(--f-display); font-size: 10.5px; font-weight: 600;
+  font-family: var(--f-display); font-size: 11px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--c-accent); margin-top: 7px;
+  color: var(--c-accent-dk); margin-top: 7px;
 }
 .mejo-place__warn {
   display: block;
@@ -598,7 +599,7 @@
   color: var(--c-accent-dk); white-space: nowrap;
 }
 .mejo-pack__price small {
-  display: block; font-size: 9.5px; font-weight: 500; letter-spacing: 0.1em;
+  display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--c-ink-muted); text-align: right;
 }
 .mejo-pack__list { display: grid; gap: 6px; }
@@ -641,6 +642,8 @@
 
 /* ---------- SUB-ETAPA DO CARDAPIO ---------- */
 
+.mejo.em-subpasso .mejo-step[data-step="4"] .mejo-lead { display: none; }
+.mejo.em-subpasso .mejo-step[data-step="4"] .mejo-step__head { margin-bottom: 16px; }
 .mejo-sub {
   display: flex; align-items: center; gap: 10px;
   margin-bottom: 16px;
@@ -654,7 +657,7 @@
 .mejo-sub__ponto.is-feito { background: var(--c-accent-lt); }
 .mejo-sub__ponto.is-atual { background: var(--c-accent-dk); transform: scale(1.35); }
 .mejo-sub__txt {
-  font-family: var(--f-display); font-size: 10.5px; font-weight: 600;
+  font-family: var(--f-display); font-size: 11px; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--c-ink-muted);
 }
@@ -776,6 +779,15 @@
   border-color: var(--c-accent-lt);
   box-shadow: 0 0 0 2px var(--c-accent-lt) inset;
 }
+/* os dois cards sao escuros, entao so a borda nao bastava para ver qual
+   esta marcado: o escolhido ganha um selo e o outro recua */
+.mejo-format__box { position: relative; }
+.mejo-format__opt input:checked + .mejo-format__box::after {
+  content: ''; position: absolute; top: 12px; right: 12px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--c-accent-lt) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.2 4.8 9 10 3.2' stroke='%231f130b' stroke-width='1.9' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+.mejo-format:has(input:checked) .mejo-format__opt input:not(:checked) + .mejo-format__box { opacity: 0.6; }
 .mejo-format__opt input:focus-visible + .mejo-format__box {
   outline: 2px solid var(--c-accent-lt); outline-offset: 3px;
 }
@@ -878,7 +890,7 @@
 }
 .mejo-bar__info { flex: 1 1 auto; min-width: 0; }
 .mejo-bar__label {
-  font-family: var(--f-display); font-size: 9.5px; font-weight: 500;
+  font-family: var(--f-display); font-size: 11px; font-weight: 500;
   letter-spacing: 0.16em; text-transform: uppercase;
   color: rgba(201,168,120,0.9);
 }
@@ -902,6 +914,8 @@
   .mejo .mejo-bar__cta:hover { background-color: #d9bc92 !important; }
 }
 .mejo .mejo-bar__cta:active { transform: scale(0.97); }
+.mejo-bar.sem-cta .mejo-bar__cta { display: none; }
+.mejo.bar-resumo .mejo-bar__cta { background-color: var(--c-wp) !important; color: #0b2e16 !important; }
 .mejo .mejo-bar__cta:focus-visible { outline: 2px solid var(--c-accent-lt); outline-offset: 3px; }
 
 /* --bar-h e recalculado em JS com a altura real da barra, que muda com a
@@ -929,7 +943,7 @@
   padding: 26px 22px 24px; text-align: center;
 }
 .mejo-quote__eyebrow {
-  font-family: var(--f-display); font-size: 10px; font-weight: 500;
+  font-family: var(--f-display); font-size: 11px; font-weight: 500;
   letter-spacing: 0.26em; text-transform: uppercase; color: var(--c-accent-lt);
 }
 .mejo-quote__title {
@@ -938,12 +952,16 @@
   margin-top: 8px !important;
 }
 .mejo-quote__body { padding: 22px 20px; }
+.mejo-total--topo { margin-top: 0; }
+.mejo-total--topo + .mejo-oferta { margin-top: 14px; }
+.mejo .mejo-cta-topo { width: 100%; margin-top: 14px; }
+.mejo-sec--primeira { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--c-line-soft); }
 
 .mejo-sec + .mejo-sec { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--c-line-soft); }
 .mejo-sec__title {
-  font-family: var(--f-display); font-size: 10.5px; font-weight: 700;
+  font-family: var(--f-display); font-size: 11px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--c-accent); margin-bottom: 13px !important;
+  color: var(--c-accent-dk); margin-bottom: 13px !important;
 }
 .mejo-dl { display: grid; gap: 9px; }
 .mejo-dl__row {
@@ -969,7 +987,7 @@
   display: flex; justify-content: space-between; gap: 12px;
   font-size: 14.5px; color: var(--c-ink-soft);
 }
-.mejo-money__row strong { color: var(--c-ink); font-weight: 700; }
+.mejo-money__row strong { color: var(--c-ink); font-weight: 700; white-space: nowrap; flex: 0 0 auto; text-align: right; }
 .mejo-money__row--disc { color: var(--c-success); }
 .mejo-money__row--disc strong { color: var(--c-success); }
 .mejo-money__row--sub {
@@ -983,8 +1001,8 @@
   border-radius: var(--r-lg); padding: 20px; text-align: center;
 }
 .mejo-total__label {
-  font-family: var(--f-display); font-size: 10.5px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-accent);
+  font-family: var(--f-display); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-accent-dk);
 }
 .mejo-total__value {
   font-family: var(--f-display); font-size: clamp(30px, 8.6vw, 42px); font-weight: 600;
@@ -993,9 +1011,9 @@
 .mejo-total__per { font-size: 13.5px; color: var(--c-ink-soft); margin-top: 7px !important; }
 .mejo-total__badge {
   display: inline-block; margin-top: 12px;
-  background: rgba(74,122,63,0.1); color: var(--c-success);
+  background: rgba(74,122,63,0.1); color: #3d6633;
   border: 1px solid rgba(74,122,63,0.28); border-radius: 100px;
-  font-family: var(--f-display); font-size: 10.5px; font-weight: 700;
+  font-family: var(--f-display); font-size: 11px; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
   padding: 7px 14px;
 }

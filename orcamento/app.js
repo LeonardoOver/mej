@@ -15,13 +15,21 @@
 (function () {
   'use strict';
 
+  // Pasta de onde este arquivo foi carregado (o GitHub Pages). O markup e
+  // injetado dentro da pagina do WordPress, entao caminho relativo apontaria
+  // para o site; as imagens hospedadas aqui usam este endereco.
+  var BASE = (document.currentScript && document.currentScript.src || '').replace(/[^\/?#]*([?#].*)?$/, '');
+
   var MARKUP = `
 <div class="mejo" id="mejo">
 
   <!-- ================= HERO ================= -->
   <header class="mejo-hero">
-    <img class="mejo-hero__bg" src="https://mariaejose.com.br/wp-content/uploads/2026/04/capa-3-2.png"
-         alt="" aria-hidden="true" fetchpriority="high" width="1600" height="900" />
+    <picture>
+      <source media="(max-width: 600px)" data-srcset="img/capa-750.webp" type="image/webp" />
+      <img class="mejo-hero__bg" data-src="img/capa-1600.webp"
+           alt="" aria-hidden="true" fetchpriority="high" width="1600" height="900" />
+    </picture>
     <div class="mejo-hero__inner">
       <img class="mejo-hero__logo" src="https://mariaejose.com.br/wp-content/uploads/2024/12/logo-branco.png"
            alt="Maria e José Parrilla" width="260" height="62" />
@@ -254,7 +262,24 @@
           </div>
           <div class="mejo-quote__body">
 
-            <div class="mejo-sec">
+            <!-- O que a pessoa veio buscar vem primeiro: o valor e o botao.
+                 Os detalhes que ela mesma digitou ficam para baixo. -->
+            <div class="mejo-total mejo-total--topo">
+              <p class="mejo-total__label">Total estimado</p>
+              <p class="mejo-total__value" id="mejo-res-total">R$ 0,00</p>
+              <p class="mejo-total__per" id="mejo-res-per"></p>
+              <span class="mejo-total__badge" id="mejo-res-badge" hidden></span>
+            </div>
+            <div class="mejo-oferta" id="mejo-oferta">
+              <p class="mejo-oferta__destaque" id="mejo-oferta-48h"></p>
+              <p class="mejo-oferta__validade" id="mejo-oferta-validade"></p>
+            </div>
+            <a href="#" class="mejo-btn mejo-btn--wp mejo-btn--lg mejo-cta-topo" id="mejo-cta-whats" target="_blank" rel="noopener">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.6.1-.9-.4-1.7-.9-2.4-1.6-.6-.7-1.1-1.4-1.5-2.2-.1-.2 0-.4.1-.5.2-.2.5-.6.7-.9.1-.2.1-.4 0-.6l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.9.9-1.2 2-1 3.2.3 1.4 1 2.6 1.9 3.7 1.5 1.9 3.4 3.2 5.7 3.8.6.2 1.3.2 1.9.1.9-.1 1.6-.7 2-1.5.2-.4.2-.9.1-1.3l-.2-.1M12 21.5c-1.7 0-3.3-.4-4.8-1.3l-.3-.2-3.6.9.9-3.4-.2-.4c-2.5-4.2-1.4-9.6 2.5-12.4C10.5 2 15.9 2.6 19 6.2c3 3.6 2.8 8.9-.5 12.2-1.7 1.9-4.1 3-6.5 3.1m9.2-16.3C17.9.9 11.7-.2 7 2.6 2.4 5.4.7 11.4 3.1 16.2L2 21.4c-.1.3.1.6.4.7h.3l5.1-1.3c1.3.7 2.8 1.1 4.3 1.1 6 0 10.9-4.8 10.9-10.8 0-2.1-.6-4.2-1.8-5.9"/></svg>
+              Falar com nossa equipe
+            </a>
+
+            <div class="mejo-sec mejo-sec--primeira">
               <p class="mejo-sec__title">O evento</p>
               <div class="mejo-dl" id="mejo-res-dados"></div>
             </div>
@@ -268,12 +293,6 @@
               <p class="mejo-sec__title">Investimento</p>
               <div class="mejo-money" id="mejo-res-money"></div>
 
-              <div class="mejo-total">
-                <p class="mejo-total__label">Total estimado</p>
-                <p class="mejo-total__value" id="mejo-res-total">R$ 0,00</p>
-                <p class="mejo-total__per" id="mejo-res-per"></p>
-                <span class="mejo-total__badge" id="mejo-res-badge" hidden></span>
-              </div>
 
               <p class="mejo-disclaimer">
                 Esta é uma estimativa de investimento. A confirmação da disponibilidade
@@ -282,14 +301,6 @@
             </div>
 
             <div class="mejo-actions">
-              <div class="mejo-oferta" id="mejo-oferta">
-                <p class="mejo-oferta__destaque" id="mejo-oferta-48h"></p>
-                <p class="mejo-oferta__validade" id="mejo-oferta-validade"></p>
-              </div>
-              <a href="#" class="mejo-btn mejo-btn--wp mejo-btn--lg" id="mejo-cta-whats" target="_blank" rel="noopener">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.6.1-.9-.4-1.7-.9-2.4-1.6-.6-.7-1.1-1.4-1.5-2.2-.1-.2 0-.4.1-.5.2-.2.5-.6.7-.9.1-.2.1-.4 0-.6l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.9.9-1.2 2-1 3.2.3 1.4 1 2.6 1.9 3.7 1.5 1.9 3.4 3.2 5.7 3.8.6.2 1.3.2 1.9.1.9-.1 1.6-.7 2-1.5.2-.4.2-.9.1-1.3l-.2-.1M12 21.5c-1.7 0-3.3-.4-4.8-1.3l-.3-.2-3.6.9.9-3.4-.2-.4c-2.5-4.2-1.4-9.6 2.5-12.4C10.5 2 15.9 2.6 19 6.2c3 3.6 2.8 8.9-.5 12.2-1.7 1.9-4.1 3-6.5 3.1m9.2-16.3C17.9.9 11.7-.2 7 2.6 2.4 5.4.7 11.4 3.1 16.2L2 21.4c-.1.3.1.6.4.7h.3l5.1-1.3c1.3.7 2.8 1.1 4.3 1.1 6 0 10.9-4.8 10.9-10.8 0-2.1-.6-4.2-1.8-5.9"/></svg>
-                Falar com nossa equipe
-              </a>
 
               <p class="mejo-actions__note">
                 Não encontrou exatamente o que procura?<br />
@@ -430,26 +441,28 @@
     /* ---- ambientes ---- */
     // PENDENCIA DE VALIDACAO: min/max do Salao da Lareira e do Espaco Quintal,
     // e se algum ambiente tem taxa. min/max null = sem validacao ("sob consulta").
+    // foto: use o tamanho "Médio" do WordPress (cerca de 300px). O cartão
+    // mostra a foto com 96px de largura; o arquivo original chegava a 3 MB.
     ambientes: [
       {
         id: 'fonte', nome: 'Salão da Fonte',
         desc: 'Salão interno com a fonte, mesas de madeira e luz baixa.',
         min: 50, max: null, privativo: true,
-        foto: 'https://mariaejose.com.br/wp-content/uploads/2026/05/salao-acolhedor-scaled.webp',
+        foto: 'https://mariaejose.com.br/wp-content/uploads/2026/05/salao-acolhedor-225x300.webp',
         taxa: { tipo: 'nenhuma', valor: 0 }
       },
       {
         id: 'lareira', nome: 'Salão da Lareira',
         desc: 'Ambiente aconchegante em volta da lareira, ideal para grupos reunidos.',
         min: null, max: null, privativo: true,
-        foto: 'https://mariaejose.com.br/wp-content/uploads/2026/05/mesa-completa.png',
+        foto: 'https://mariaejose.com.br/wp-content/uploads/2026/05/mesa-completa-300x200.png',
         taxa: { tipo: 'nenhuma', valor: 0 }
       },
       {
         id: 'quintal', nome: 'Espaço Quintal',
         desc: 'Área aberta, ao ar livre, com clima de quintal de casa.',
         min: null, max: null, privativo: false,
-        foto: 'https://mariaejose.com.br/wp-content/uploads/2026/09/mesa-batizado.png',
+        foto: 'https://mariaejose.com.br/wp-content/uploads/2026/09/mesa-batizado-300x225.png',
         taxa: { tipo: 'nenhuma', valor: 0 }
       }
     ],
@@ -1005,10 +1018,14 @@
       if (Number(ci.valor) <= 0 && ci.nota) $('mejo-cardapio-hint').textContent = ci.nota;
     }
 
+    // "A partir de" soma os pacotes que ja vem marcados. Somar o menor de
+    // cada categoria dava R$ 65, so o principal, e a barra logo mostrava outro valor.
     var menorSeq = CONFIG.categorias.reduce(function (acc, cat) {
-      return acc + Math.min.apply(null, cat.pacotes.map(function (p) { return Number(p.preco) || 0; }));
+      var p = pacotePadrao(cat.pacotes);
+      return acc + (p ? Number(p.preco) || 0 : 0);
     }, 0);
-    var menorRod = Math.min.apply(null, CONFIG.rodizios.map(function (r) { return Number(r.preco) || 0; }));
+    var baseRod = pacotePadrao(CONFIG.rodizios);
+    var menorRod = baseRod ? Number(baseRod.preco) || 0 : 0;
 
     $('mejo-formato').innerHTML = '' +
       '<label class="mejo-format__opt">' +
@@ -1233,12 +1250,15 @@
     }
     $('mejo-sub-pontos').innerHTML = pontos;
     var passo = passoAtual();
-    $('mejo-sub-txt').textContent = (passo ? passo.titulo : '') + ' \u00b7 ' + SUB + ' de ' + total;
+    // o titulo da categoria ja esta logo abaixo, entao aqui vai so a posicao
+    $('mejo-sub-txt').textContent = 'Passo ' + SUB + ' de ' + total;
   }
 
   function renderCardapio() {
     var caixa = $('mejo-cardapio-passo');
     $('mejo-bloco-formato').hidden = SUB !== 0;
+    // nas telas de categoria o texto de abertura da etapa so empurra os cards
+    $('mejo').classList.toggle('em-subpasso', SUB > 0);
     renderSubProgresso();
 
     if (SUB === 0) { caixa.innerHTML = ''; return; }
@@ -1455,7 +1475,7 @@
          money(c.subGeral) + '</strong></div>';
     if (c.temDesconto) {
       m += '<div class="mejo-money__row mejo-money__row--disc"><span>Desconto de dia de semana (' +
-           c.percentual + '%)</span><strong>- ' + money(c.desconto) + '</strong></div>';
+           c.percentual + '%)</span><strong>− ' + money(c.desconto) + '</strong></div>';
     }
     $('mejo-res-money').innerHTML = m;
 
@@ -1467,7 +1487,7 @@
     var badge = $('mejo-res-badge');
     if (c.temDesconto) {
       badge.hidden = false;
-      badge.textContent = c.percentual + '% de desconto aplicado - ' + labelDia();
+      badge.textContent = c.percentual + '% de desconto · ' + labelDia();
     } else {
       badge.hidden = true;
     }
@@ -1582,11 +1602,37 @@
     $('mejo').style.setProperty('--topo', px + 'px');
   }
 
+  var ctaResumoVisivel = false;
+  var navVisivel = false;
+
+  // Observa o Continuar da etapa aberta e o WhatsApp do resumo. Sem
+  // IntersectionObserver (navegador antigo) a barra fica como era.
+  function observarBarra() {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.target.id === 'mejo-cta-whats') ctaResumoVisivel = e.isIntersecting;
+        else if (e.target.closest('.mejo-step.is-active')) navVisivel = e.isIntersecting;
+      });
+      renderBarra();
+    }, { threshold: 0.6 });
+    io.observe($('mejo-cta-whats'));
+    Array.prototype.forEach.call(document.querySelectorAll('#mejo .mejo-nav'), function (n) { io.observe(n); });
+    observadorBarra = io;
+  }
+  var observadorBarra = null;
+
   function renderBarra() {
     var bar = $('mejo-bar');
     var raiz = $('mejo');
     var c = calc();
-    var mostra = STEP >= 2 && STEP <= 4 && c.convidados > 0 && c.total > 0 && !digitando;
+    // No resumo a barra volta quando o botao do WhatsApp sai da tela, para o
+    // contato nunca ficar a uma rolagem de distancia.
+    var mostra = c.convidados > 0 && c.total > 0 && !digitando &&
+      ((STEP >= 2 && STEP <= 4) || (STEP === 5 && !ctaResumoVisivel));
+    raiz.classList.toggle('bar-resumo', STEP === 5);
+    // o botao da barra some enquanto o Continuar da propria etapa esta na tela
+    bar.classList.toggle('sem-cta', STEP <= 4 && navVisivel);
 
     bar.classList.toggle('is-visible', mostra);
     bar.setAttribute('aria-hidden', mostra ? 'false' : 'true');
@@ -1844,6 +1890,16 @@
     // a barra fixa dispara o mesmo botao da etapa, entao usa o mesmo rotulo
     var primario = document.querySelector('.mejo-step.is-active [data-next]');
     if (primario) $('mejo-bar-cta').textContent = primario.textContent.trim();
+    if (STEP === 5) $('mejo-bar-cta').textContent = 'WhatsApp';
+    // a nav da etapa nova ainda nao foi medida; o observador corrige em seguida
+    navVisivel = false;
+    ctaResumoVisivel = STEP === 5;
+    if (observadorBarra) {
+      Array.prototype.forEach.call(document.querySelectorAll('#mejo .mejo-nav'), function (n) {
+        observadorBarra.unobserve(n); observadorBarra.observe(n);
+      });
+      observadorBarra.unobserve($('mejo-cta-whats')); observadorBarra.observe($('mejo-cta-whats'));
+    }
 
     if (STEP === 4) {
       // Quem chega pela etapa 3 comeca o cardapio pela escolha do formato,
@@ -2548,9 +2604,11 @@
     });
 
     $('mejo-bar-cta').addEventListener('click', function () {
+      if (STEP === 5) { $('mejo-cta-whats').click(); return; }
       var b = document.querySelector('.mejo-step.is-active [data-next]');
       if (b) b.click();
     });
+    observarBarra();
     // O CTA do topo nao deveria ser so uma rolagem: leva ate o formulario e
     // ja coloca o cursor no primeiro campo, entao a pessoa comeca a digitar
     // em vez de procurar por onde comecar.
@@ -2673,6 +2731,17 @@
     var raiz = document.getElementById('mejo-root');
     if (!raiz) return false;
     raiz.innerHTML = MARKUP;
+    // A capa original era um PNG de 2,9 MB. Estas WebP ficam abaixo de 250 KB,
+    // e no celular vai um recorte vertical de cerca de 110 KB. Sem BASE (script
+    // colado inline), cai na versao media do WordPress.
+    Array.prototype.forEach.call(raiz.querySelectorAll('[data-srcset]'), function (el) {
+      if (BASE) el.srcset = BASE + el.getAttribute('data-srcset');
+      else el.parentNode.removeChild(el);
+    });
+    Array.prototype.forEach.call(raiz.querySelectorAll('img[data-src]'), function (el) {
+      el.src = BASE ? BASE + el.getAttribute('data-src')
+        : 'https://mariaejose.com.br/wp-content/uploads/2026/04/capa-3-2-768x432.png';
+    });
     return true;
   }
 
