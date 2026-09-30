@@ -190,11 +190,6 @@
 
         <div class="reservation-summary" id="reservation-summary"></div>
 
-        <p class="form-success__notice">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.5" /><path d="M8 4.5v4l2.5 1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-          <span>Tolerância de <b>15 minutos</b>. Atrasos maiores podem liberar a mesa.</span>
-        </p>
-
         <p class="form-success__aviso">
           <b>Sua reserva ainda não está confirmada.</b> Para garantir a data e conferir a disponibilidade do espaço, fale com a gente pelo WhatsApp.
         </p>
