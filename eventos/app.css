@@ -671,6 +671,21 @@
   }
   .meje .form-success__notice b { color: var(--color-ink); font-weight: 700; }
 
+  /* A reserva so vale depois do contato: o aviso fica colado no botao */
+  .meje .form-success__aviso {
+    position: relative; display: block;
+    padding-left: 30px; margin: 0 0 14px;
+    font-size: 14px; line-height: 1.5; color: var(--color-ink-soft);
+    text-align: left;
+  }
+  .meje .form-success__aviso::before {
+    content: '!'; position: absolute; left: 0; top: 1px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--color-error); color: #fff;
+    font: 700 13px/20px var(--font-display); text-align: center;
+  }
+  .meje .form-success__aviso b { color: var(--color-ink); font-weight: 700; }
+
   .meje .form-success__cta {
     display: flex; align-items: center; justify-content: center; gap: 10px;
     padding: 14px 24px;

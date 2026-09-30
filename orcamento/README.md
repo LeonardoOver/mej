@@ -141,6 +141,7 @@ Nenhuma regra comercial foi inventada. Cada pendência foi implementada como **p
 | # | Pendência | Como está hoje | Onde mudar |
 |---|---|---|---|
 | 1 | Como "Ambiente privativo?" altera fluxo/preço | Só registra a resposta | `privativo.afetaPreco`, `privativo.taxa`, `privativo.filtraAmbientes` |
+| 2a | Mín./capacidade do Salão da Fonte | **Mínimo de 50 removido a pedido do cliente:** `min: null` → "Capacidade sob consulta" | `ambientes[0].min/max` |
 | 2 | Mín./capacidade do Salão da Lareira | `min: null, max: null` → "Capacidade sob consulta" | `ambientes[1].min/max` |
 | 3 | Mín./capacidade do Espaço Quintal | `min: null, max: null` | `ambientes[2].min/max` |
 | 4 | Taxa ou valor mínimo por ambiente | `taxa.tipo: 'nenhuma'` | `ambientes[].taxa` |

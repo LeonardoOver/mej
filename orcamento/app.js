@@ -449,7 +449,7 @@
       {
         id: 'fonte', nome: 'Salão da Fonte',
         desc: 'Salão interno com a fonte, mesas de madeira e luz baixa.',
-        min: 50, max: null, privativo: true,
+        min: null, max: null, privativo: true,
         foto: 'https://mariaejose.com.br/wp-content/uploads/2026/05/salao-acolhedor-225x300.webp',
         taxa: { tipo: 'nenhuma', valor: 0 }
       },
@@ -1064,7 +1064,7 @@
       var bloqueio = '';
       if (g > 0) {
         if (a.min && g < a.min) {
-          bloqueio = 'O ' + a.nome + ' possui minimo de ' + a.min +
+          bloqueio = 'O ' + a.nome + ' possui mínimo de ' + a.min +
             ' convidados. Altere o número de convidados ou escolha outro ambiente.';
         } else if (a.max && g > a.max) {
           bloqueio = 'O ' + a.nome + ' acomoda ate ' + a.max +
@@ -1759,7 +1759,7 @@
       } else {
         var amb = getAmbiente(S.ambiente);
         if (amb && amb.min && g && g < amb.min) {
-          falha('mejo-err-ambiente', null, 'O ' + amb.nome + ' possui minimo de ' + amb.min +
+          falha('mejo-err-ambiente', null, 'O ' + amb.nome + ' possui mínimo de ' + amb.min +
             ' convidados. Altere o número de convidados ou escolha outro ambiente.');
         } else if (amb && amb.max && g && g > amb.max) {
           falha('mejo-err-ambiente', null, 'O ' + amb.nome + ' acomoda ate ' + amb.max +
@@ -2169,7 +2169,7 @@
     if (amb && (amb.min || amb.max)) {
       el.textContent = amb.nome + ': ' +
         (amb.min && amb.max ? 'de ' + amb.min + ' a ' + amb.max + ' convidados'
-          : amb.min ? 'minimo de ' + amb.min + ' convidados'
+          : amb.min ? 'mínimo de ' + amb.min + ' convidados'
           : 'ate ' + amb.max + ' convidados') + '.';
     } else {
       el.textContent = 'O valor total é calculado por pessoa.';
