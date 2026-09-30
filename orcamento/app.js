@@ -181,7 +181,7 @@
 
         <div class="mejo-block">
           <p class="mejo-block__title">Preferência de ambiente <span class="mejo-req">*</span></p>
-          <p class="mejo-block__hint">A disponibilidade da data e do espaço é confirmada pela nossa equipe.</p>
+          <p class="mejo-block__hint">A disponibilidade do espaço é confirmada pelo WhatsApp, no fim da cotação.</p>
           <div class="mejo-place" id="mejo-ambientes"></div>
           <p class="mejo-error" id="mejo-err-ambiente">Escolha um ambiente.</p>
         </div>
@@ -274,9 +274,10 @@
               <p class="mejo-oferta__destaque" id="mejo-oferta-48h"></p>
               <p class="mejo-oferta__validade" id="mejo-oferta-validade"></p>
             </div>
+            <p class="mejo-aviso" id="mejo-aviso-confirmar"></p>
             <a href="#" class="mejo-btn mejo-btn--wp mejo-btn--lg mejo-cta-topo" id="mejo-cta-whats" target="_blank" rel="noopener">
               <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.6.1-.9-.4-1.7-.9-2.4-1.6-.6-.7-1.1-1.4-1.5-2.2-.1-.2 0-.4.1-.5.2-.2.5-.6.7-.9.1-.2.1-.4 0-.6l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.9.9-1.2 2-1 3.2.3 1.4 1 2.6 1.9 3.7 1.5 1.9 3.4 3.2 5.7 3.8.6.2 1.3.2 1.9.1.9-.1 1.6-.7 2-1.5.2-.4.2-.9.1-1.3l-.2-.1M12 21.5c-1.7 0-3.3-.4-4.8-1.3l-.3-.2-3.6.9.9-3.4-.2-.4c-2.5-4.2-1.4-9.6 2.5-12.4C10.5 2 15.9 2.6 19 6.2c3 3.6 2.8 8.9-.5 12.2-1.7 1.9-4.1 3-6.5 3.1m9.2-16.3C17.9.9 11.7-.2 7 2.6 2.4 5.4.7 11.4 3.1 16.2L2 21.4c-.1.3.1.6.4.7h.3l5.1-1.3c1.3.7 2.8 1.1 4.3 1.1 6 0 10.9-4.8 10.9-10.8 0-2.1-.6-4.2-1.8-5.9"/></svg>
-              Falar com nossa equipe
+              <span id="mejo-cta-whats-txt">Confirme sua reserva</span>
             </a>
 
             <div class="mejo-sec mejo-sec--primeira">
@@ -435,7 +436,8 @@
       afetaPreco: false,
       filtraAmbientes: false,
       taxa: { tipo: 'nenhuma', valor: 0 },
-      nota: 'Registramos sua preferência. A exclusividade do espaço é confirmada pela equipe no atendimento.'
+      // vazio = sem aviso. A confirmacao do espaco ja e dita logo abaixo, nos ambientes.
+      nota: ''
     },
 
     /* ---- ambientes ---- */
@@ -638,7 +640,12 @@
 
     /* ---- textos comerciais editaveis ---- */
     textos: {
-      whatsappAbertura: 'Olá! Fiz uma cotação de evento no Maria e José Parrilla e gostaria de falar com a equipe sobre minha proposta.',
+      whatsappAbertura: 'Olá! Fiz uma cotação de evento no Maria e José Parrilla e quero confirmar minha reserva e a disponibilidade do ambiente.',
+      // A cotação não segura a data sozinha: o aviso e o botão deixam claro que
+      // a reserva só vale depois do contato pelo WhatsApp.
+      avisoConfirmacao: '<strong>Sua reserva ainda não está confirmada.</strong> Para garantir a data e conferir a disponibilidade do ambiente, fale com a gente pelo WhatsApp.',
+      ctaConfirmar: 'Confirme sua reserva',
+      ctaConfirmarCurto: 'Confirmar',
       propostaAbertura: 'Olá! Fiz uma cotação no site e gostaria de uma proposta totalmente personalizada para o meu evento.',
       // aparecem no resultado, logo acima do botão do WhatsApp; vazio = não mostra
       // Pedido direto e beneficio na frente. {valor} vira o preco do impresso
@@ -1002,6 +1009,7 @@
       optCard('mejo-priv', 'sim', 'Sim', 'Quero um espaço reservado', '', false, false) +
       optCard('mejo-priv', 'nao', 'Não', 'Pode ser ambiente compartilhado', '', false, false);
     $('mejo-privativo-nota').textContent = CONFIG.privativo.nota || '';
+    $('mejo-privativo-nota').hidden = !CONFIG.privativo.nota;
 
     $('mejo-consumo').innerHTML = CONFIG.consumo.map(function (c) {
       return optCard('mejo-consumo-r', c.id, c.label, c.desc, '', false, false);
@@ -1487,10 +1495,16 @@
     var badge = $('mejo-res-badge');
     if (c.temDesconto) {
       badge.hidden = false;
-      badge.textContent = c.percentual + '% de desconto · ' + labelDia();
+      // hifen que nao quebra: 'Quarta-feira' nao se parte no fim da linha
+      badge.textContent = c.percentual + '% de desconto · ' + labelDia().replace('-', '‑');
     } else {
       badge.hidden = true;
     }
+
+    var aviso = CONFIG.textos.avisoConfirmacao || '';
+    $('mejo-aviso-confirmar').innerHTML = aviso;
+    $('mejo-aviso-confirmar').hidden = !aviso;
+    $('mejo-cta-whats-txt').textContent = CONFIG.textos.ctaConfirmar || 'Falar com nossa equipe';
 
     var oferta = CONFIG.textos.ofertaFechamento || '';
     var ciOf = CONFIG.cardapioImpresso;
@@ -1890,7 +1904,10 @@
     // a barra fixa dispara o mesmo botao da etapa, entao usa o mesmo rotulo
     var primario = document.querySelector('.mejo-step.is-active [data-next]');
     if (primario) $('mejo-bar-cta').textContent = primario.textContent.trim();
-    if (STEP === 5) $('mejo-bar-cta').textContent = 'WhatsApp';
+    if (STEP === 5) {
+      $('mejo-bar-cta').textContent = window.innerWidth < 380
+        ? CONFIG.textos.ctaConfirmarCurto : CONFIG.textos.ctaConfirmar;
+    }
     // a nav da etapa nova ainda nao foi medida; o observador corrige em seguida
     navVisivel = false;
     ctaResumoVisivel = STEP === 5;
