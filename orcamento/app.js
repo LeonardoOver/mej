@@ -20,6 +20,10 @@
   // para o site; as imagens hospedadas aqui usam este endereco.
   var BASE = (document.currentScript && document.currentScript.src || '').replace(/[^\/?#]*([?#].*)?$/, '');
 
+  function recurso(u) {
+    return !u || !BASE || /^([a-z]+:)?\/\//i.test(u) ? u : BASE + u;
+  }
+
   var MARKUP = `
 <div class="mejo" id="mejo">
 
@@ -443,8 +447,8 @@
     /* ---- ambientes ---- */
     // PENDENCIA DE VALIDACAO: min/max do Salao da Lareira e do Espaco Quintal,
     // e se algum ambiente tem taxa. min/max null = sem validacao ("sob consulta").
-    // foto: use o tamanho "Médio" do WordPress (cerca de 300px). O cartão
-    // mostra a foto com 96px de largura; o arquivo original chegava a 3 MB.
+    // foto: URL completa ou caminho relativo a esta pasta (img/...). O cartão
+    // mostra 96px de largura, então basta uma imagem de cerca de 300px.
     ambientes: [
       {
         id: 'fonte', nome: 'Salão da Fonte',
@@ -457,14 +461,14 @@
         id: 'lareira', nome: 'Salão da Lareira',
         desc: 'Ambiente aconchegante em volta da lareira, ideal para grupos reunidos.',
         min: null, max: null, privativo: true,
-        foto: 'https://mariaejose.com.br/wp-content/uploads/2026/05/mesa-completa-300x200.png',
+        foto: 'img/salao-lareira.webp',
         taxa: { tipo: 'nenhuma', valor: 0 }
       },
       {
         id: 'quintal', nome: 'Espaço Quintal',
         desc: 'Área aberta, ao ar livre, com clima de quintal de casa.',
         min: null, max: null, privativo: false,
-        foto: 'https://mariaejose.com.br/wp-content/uploads/2026/09/mesa-batizado-300x225.png',
+        foto: 'img/espaco-quintal.webp',
         taxa: { tipo: 'nenhuma', valor: 0 }
       }
     ],
@@ -1087,7 +1091,7 @@
             (S.ambiente === a.id && !bloqueio ? ' checked' : '') + (bloqueio ? ' disabled' : '') + ' />' +
           '<span class="mejo-place__box">' +
             (a.foto
-              ? '<img class="mejo-place__img" src="' + esc(a.foto) + '" alt="" loading="lazy" />'
+              ? '<img class="mejo-place__img" src="' + esc(recurso(a.foto)) + '" alt="" loading="lazy" />'
               : '<span class="mejo-place__img" style="background:var(--c-bg-soft)"></span>') +
             '<span class="mejo-place__body">' +
               '<span class="mejo-place__name">' + esc(a.nome) + '</span>' +
