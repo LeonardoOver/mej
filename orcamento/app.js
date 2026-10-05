@@ -739,7 +739,13 @@
     return 'orc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
   }
   var EVENT_ID = novoEventId();
-  var leadParcialEnviado = false;
+  var leadEnviado = false;
+  var leadCriadoEm = '';
+  var concluido = false;
+  var clicouWhatsEm = '';
+  var botaoWhats = '';
+  var ultimoOrcamento = '';
+  var ultimoLead = '';
 
   /* ==========================================================================
      4. LOOKUPS
@@ -1937,6 +1943,7 @@
     if (STEP === 5) renderResumo();
     renderBarra();
     salvar();
+    if (STEP >= 2) enviarOrcamento(false);
 
     if (!semScroll) {
       // para logo abaixo da barra de progresso, respeitando --topo
@@ -1973,7 +1980,7 @@
       valor_por_pessoa: c.perPessoa,
       formato: labelFormato()
     });
-    enviarLead('completo');
+    concluido = true;
   }
 
   // Clique numa etapa da barra de progresso. Voltar e livre. Avancar valida
@@ -2010,6 +2017,14 @@
       // a data de gravacao fica fora do S para nao entrar no link compartilhavel
       var dados = JSON.parse(JSON.stringify(S));
       dados._salvoEm = Date.now();
+      // o mesmo event_id sobrevive a recargas: o Lead e a linha da planilha
+      // nao se repetem quando a pessoa volta para a mesma cotacao
+      dados._eventId = EVENT_ID;
+      dados._lead = leadEnviado;
+      dados._leadEm = leadCriadoEm;
+      dados._concluido = concluido;
+      dados._whatsEm = clicouWhatsEm;
+      dados._whatsBotao = botaoWhats;
       localStorage.setItem(LS_KEY, JSON.stringify(dados));
     } catch (e) { /* noop */ }
   }
@@ -2043,6 +2058,12 @@
         return null;
       }
       aplicar(obj);
+      if (obj._eventId) EVENT_ID = obj._eventId;
+      leadEnviado = !!obj._lead;
+      leadCriadoEm = obj._leadEm || '';
+      concluido = !!obj._concluido;
+      clicouWhatsEm = obj._whatsEm || '';
+      botaoWhats = obj._whatsBotao || '';
 
       // uma data que ja passou nao serve para nada, e mantida ela ainda
       // puxaria o desconto do dia da semana para um evento impossivel
@@ -2095,47 +2116,152 @@
     } catch (e) { /* noop */ }
   }
 
-  // etapa: 'parcial' (fim do passo 1) | 'completo' (cotacao calculada)
-  function enviarLead(etapa) {
-    if (!CONFIG.webhook) return;
-    var c = calc();
-    var body = {
-      origem: CONFIG.origem,
-      etapa: etapa,
+  function agoraBR() {
+    try {
+      return new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }).replace(',', '');
+    } catch (e) { return new Date().toISOString(); }
+  }
+
+  function telefoneE164() {
+    var d = String(S.whats || '').replace(/\D/g, '');
+    if (!d) return '';
+    return d.length > 11 ? '+' + d : '+55' + d;
+  }
+
+  function lerCookie(nome) {
+    var m = document.cookie.match('(^|;)\\s*' + nome + '\\s*=\\s*([^;]+)');
+    return m ? m.pop() : '';
+  }
+
+  function origemDoClique() {
+    var qs = new URLSearchParams(window.location.search);
+    var fbclid = qs.get('fbclid') || '';
+    return {
+      utm_source: qs.get('utm_source') || '',
+      utm_medium: qs.get('utm_medium') || '',
+      utm_campaign: qs.get('utm_campaign') || '',
+      utm_content: qs.get('utm_content') || '',
+      utm_term: qs.get('utm_term') || '',
+      fbclid: fbclid,
+      fbp: lerCookie('_fbp'),
+      fbc: lerCookie('_fbc') || (fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : '')
+    };
+  }
+
+  function dadosDoLead() {
+    return {
       event_id: EVENT_ID,
-      criado_em: new Date().toISOString(),
-      nome: S.nome,
-      whatsapp: S.whats,
-      data_evento: S.data || '',
+      origem: CONFIG.origem,
+      nome: String(S.nome || '').trim(),
+      whatsapp: telefoneE164(),
+      data_evento: S.data ? fmtBR(S.data) : 'A definir',
       dia_semana: labelDia(),
       turno: (getTurno(S.turno) || {}).label || '',
-      tema: labelTema(),
-      convidados: c.convidados,
-      ambiente: (getAmbiente(S.ambiente) || {}).nome || '',
-      ambiente_privativo: S.privativo,
-      forma_consumo: (getConsumo(S.consumo) || {}).label || '',
-      formato: labelFormato(),
-      pacotes: S.formato === 'sequencial' ? S.pacotes : { rodizio: S.rodizio },
-      pratos: distTexto('principal'),
-      sobremesas: distTexto('sobremesa'),
-      cardapio_impresso: S.impresso,
-      sem_bebidas_alcoolicas: !!S.semAlcool,
-      valor_por_pessoa: c.perPessoa,
-      subtotal_convidados: c.subConv,
-      adicionais: c.totalAdic,
-      subtotal_geral: c.subGeral,
-      desconto: c.desconto,
-      total: c.total,
-      url: window.location.href
+      tema: labelTema()
     };
+  }
+
+  function enviar(corpo) {
+    if (!CONFIG.webhook) return;
     try {
       fetch(CONFIG.webhook, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify(corpo),
         keepalive: true
       })['catch'](function () { /* noop */ });
     } catch (e) { /* noop */ }
+  }
+
+  // Aba "Leads Orçamento": uma linha por event_id, criada ao sair da etapa 1.
+  // Reenviar so atualiza a linha (o n8n acrescenta ou atualiza pelo event_id).
+  // Meta e GA4 recebem o Lead uma vez por cotacao, com o mesmo event_id.
+  function dispararLead() {
+    var primeira = !leadEnviado;
+    leadEnviado = true;
+    if (!leadCriadoEm) leadCriadoEm = agoraBR();
+    if (primeira) {
+      track('orcamento_iniciado', {});
+      try {
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'Lead', {
+            content_name: 'Orçamento de evento',
+            content_category: labelTema()
+          }, { eventID: EVENT_ID });
+        }
+      } catch (e) { /* noop */ }
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'generate_lead',
+          event_id: EVENT_ID,
+          method: 'orcamento',
+          origem: CONFIG.origem,
+          telefone: telefoneE164()
+        });
+      } catch (e) { /* noop */ }
+    }
+    var corpo = dadosDoLead();
+    var assinatura = JSON.stringify(corpo);
+    if (assinatura === ultimoLead) { salvar(); return; }
+    ultimoLead = assinatura;
+    corpo.tipo = 'lead';
+    corpo.criado_em = leadCriadoEm;
+    corpo.url = window.location.href.split('#')[0];
+    var o = origemDoClique();
+    Object.keys(o).forEach(function (k) { corpo[k] = o[k]; });
+    enviar(corpo);
+    salvar();
+  }
+
+  function nomeEtapa(n) {
+    var r = document.querySelector('.mejo-progress__step[data-pstep="' + n + '"]');
+    return n + ' (' + (r ? r.textContent.trim() : '') + ')';
+  }
+
+  // Aba "Orçamentos Realizados": a mesma linha acompanha a pessoa da etapa 2
+  // ate o fim. Como ela e atualizada a cada etapa, quem fecha a pagina no meio
+  // ja fica registrado onde parou, sem depender do evento de saida da pagina.
+  function enviarOrcamento(forcar) {
+    if (!leadEnviado) return;
+    var c = calc();
+    var corpo = dadosDoLead();
+    corpo.tipo = 'orcamento';
+    corpo.situacao = concluido ? 'Concluído' : 'Parou na etapa ' + nomeEtapa(STEP);
+    corpo.ultima_etapa = nomeEtapa(STEP);
+    corpo.convidados = c.convidados;
+    corpo.ambiente = (getAmbiente(S.ambiente) || {}).nome || '';
+    corpo.ambiente_privativo = S.privativo === 'sim' ? 'Sim' : (S.privativo === 'nao' ? 'Não' : '');
+    corpo.forma_consumo = (getConsumo(S.consumo) || {}).label || '';
+    corpo.formato = S.formato ? labelFormato() : '';
+    CONFIG.categorias.forEach(function (cat) {
+      var p = S.formato === 'sequencial' ? getPacote(cat, S.pacotes[cat.id]) : null;
+      corpo[cat.id] = p ? p.tier : '';
+    });
+    corpo.rodizio = S.formato === 'rodizio' ? ((getRodizio(S.rodizio) || {}).nome || '') : '';
+    corpo.sem_bebidas_alcoolicas = S.semAlcool ? 'Sim' : 'Não';
+    corpo.cardapio_impresso = S.impresso === 'sim' ? 'Sim' : (S.impresso === 'nao' ? 'Não' : '');
+    corpo.valor_por_pessoa = c.perPessoa;
+    corpo.adicionais = c.totalAdic;
+    corpo.desconto = c.desconto;
+    corpo.valor_total = c.total;
+    corpo.clicou_whatsapp = clicouWhatsEm ? 'Sim' : 'Não';
+    corpo.clicou_whatsapp_em = clicouWhatsEm;
+    corpo.botao_whatsapp = botaoWhats;
+    corpo.link_cotacao = window.location.origin + window.location.pathname + '#c=' + encodeState();
+
+    var assinatura = JSON.stringify(corpo);
+    if (!forcar && assinatura === ultimoOrcamento) return;
+    ultimoOrcamento = assinatura;
+    corpo.atualizado_em = agoraBR();
+    enviar(corpo);
+  }
+
+  function registrarCliqueWhats(botao) {
+    clicouWhatsEm = agoraBR();
+    botaoWhats = botao;
+    salvar();
+    enviarOrcamento(true);
   }
 
   /* ==========================================================================
@@ -2253,7 +2379,13 @@
     stepAlcancado = 1;
     // cotacao nova, lead novo: o parcial da anterior ja foi enviado
     EVENT_ID = novoEventId();
-    leadParcialEnviado = false;
+    leadEnviado = false;
+    leadCriadoEm = '';
+    concluido = false;
+    clicouWhatsEm = '';
+    botaoWhats = '';
+    ultimoOrcamento = '';
+    ultimoLead = '';
 
     Array.prototype.forEach.call(
       document.querySelectorAll('#mejo input[type=radio], #mejo input[type=checkbox]'),
@@ -2579,11 +2711,7 @@
         // quem rola direto para o formulario, sem tocar no CTA, tambem comecou
         if (n === 1) colapsarHero();
 
-        if (n === 1 && !leadParcialEnviado) {
-          leadParcialEnviado = true;
-          track('orcamento_iniciado', {});
-          enviarLead('parcial');
-        }
+        if (n === 1) dispararLead();
 
         // dentro da etapa 4 o "Continuar" anda de sub-etapa antes de sair
         if (n === 4 && SUB < totalPassos()) {
@@ -2649,10 +2777,16 @@
     $('mejo-cta-whats').addEventListener('click', function () {
       var c = calc();
       track('whatsapp_click', { valor_total: c.total, convidados: c.convidados });
+      registrarCliqueWhats('Confirme sua reserva');
     });
     $('mejo-cta-proposta').addEventListener('click', function () {
       var c = calc();
       track('proposta_personalizada', { valor_total: c.total, convidados: c.convidados });
+      registrarCliqueWhats('Proposta personalizada');
+    });
+    // escolhas feitas dentro de uma etapa, sem avancar, entram quando a pessoa sai
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden' && STEP >= 2) enviarOrcamento(false);
     });
     $('mejo-copy').addEventListener('click', function () {
       var btn = $('mejo-copy');
