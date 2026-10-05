@@ -746,6 +746,7 @@
   var botaoWhats = '';
   var ultimoOrcamento = '';
   var ultimoLead = '';
+  var conclusaoAvisada = false;
 
   /* ==========================================================================
      4. LOOKUPS
@@ -2023,6 +2024,7 @@
       dados._lead = leadEnviado;
       dados._leadEm = leadCriadoEm;
       dados._concluido = concluido;
+      dados._avisado = conclusaoAvisada;
       dados._whatsEm = clicouWhatsEm;
       dados._whatsBotao = botaoWhats;
       localStorage.setItem(LS_KEY, JSON.stringify(dados));
@@ -2062,6 +2064,7 @@
       leadEnviado = !!obj._lead;
       leadCriadoEm = obj._leadEm || '';
       concluido = !!obj._concluido;
+      conclusaoAvisada = !!obj._avisado;
       clicouWhatsEm = obj._whatsEm || '';
       botaoWhats = obj._whatsBotao || '';
 
@@ -2222,7 +2225,7 @@
   // Aba "Orçamentos Realizados": a mesma linha acompanha a pessoa da etapa 2
   // ate o fim. Como ela e atualizada a cada etapa, quem fecha a pagina no meio
   // ja fica registrado onde parou, sem depender do evento de saida da pagina.
-  function enviarOrcamento(forcar) {
+  function enviarOrcamento(forcar, motivo) {
     if (!leadEnviado) return;
     var c = calc();
     var corpo = dadosDoLead();
@@ -2254,6 +2257,14 @@
     if (!forcar && assinatura === ultimoOrcamento) return;
     ultimoOrcamento = assinatura;
     corpo.atualizado_em = agoraBR();
+    // 'concluido' sai uma unica vez por cotacao: e o gatilho do aviso no
+    // WhatsApp da equipe, que nao pode repetir a cada edicao do resumo
+    corpo.evento = motivo || 'etapa';
+    if (concluido && !conclusaoAvisada) {
+      corpo.evento = 'concluido';
+      conclusaoAvisada = true;
+      salvar();
+    }
     enviar(corpo);
   }
 
@@ -2261,7 +2272,7 @@
     clicouWhatsEm = agoraBR();
     botaoWhats = botao;
     salvar();
-    enviarOrcamento(true);
+    enviarOrcamento(true, 'whatsapp');
   }
 
   /* ==========================================================================
@@ -2386,6 +2397,7 @@
     botaoWhats = '';
     ultimoOrcamento = '';
     ultimoLead = '';
+    conclusaoAvisada = false;
 
     Array.prototype.forEach.call(
       document.querySelectorAll('#mejo input[type=radio], #mejo input[type=checkbox]'),
@@ -2786,7 +2798,7 @@
     });
     // escolhas feitas dentro de uma etapa, sem avancar, entram quando a pessoa sai
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden' && STEP >= 2) enviarOrcamento(false);
+      if (document.visibilityState === 'hidden' && STEP >= 2) enviarOrcamento(false, 'saida');
     });
     $('mejo-copy').addEventListener('click', function () {
       var btn = $('mejo-copy');
