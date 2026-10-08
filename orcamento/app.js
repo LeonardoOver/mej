@@ -2264,8 +2264,25 @@
       corpo.evento = 'concluido';
       conclusaoAvisada = true;
       salvar();
+      dispararConclusaoMeta(c);
     }
     enviar(corpo);
+  }
+
+  // O valor estimado vai como propriedade propria, nao em `value`: no Meta
+  // `value` e receita, e um orcamento ainda nao fechado inflaria o ROAS.
+  function dispararConclusaoMeta(c) {
+    try {
+      if (typeof window.fbq !== 'function') return;
+      window.fbq('trackCustom', 'OrcamentoConcluido', {
+        content_name: 'Orçamento de evento',
+        content_category: labelTema(),
+        formato: labelFormato(),
+        convidados: c.convidados,
+        valor_estimado: c.total,
+        valor_por_pessoa: c.perPessoa
+      }, { eventID: EVENT_ID + '_concluido' });
+    } catch (e) { /* noop */ }
   }
 
   function registrarCliqueWhats(botao) {
