@@ -47,7 +47,7 @@
         Começar minha cotação
       </a>
       <div class="mejo-hero__badges">
-        <span class="mejo-hero__badge">20% off de terça a quinta</span>
+        <span class="mejo-hero__badge"><span data-desconto>10</span>% off de terça a quinta</span>
         <span class="mejo-hero__badge">3 ambientes</span>
         <span class="mejo-hero__badge">Menu ou rodízio</span>
       </div>
@@ -126,7 +126,7 @@
             <option value="">Selecione o dia</option>
           </select>
           <p class="mejo-error" id="mejo-err-dia">Escolha o dia da semana.</p>
-          <p class="mejo-hint">De terça a quinta o evento tem <strong>20% de desconto</strong>.</p>
+          <p class="mejo-hint">De terça a quinta o evento tem <strong><span data-desconto>10</span>% de desconto</strong>.</p>
         </div>
 
         <div class="mejo-block">
@@ -385,7 +385,7 @@
     /* ---- desconto de dia de semana ---- */
     // dias em padrao JavaScript: 0=domingo, 1=segunda, ... 6=sabado
     desconto: {
-      percentual: 20,
+      percentual: 10,
       dias: [2, 3, 4],                  // terca, quarta, quinta
       // sobre o que o desconto incide (regra consolidada do briefing: tudo)
       itens: { pacotes: true, cardapio: true, ambiente: true, privativo: true }
@@ -1000,6 +1000,9 @@
   }
 
   function renderEstaticos() {
+    Array.prototype.forEach.call(document.querySelectorAll('#mejo [data-desconto]'), function (el) {
+      el.textContent = Number(CONFIG.desconto.percentual) || 0;
+    });
     var html = '<option value="">Selecione o dia</option>';
     CONFIG.diasSemana.forEach(function (d) {
       var off = CONFIG.desconto.dias.indexOf(d.v) !== -1;
