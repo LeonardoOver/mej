@@ -79,6 +79,7 @@ Isso é o gancho para o painel administrativo do briefing (seção 28): um plugi
 |---|---|
 | `whatsapp` | Número que recebe a cotação (só dígitos, com 55) |
 | `webhook` | URL do n8n para registrar a cotação. **Vazio = não envia nada** |
+| `validaWhatsapp` | URL do n8n que confere se o número tem WhatsApp antes de sair da etapa 1. Só bloqueia quando a resposta é um "não existe" explícito; erro ou demora acima de 5 s deixam seguir. **Vazio = não confere** |
 | `origem` | Identificador do formulário na planilha de leads |
 | `desconto.percentual` | Percentual do desconto |
 | `desconto.dias` | Dias com desconto, padrão JavaScript: `0`=domingo … `6`=sábado. Padrão `[2,3,4]` (ter/qua/qui) |
@@ -197,6 +198,7 @@ Eventos enviados para `dataLayer` (GTM) e `gtag`, quando presentes:
 | `orcamento_iniciado` | Conclusão da etapa 1 |
 | `orcamento_etapa` | Cada etapa nova alcançada (`etapa: 1..5`), permite medir abandono |
 | `orcamento_concluido` | Cotação calculada (com `valor_total`, `convidados`, `formato`) |
+| `whatsapp_inexistente` | Etapa 1 barrada porque o número informado não tem WhatsApp |
 | `whatsapp_click` | Clique em "Falar com nossa equipe" |
 | `proposta_personalizada` | Clique em "Quero uma proposta totalmente personalizada" |
 | `copiar_link_cotacao` | Clique em "Copiar link desta cotação" |

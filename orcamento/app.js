@@ -380,6 +380,7 @@
     // sozinho a barra do WordPress e assume o resto como zero.
     topoFixo: null,
     webhook: 'https://n8n.overenterprise.com.br/webhook/mej-orcamentos', // vazio = não envia nada
+    validaWhatsapp: 'https://n8n.overenterprise.com.br/webhook/mej-valida-whats', // vazio = não confere
     origem: 'orcamento',                // separa este formulario dos outros na planilha
 
     /* ---- desconto de dia de semana ---- */
@@ -1711,6 +1712,58 @@
     var d = raw.replace(/\D/g, '');
     return d.length === 10 || d.length === 11;
   }
+
+  // So bloqueia com um "nao existe" explicito. Erro, demora ou resposta
+  // estranha deixam seguir: uma instabilidade do Evolution nao pode
+  // derrubar o funil inteiro.
+  var whatsConferidos = {};
+  var conferindoWhats = false;
+  function conferirWhats(cb) {
+    var numero = telefoneE164().replace(/\D/g, '');
+    if (!CONFIG.validaWhatsapp || !numero) return cb(true);
+    if (numero in whatsConferidos) return cb(whatsConferidos[numero]);
+    var feito = false;
+    function fim(existe, guardar) {
+      if (feito) return;
+      feito = true;
+      if (guardar) whatsConferidos[numero] = existe;
+      cb(existe);
+    }
+    var ctrl = window.AbortController ? new AbortController() : null;
+    setTimeout(function () {
+      if (ctrl) ctrl.abort();
+      fim(true, false);
+    }, 5000);
+    try {
+      fetch(CONFIG.validaWhatsapp, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ whatsapp: numero }),
+        signal: ctrl ? ctrl.signal : undefined
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j && j.verificado === true && typeof j.existe === 'boolean') fim(j.existe, true);
+        else fim(true, false);
+      })['catch'](function () { fim(true, false); });
+    } catch (e) { fim(true, false); }
+  }
+
+  function exigirWhats(botao, seguir) {
+    if (conferindoWhats) return;
+    conferindoWhats = true;
+    var rotulo = botao ? botao.textContent : '';
+    if (botao) { botao.disabled = true; botao.textContent = 'Verificando WhatsApp…'; }
+    conferirWhats(function (existe) {
+      conferindoWhats = false;
+      if (botao) { botao.disabled = false; botao.textContent = rotulo; }
+      if (existe) return seguir();
+      showErr('mejo-err-whats', true, 'Esse número não tem WhatsApp. Confira o DDD e os dígitos.');
+      $('mejo-whats').classList.add('is-invalid');
+      alerta(1, 'Confira os campos destacados para continuar.');
+      scrollPara($('mejo-whats'));
+      track('whatsapp_inexistente', {});
+    });
+  }
+
   function scrollPara(el) {
     if (!el) return;
     try {
@@ -1732,7 +1785,7 @@
 
     if (step === 1) {
       if (!S.nome || S.nome.trim().length < 2) falha('mejo-err-nome', $('mejo-nome'));
-      if (!whatsValido(S.whats)) falha('mejo-err-whats', $('mejo-whats'));
+      if (!whatsValido(S.whats)) falha('mejo-err-whats', $('mejo-whats'), 'Digite um WhatsApp com DDD.');
 
       if (!S.data && !S.semData) {
         falha('mejo-err-data', $('mejo-data'), 'Escolha uma data ou marque a opção acima.');
@@ -2001,8 +2054,15 @@
           return;
         }
       }
-      if (alvo === 5) concluirCotacao();
+      if (STEP === 1) {
+        exigirWhats(null, function () { saltarSemConferir(alvo); });
+        return;
+      }
     }
+    saltarSemConferir(alvo);
+  }
+  function saltarSemConferir(alvo) {
+    if (alvo === 5) concluirCotacao();
     track('orcamento_salto_etapa', { de: STEP, para: alvo });
     irPara(alvo);
   }
@@ -2739,28 +2799,32 @@
       b.addEventListener('click', function () {
         var n = Number(b.getAttribute('data-next'));
         if (!validaStep(n, true)) return;
-
-        // quem rola direto para o formulario, sem tocar no CTA, tambem comecou
-        if (n === 1) colapsarHero();
-
-        if (n === 1) dispararLead();
-
-        // dentro da etapa 4 o "Continuar" anda de sub-etapa antes de sair
-        if (n === 4 && SUB < totalPassos()) {
-          SUB++;
-          renderCardapio();
-          atualizaPrimario();
-          renderBarra();
-          salvar();
-          track('cardapio_passo', { passo: SUB, de: totalPassos() });
-          rolarParaTopoDaEtapa();
-          return;
-        }
-
-        if (n === 4) concluirCotacao();
-        irPara(n + 1);
+        if (n === 1) exigirWhats(b, function () { avancar(n); });
+        else avancar(n);
       });
     });
+
+    function avancar(n) {
+      // quem rola direto para o formulario, sem tocar no CTA, tambem comecou
+      if (n === 1) colapsarHero();
+
+      if (n === 1) dispararLead();
+
+      // dentro da etapa 4 o "Continuar" anda de sub-etapa antes de sair
+      if (n === 4 && SUB < totalPassos()) {
+        SUB++;
+        renderCardapio();
+        atualizaPrimario();
+        renderBarra();
+        salvar();
+        track('cardapio_passo', { passo: SUB, de: totalPassos() });
+        rolarParaTopoDaEtapa();
+        return;
+      }
+
+      if (n === 4) concluirCotacao();
+      irPara(n + 1);
+    }
 
     Array.prototype.forEach.call(document.querySelectorAll('[data-back]'), function (b) {
       b.addEventListener('click', function () {
