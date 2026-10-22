@@ -276,7 +276,6 @@
             </div>
             <div class="mejo-oferta" id="mejo-oferta">
               <p class="mejo-oferta__destaque" id="mejo-oferta-48h"></p>
-              <p class="mejo-oferta__validade" id="mejo-oferta-validade"></p>
             </div>
             <p class="mejo-aviso" id="mejo-aviso-confirmar"></p>
             <a href="#" class="mejo-btn mejo-btn--wp mejo-btn--lg mejo-cta-topo" id="mejo-cta-whats" target="_blank" rel="noopener">
@@ -652,12 +651,8 @@
       ctaConfirmar: 'Confirme sua reserva',
       ctaConfirmarCurto: 'Confirmar',
       propostaAbertura: 'Olá! Fiz uma cotação no site e gostaria de uma proposta totalmente personalizada para o meu evento.',
-      // aparecem no resultado, logo acima do botão do WhatsApp; vazio = não mostra
-      // Pedido direto e beneficio na frente. {valor} vira o preco do impresso
-      // para o numero de convidados; sem valor, a frase de economia some.
-      ofertaFechamento: '<strong>Feche em até 48h</strong> e ganhe o cardápio impresso.',
-      ofertaEconomia: 'Economia de {valor}.',
-      validadeProposta: 'Proposta válida por 7 dias.'
+      // aparece no resultado, logo acima do botão do WhatsApp; vazio = não mostra
+      ofertaFechamento: '<strong>Feche em até 48h</strong> e ganhe o cardápio impresso.'
     }
   };
 
@@ -1522,17 +1517,8 @@
     $('mejo-cta-whats-txt').textContent = CONFIG.textos.ctaConfirmar || 'Falar com nossa equipe';
 
     var oferta = CONFIG.textos.ofertaFechamento || '';
-    var ciOf = CONFIG.cardapioImpresso;
-    var brinde = ciOf.modo === 'por_pessoa' ? Number(ciOf.valor) * c.convidados : Number(ciOf.valor);
-    if (oferta && CONFIG.textos.ofertaEconomia && ciOf.ativo && brinde > 0) {
-      oferta += ' ' + CONFIG.textos.ofertaEconomia.replace('{valor}', '<strong>' + money(brinde) + '</strong>');
-    }
-    var validade = CONFIG.textos.validadeProposta || '';
-    $('mejo-oferta').hidden = !oferta && !validade;
+    $('mejo-oferta').hidden = !oferta;
     $('mejo-oferta-48h').innerHTML = oferta;
-    $('mejo-oferta-48h').hidden = !oferta;
-    $('mejo-oferta-validade').textContent = validade;
-    $('mejo-oferta-validade').hidden = !validade;
 
     $('mejo-cta-whats').href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' +
       encodeURIComponent(montarMensagem(c, CONFIG.textos.whatsappAbertura));

@@ -1037,22 +1037,18 @@
 
 .mejo-actions { display: grid; gap: 11px; margin-top: 24px; }
 
-/* Prazo para fechar e validade da proposta, logo acima do WhatsApp */
+/* Prazo para fechar, logo acima do WhatsApp */
 .mejo-oferta {
   background: var(--c-bg-soft);
   border-left: 3px solid var(--c-accent-dk);
   border-radius: var(--r);
   padding: 14px 16px; margin-bottom: 5px;
 }
-.mejo-oferta[hidden], .mejo-oferta p[hidden] { display: none; }
+.mejo-oferta[hidden] { display: none; }
 .mejo-oferta__destaque {
   margin: 0; font-size: 15px; line-height: 1.45; color: var(--c-ink);
 }
 .mejo-oferta__destaque strong { font-weight: 700; }
-.mejo-oferta__validade {
-  margin: 6px 0 0; font-size: 13.2px; line-height: 1.5; color: var(--c-ink-soft);
-}
-.mejo-oferta__destaque[hidden] + .mejo-oferta__validade { margin-top: 0; }
 .mejo-actions__note {
   text-align: center; font-size: 13.5px; color: var(--c-ink-soft);
   line-height: 1.55; margin-bottom: 2px !important;
