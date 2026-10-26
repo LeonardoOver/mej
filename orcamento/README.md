@@ -170,6 +170,8 @@ Enquanto `webhook` está vazio, nada é enviado. Ao preencher com a URL de um we
 
 Os dois envios usam o mesmo `event_id`, então um `appendOrUpdate` no n8n atualiza a mesma linha em vez de criar duas.
 
+Cada envio fica numa fila no `localStorage` (`mejo_envios_pendentes_v1`) até o n8n responder com sucesso. O webhook só responde depois de gravar na planilha, então um erro no n8n mantém o envio na fila. Ele é reenviado a cada 30 s com a página aberta, quando a conexão volta e na próxima visita, até 10 tentativas ou 7 dias. Reenviar é seguro porque a linha é atualizada pelo `event_id`.
+
 Payload:
 
 ```json

@@ -2213,16 +2213,70 @@
     };
   }
 
+  // Um envio so sai da fila quando o n8n responde depois de gravar na
+  // planilha. O que falhar volta a ser enviado, inclusive numa visita
+  // seguinte: o n8n atualiza a linha pelo event_id, entao repetir e seguro.
+  var LS_PENDENTES = 'mejo_envios_pendentes_v1';
+  var PENDENTE_MAX_MS = 7 * DIA_MS;
+  // teto de tentativas: se a resposta nunca puder ser lida, a cotacao
+  // concluida nao vira um aviso repetido no WhatsApp da equipe
+  var PENDENTE_MAX_TENTATIVAS = 10;
+  var REENVIO_MS = 30000;
+  var reenvioAgendado = null;
+
+  function lerPendentes() {
+    try { return JSON.parse(localStorage.getItem(LS_PENDENTES)) || {}; } catch (e) { return {}; }
+  }
+  function gravarPendentes(p) {
+    try {
+      if (Object.keys(p).length) localStorage.setItem(LS_PENDENTES, JSON.stringify(p));
+      else localStorage.removeItem(LS_PENDENTES);
+    } catch (e) { /* noop */ }
+  }
+
   function enviar(corpo) {
     if (!CONFIG.webhook) return;
+    var chave = corpo.event_id + ':' + corpo.tipo;
+    var texto = JSON.stringify(corpo);
+    var p = lerPendentes();
+    // prazo e tentativas contam desde a primeira falha, senao cada reenvio renovaria o item
+    var antes = p[chave] || {};
+    p[chave] = { corpo: corpo, em: antes.em || Date.now(), tentativas: (antes.tentativas || 0) + 1 };
+    gravarPendentes(p);
     try {
       fetch(CONFIG.webhook, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(corpo),
+        body: texto,
         keepalive: true
-      })['catch'](function () { /* noop */ });
-    } catch (e) { /* noop */ }
+      }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        // uma versao mais nova do mesmo envio pode ter entrado na fila enquanto esta viajava
+        var atual = lerPendentes();
+        if (atual[chave] && JSON.stringify(atual[chave].corpo) === texto) {
+          delete atual[chave];
+          gravarPendentes(atual);
+        }
+      })['catch'](agendarReenvio);
+    } catch (e) { agendarReenvio(); }
+  }
+
+  function agendarReenvio() {
+    if (reenvioAgendado) return;
+    reenvioAgendado = setTimeout(function () {
+      reenvioAgendado = null;
+      reenviarPendentes();
+    }, REENVIO_MS);
+  }
+
+  function reenviarPendentes() {
+    var p = lerPendentes();
+    Object.keys(p).forEach(function (chave) {
+      var item = p[chave];
+      if (!item || !item.corpo || Date.now() - item.em > PENDENTE_MAX_MS || item.tentativas >= PENDENTE_MAX_TENTATIVAS) delete p[chave];
+    });
+    gravarPendentes(p);
+    Object.keys(p).forEach(function (chave) { enviar(p[chave].corpo); });
   }
 
   // Aba "Leads Orçamento": uma linha por event_id, criada ao sair da etapa 1.
@@ -2870,6 +2924,8 @@
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'hidden' && STEP >= 2) enviarOrcamento(false, 'saida');
     });
+    window.addEventListener('online', reenviarPendentes);
+    reenviarPendentes();
     $('mejo-copy').addEventListener('click', function () {
       var btn = $('mejo-copy');
       var url = window.location.href.split('#')[0] + '#c=' + encodeState();
